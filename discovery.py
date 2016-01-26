@@ -25,6 +25,7 @@ import os
 # -------------------------------------------------------
 # Specify api key
 # -------------------------------------------------------
+apikey = None
 try:
     apikey = os.environ['TSI_API_KEY']
 
@@ -94,7 +95,7 @@ c.setopt(pycurl.SSLVERSION, pycurl.SSLVERSION_TLSv1)
 data = json.dumps(newEntity)
 c.setopt(pycurl.POSTFIELDS, data)
 c.perform()
-print ("status code:=" + str(c.getinfo(pycurl.HTTP_CODE)))
+print("status code:=" + str(c.getinfo(pycurl.HTTP_CODE)))
 c.close()
 
 # -------------------------------------------------------
@@ -156,7 +157,7 @@ c.setopt(pycurl.SSLVERSION, pycurl.SSLVERSION_TLSv1)
 data = json.dumps(newEntity)
 c.setopt(pycurl.POSTFIELDS, data)
 c.perform()
-print ("status code:=" + str(c.getinfo(pycurl.HTTP_CODE)))
+print("status code:=" + str(c.getinfo(pycurl.HTTP_CODE)))
 c.close()
 
 # -------------------------------------------------------
@@ -188,7 +189,7 @@ c.setopt(pycurl.SSLVERSION, pycurl.SSLVERSION_TLSv1)
 data = json.dumps(newEntity)
 c.setopt(pycurl.POSTFIELDS, data)
 c.perform()
-print ("status code:=" + str(c.getinfo(pycurl.HTTP_CODE)))
+print("status code:=" + str(c.getinfo(pycurl.HTTP_CODE)))
 c.close()
 
 # -------------------------------------------------------
@@ -232,5 +233,5 @@ c.setopt(pycurl.SSLVERSION, pycurl.SSLVERSION_TLSv1)
 data = json.dumps(myMetaData)
 c.setopt(pycurl.POSTFIELDS, data)
 c.perform()
-print ("status code:=" + str(c.getinfo(pycurl.HTTP_CODE)))
+print("status code:=" + str(c.getinfo(pycurl.HTTP_CODE)))
 c.close()
