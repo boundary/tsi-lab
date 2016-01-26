@@ -35,11 +35,13 @@ Sends measurements to your TrueSight Intelligence instance.
    ````
    $ ln -fs tsi-demo-tools-x.x.x tsi-demo-tools
    ````
-2. Add the crontab entry with the following
+2. Add API key to `env.sh` instructions in the next section
+
+3. Add the crontab entry with the following
 
    ````
    # Run script every minute
-   */1 * * * * $HOME/tsi-demo-tools/monitor.py
+   $ */1 * * * * source $HOME/tsi-demo-tools/env.sh ; $HOME/tsi-demo-tools/monitor.py | logger
    ````
 
 ## env.sh
