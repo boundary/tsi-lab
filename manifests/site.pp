@@ -3,6 +3,12 @@ Package {
   allow_virtual => false,
 }
 
+file { 'tsirc':
+  path    => '/home/vagrant/.tsi',
+  ensure  => file,
+  content => template('tsirc.erb'),
+}
+
 file { 'bash_profile':
   path    => '/home/vagrant/.bash_profile',
   ensure  => file,

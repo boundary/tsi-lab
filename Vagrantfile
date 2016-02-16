@@ -6,6 +6,8 @@ Vagrant.configure(2) do |config|
   config.vm.box = "puppetlabs/centos-7.0-64-puppet"
   config.vm.box_version = "1.0.1"
 
+  config.vm.synced_folder "manifests/templates", "/tmp/vagrant-puppet/templates"
+
   # config.vm.network "forwarded_port", guest: 80, host: 8080
 
   # Create a private network, which allows host-only access to the machine
@@ -42,6 +44,7 @@ Vagrant.configure(2) do |config|
   config.vm.provision "puppet" do |puppet|
       puppet.manifests_path = "manifests"
       puppet.manifest_file  = "site.pp"
+      puppet.options = ["--templatedir","/tmp/vagrant-puppet/templates"]
       puppet.facter = {
           "api_token" => ENV["API_TOKEN"]
       }
