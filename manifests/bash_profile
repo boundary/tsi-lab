@@ -8,4 +8,8 @@ fi
 # Set command line editin to use vi/vim
 set -o vi
 
+source $HOME/.tsi
+
 source $HOME/python/bin/activate
+
+export PATH=$HOME/bin:$PATH

@@ -9,6 +9,12 @@ file { 'tsirc':
   content => template('tsirc.erb'),
 }
 
+file { 'bin':
+   path => '/home/vagrant/bin',
+   source => '/vagrant/bin',
+   recurse => true,
+}
+
 file { 'bash_profile':
   path    => '/home/vagrant/.bash_profile',
   ensure  => file,

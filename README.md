@@ -1,15 +1,54 @@
-# TrueSight Intelligence Demo Data Tools
+# TrueSight Intelligence Lab Environment
 
-Location to store tools for demo data for TrueSight Intelligence.
+Vagrant environment for learning about TrueSight Pulse Intelligence.
 
-## Contents
+Includes:
+- Virtual machine environment that includes prerequisite tools for running labs
+- Demonstration scripts for running labs
+
+## Virtual Machine
+
+The virtual machine environment is configured using vagrant.
+
+### Prerequisites
+
+- Vagrant 1.7.2 or later. Vagrant can be downloaded [here](https://www.vagrantup.com/downloads.html)
+- VirtualBox 4.3.2.6 or later. VirtualBox can be downloaded [here](https://www.virtualbox.org/wiki/Downloads)
+
+### Starting the Virtual Machine
+
+With the TrueSight Intelligence api token perform the following:
+
+1. Either checkout or clone the git repository ()[]
+2. Issue the following command via Unix/Linux shell, or Windows command prompt:
+```
+$ API_TOKEN=<api token> vagrant up
+```
+
+### Stopping a Virtual Machine
+
+```
+$ vagrant halt
+```
+
+### Destroying a Virtual Machine
+
+```
+$ vagrant destroy
+```
+
+### Logging into the Virtual Machine
+
+
+
+## Scripts
 
 - discovery.py - Configures required entities
 - monitor.py - Sends simulate measurement data
 - env.sh - Template environment variable script
 
 
-## discovery.py
+### discovery.py
 
 1. Create an application called "Online Auction" with id _online\_auc_
 
@@ -35,6 +74,7 @@ Sends measurements to your TrueSight Intelligence instance.
    ````
    $ ln -fs tsi-demo-tools-x.x.x tsi-demo-tools
    ````
+
 2. Add API key to `env.sh` instructions in the next section
 
 3. Add the crontab entry with the following

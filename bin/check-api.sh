@@ -2,9 +2,15 @@
 
 if [ $# -ne 1 ]
 then
-  echo "usage: $(basename $0) <api key>"
+  if [ -z "$TSI_API_TOKEN" ]
+  then
+    echo "usage: $(basename $0) <api key>"
+  else
+    API_KEY=$TSI_API_TOKEN
+  fi
+else
+  API_KEY="$1"
 fi
-API_KEY="$1"
 
 API_HOST=truesight.bmc.com
 API_PATH=api/v1/meta
