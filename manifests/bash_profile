@@ -1,0 +1,11 @@
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+    . ~/.bashrc
+fi
+
+# Set command line editin to use vi/vim
+set -o vi
+
+source $HOME/python/bin/activate
