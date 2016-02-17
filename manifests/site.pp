@@ -25,7 +25,11 @@ package { 'epel-release':
   ensure => 'installed'
 }
 
-package { 'libcurl-devel':
+package { 'python-pycurl':
+  ensure => 'installed',
+}
+
+package { 'python-requests':
   ensure => 'installed',
 }
 
@@ -34,19 +38,14 @@ package { 'jq':
   require => Package['epel-release'],
 }
 
-class { 'python' :
-  version    => 'system',
-  pip        => 'latest',
-  dev        => 'present',
-  virtualenv => 'present',
+cron::job{
+  'monitor':
+    minute      => '*',
+    hour        => '*',
+    date        => '*',
+    month       => '*',
+    weekday     => '*',
+    user        => 'vagrant',
+    command     => '/home/vagrant/bin/monitor.py',
+    environment => [ "TSI_API_KEY=$api_key"  ];
 }
-
-python::virtualenv { '/home/vagrant/python' :
-  ensure       => present,
-  version      => 'system',
-  requirements => '/vagrant/requirements.txt',
-  owner        => 'vagrant',
-  group        => 'vagrant',
-}
-
-

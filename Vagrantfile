@@ -35,8 +35,7 @@ Vagrant.configure(2) do |config|
   #
   config.vm.provision :shell do |shell|
       shell.inline = "puppet module install puppetlabs-stdlib;
-                      puppet module install stahnma-epel;
-                      puppet module install stankevich-python;
+                      puppet module install torrancew-cron;
 		      touch /etc/puppet/hiera.yaml;
                       exit 0"
   end
@@ -46,7 +45,7 @@ Vagrant.configure(2) do |config|
       puppet.manifest_file  = "site.pp"
       puppet.options = ["--templatedir","/tmp/vagrant-puppet/templates"]
       puppet.facter = {
-          "api_token" => ENV["API_TOKEN"]
+          "api_key" => ENV["API_KEY"]
       }
   end
 
