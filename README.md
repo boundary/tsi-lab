@@ -1,6 +1,6 @@
 # TrueSight Intelligence Lab Environment
 
-Vagrant environment for learning about TrueSight Pulse Intelligence.
+Vagrant lab environment for learning about TrueSight Pulse Intelligence.
 
 Includes:
 - Virtual machine environment that includes prerequisite tools for running labs
@@ -14,15 +14,35 @@ The virtual machine environment is configured using vagrant.
 
 - Vagrant 1.7.2 or later. Vagrant can be downloaded [here](https://www.vagrantup.com/downloads.html)
 - VirtualBox 4.3.2.6 or later. VirtualBox can be downloaded [here](https://www.virtualbox.org/wiki/Downloads)
+- Git 2.2 or later. If downloading the distribution via git. Git can be downloaded [here](http://git-scm.com/download)
+
+### Downloading the Contents
+
+ Either clone (using git) or download the git repository [https://github.bmc.com/dgwartne/tsi-lab](https://github.bmc.com/dgwartne/tsi-lab)
+
+#### Cloning
+
+```
+$ git clone https://github.bmc.com/dgwartne/tsi-lab
+```
+
+
+#### Download
+
+[https://github.bmc.com/dgwartne/tsi-lab/archive/v0.0.2.zip](https://github.bmc.com/dgwartne/tsi-lab/archive/v0.0.2.zip)
+
+or
+
+```
+$ wget https://github.bmc.com/dgwartne/tsi-lab/archive/v0.0.2.zip
+```
 
 ### Starting the Virtual Machine
 
-With the TrueSight Intelligence api token perform the following:
+With the TrueSight Intelligence api key perform issue the following command via Unix/Linux shell, or Windows command prompt:
 
-1. Either checkout or clone the git repository ()[]
-2. Issue the following command via Unix/Linux shell, or Windows command prompt:
 ```
-$ API_TOKEN=<api token> vagrant up
+$ API_KEY=<api key> vagrant up
 ```
 
 ### Stopping a Virtual Machine
@@ -65,30 +85,20 @@ type id of _TRANSACTION_ with two metrics _request\_response\_time_ and _number\
 
 ## monitor.py
 
-Sends measurements to your TrueSight Intelligence instance.
+Script that generates fake number of requests and request response time
 
-#### Running the script in cron
+## Configuration
 
-1. Create a soft link to the versioned directory
+### Environment variables
 
-   ````
-   $ ln -fs tsi-demo-tools-x.x.x tsi-demo-tools
-   ````
+`TSI_API_KEY` - Contains the TrueSight Intelligence API key
 
-2. Add API key to `env.sh` instructions in the next section
+## Reference
 
-3. Add the crontab entry with the following
+### `/etc/cron.d/monitor`
 
-   ````
-   # Run script every minute
-   $ */1 * * * * source $HOME/tsi-demo-tools/env.sh ; $HOME/tsi-demo-tools/monitor.py | logger
-   ````
+Calls the `monitor.py` script every minute.
 
-## env.sh
+###
 
-Template script for configuring your TrueSight Intelligence API key replace your key in script:
-
-   ````
-export TSI_API_KEY=<put key here>
-   ````
 
