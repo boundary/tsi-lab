@@ -47,5 +47,5 @@ cron::job{
     weekday     => '*',
     user        => 'vagrant',
     command     => '/home/vagrant/bin/monitor.py',
-    environment => [ "TSI_API_KEY=$api_key"  ];
+    environment => [ "TSI_API_KEY=$api_key", "TSI_API_HOST=$api_host"  ];
 }

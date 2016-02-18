@@ -99,6 +99,4 @@ Script that generates fake number of requests and request response time
 
 Calls the `monitor.py` script every minute.
 
-###
-
 

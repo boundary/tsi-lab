@@ -28,6 +28,7 @@ import os
 apikey = None
 try:
     apikey = os.environ['TSI_API_KEY']
+    apihost = os.environ['TSI_API_HOST']
 
 except KeyError:
     logging.error('Set the environment variable TSI_API_KEY with your TrueSight Intelligence ' +
@@ -81,7 +82,7 @@ newEntity = {
 # Specify the uri
 # -------------------------------------------------------
 
-url = "https://truesight.bmc.com/api/v1/entities"
+url = "https://{0}/api/v1/entities".format(apihost)
 
 # -------------------------------------------------------
 # Issue the request

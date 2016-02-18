@@ -45,7 +45,8 @@ Vagrant.configure(2) do |config|
       puppet.manifest_file  = "site.pp"
       puppet.options = ["--templatedir","/tmp/vagrant-puppet/templates"]
       puppet.facter = {
-          "api_key" => ENV["API_KEY"]
+          "api_key" => ENV["API_KEY"],
+          "api_host" => ENV["API_HOST"]
       }
   end
 
