@@ -228,7 +228,7 @@ myMetaData = {
     ]
 }
 
-url = "https://truesight.bmc.com/api/v1/meta"
+url = "https://{0}/api/v1/meta".format(apihost)
 
 # -------------------------------------------------------
 # Issue the request
