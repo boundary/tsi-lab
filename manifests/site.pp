@@ -15,6 +15,10 @@ file { 'bin':
    recurse => true,
 }
 
+exec { 'entities':
+    command => '/home/vagrant/bin/install.sh',
+}
+
 file { 'bash_profile':
   path    => '/home/vagrant/.bash_profile',
   ensure  => file,
@@ -38,6 +42,16 @@ package { 'jq':
   require => Package['epel-release'],
 }
 
+class { '::mysql::server':
+  root_password => 'root123',
+}
+
+class { '::mysql:server:monitor':
+  mysql_monitor_username => 'monitor',
+  mysql_monitor_password => 'monitor123',
+  mysql_monitor_hostname => '127.0.0.1',
+}
+
 cron::job{
   'monitor':
     minute      => '*',
@@ -46,6 +60,6 @@ cron::job{
     month       => '*',
     weekday     => '*',
     user        => 'vagrant',
-    command     => '/home/vagrant/bin/monitor.py',
+    command     => '/home/vagrant/bin/monitor.py | logger',
     environment => [ "TSI_API_KEY=$api_key", "TSI_API_HOST=$api_host"  ];
 }
