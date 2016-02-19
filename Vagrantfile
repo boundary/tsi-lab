@@ -5,6 +5,8 @@ Vagrant.configure(2) do |config|
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "puppetlabs/centos-7.0-64-puppet"
   config.vm.box_version = "1.0.1"
+  config.vm.hostname = "web-01"
+
 
   config.vm.synced_folder "manifests/templates", "/tmp/vagrant-puppet/templates"
 
@@ -36,6 +38,7 @@ Vagrant.configure(2) do |config|
   config.vm.provision :shell do |shell|
       shell.inline = "puppet module install puppetlabs-stdlib;
                       puppet module install torrancew-cron;
+                      puppet module install puppetlabs-mysql;
 		      touch /etc/puppet/hiera.yaml;
                       exit 0"
   end
