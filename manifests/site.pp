@@ -11,18 +11,25 @@ file { 'tsirc':
 
 file { 'bin':
    path => '/home/vagrant/bin',
-   source => '/vagrant/bin',
+   source => '/vagrant/manifests/bin',
    recurse => true,
 }
 
 exec { 'entities':
-    command => '/home/vagrant/bin/install.sh',
+   command => '/home/vagrant/bin/install.sh',
+   require => File['bin'],
 }
 
 file { 'bash_profile':
   path    => '/home/vagrant/.bash_profile',
   ensure  => file,
   source  => '/vagrant/manifests/bash_profile',
+}
+
+file { 'vimrc':
+  path    => '/home/vagrant/.vimrc',
+  ensure  => file,
+  content => '/home/vagrant/manifests/vimrc',
 }
 
 package { 'epel-release':
@@ -46,10 +53,19 @@ class { '::mysql::server':
   root_password => 'root123',
 }
 
-class { '::mysql:server:monitor':
+class { '::mysql::server::monitor':
   mysql_monitor_username => 'monitor',
   mysql_monitor_password => 'monitor123',
   mysql_monitor_hostname => '127.0.0.1',
+}
+
+mysql::db { 'app':
+  user     => 'admin',
+  password => 'admin123',
+  host     => 'localhost',
+  grant    => ['SELECT', 'UPDATE'],
+  sql      => '/vagrant/manifests/sql/app.sql',
+  import_timeout => 900,
 }
 
 cron::job{
