@@ -1,4 +1,6 @@
-DROP FUNCTION rand_range;
+USE app;
+
+DROP FUNCTION IF EXISTS rand_range;
 
 DELIMITER //
 CREATE FUNCTION rand_range (max BIGINT, min BIGINT)
@@ -17,7 +19,7 @@ CREATE TABLE business_metrics
   bytes BIGINT NOT NULL
 );
 
-DROP PROCEDURE insert_data;
+DROP PROCEDURE IF EXISTS insert_data;
 DELIMITER //
 CREATE PROCEDURE insert_data(nrows BIGINT)
 BEGIN
