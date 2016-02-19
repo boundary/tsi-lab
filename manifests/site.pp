@@ -28,8 +28,7 @@ file { 'bash_profile':
 
 file { 'vimrc':
   path    => '/home/vagrant/.vimrc',
-  ensure  => file,
-  content => '/home/vagrant/manifests/vimrc',
+  source => '/vagrant/manifests/vimrc',
 }
 
 package { 'epel-release':
@@ -42,6 +41,26 @@ package { 'python-pycurl':
 
 package { 'python-requests':
   ensure => 'installed',
+}
+
+package { 'python-pip':
+  ensure => 'installed',
+  require => Package['epel-release'],
+}
+
+exec { 'python-petl':
+   command => '/usr/bin/pip install petl',
+   require => Package['python-pip'],
+}
+
+exec { 'python-pmysql':
+   command => '/usr/bin/pip install pymysql',
+   require => Package['python-pip'],
+}
+
+exec { 'python-security':
+   command => '/usr/bin/pip install requests[security]',
+   require => Package['python-pip'],
 }
 
 package { 'jq':
@@ -63,7 +82,7 @@ mysql::db { 'app':
   user     => 'admin',
   password => 'admin123',
   host     => 'localhost',
-  grant    => ['SELECT', 'UPDATE'],
+  grant    => ['SELECT', 'INSERT', 'EXECUTE', 'UPDATE'],
   sql      => '/vagrant/manifests/sql/app.sql',
   import_timeout => 900,
 }
