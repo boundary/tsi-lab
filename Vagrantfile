@@ -48,8 +48,12 @@ Vagrant.configure(2) do |config|
       puppet.manifest_file  = "site.pp"
       puppet.options = ["--templatedir","/tmp/vagrant-puppet/templates"]
       puppet.facter = {
-          "api_key" => ENV["API_KEY"],
-          "api_host" => ENV["API_HOST"]
+          "tsp_email" => ENV["TSP_EMAIL"],
+          "tsp_api_key" => ENV["TSP_API_KEY"],
+          "tsp_api_host" => ENV["TSP_API_HOST"],
+
+          "tsi_api_key" => ENV["TSI_API_KEY"],
+          "tsi_api_host" => ENV["TSI_API_HOST"]
       }
   end
 

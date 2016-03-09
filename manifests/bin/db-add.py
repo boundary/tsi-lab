@@ -1,16 +1,20 @@
 #!/usr/bin/env python
 import pymysql
 import os
+import syslog
 
 host = os.environ['DB_HOST']
-host = os.environ['DB_USER']
-host = os.environ['DB_PASSWORD']
-host = os.environ['DB_DATABASE']
+user = os.environ['DB_USER']
+password = os.environ['DB_PASSWORD']
+db = os.environ['DB_DATABASE']
 
-connection = pymysql.connect(host='localhost',
-                             user='admin',
-                             password='admin123',
-                             db='app',
+syslog.openlog(facility=syslog.LOG_USER)
+syslog.syslog("Inserting new business data into database.")
+
+connection = pymysql.connect(host=host,
+                             user=user,
+                             password=password,
+                             db=db,
                              cursorclass=pymysql.cursors.DictCursor)
 
 try:

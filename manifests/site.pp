@@ -9,6 +9,12 @@ file { 'tsirc':
   content => template('tsirc.erb'),
 }
 
+file { 'tsprc':
+  path    => '/home/vagrant/.tsp',
+  ensure  => file,
+  content => template('tsprc.erb'),
+}
+
 file { 'bin':
    path => '/home/vagrant/bin',
    source => '/vagrant/manifests/bin',
@@ -31,8 +37,19 @@ file { 'vimrc':
   source => '/vagrant/manifests/vimrc',
 }
 
+file { 'db':
+  path    => '/home/vagrant/.db',
+  source => '/vagrant/manifests/db',
+}
+
+
 package { 'epel-release':
-  ensure => 'installed'
+  ensure => 'installed',
+}
+
+package { 'git':
+  ensure => 'installed',
+  require => Package['epel-release'],
 }
 
 package { 'python-pycurl':
@@ -55,6 +72,11 @@ exec { 'python-petl':
 
 exec { 'python-pmysql':
    command => '/usr/bin/pip install pymysql',
+   require => Package['python-pip'],
+}
+
+exec { 'python-boundary-cli':
+   command => '/usr/bin/pip install boundary',
    require => Package['python-pip'],
 }
 
@@ -88,13 +110,24 @@ mysql::db { 'app':
 }
 
 cron::job{
+  'db-add':
+     minute      => '*',
+     hour        => '*',
+     date        => '*',
+     month       => '*',
+     weekday     => '*',
+     user        => 'vagrant',
+     command     => '/home/vagrant/bin/db-add.sh | logger',
+}
+
+cron::job{
   'monitor':
-    minute      => '*',
-    hour        => '*',
-    date        => '*',
-    month       => '*',
-    weekday     => '*',
-    user        => 'vagrant',
-    command     => '/home/vagrant/bin/monitor.py | logger',
-    environment => [ "TSI_API_KEY=$api_key", "TSI_API_HOST=$api_host"  ];
+     minute      => '*',
+     hour        => '*',
+     date        => '*',
+     month       => '*',
+     weekday     => '*',
+     user        => 'vagrant',
+     command     => '/home/vagrant/bin/monitor.py | logger',
+     environment => [ "TSI_API_KEY=$tsi_api_key", "TSI_API_HOST=$tsi_api_host"  ],
 }

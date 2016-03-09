@@ -8,5 +8,13 @@ fi
 set -o vi
 
 source $HOME/.tsi
+source $HOME/.tsp
+source $HOME/.db
+
+# Provide for backward compatability for older Boundary CLI
+# python package
+export BOUNDARY_EMAIL=$TSP_EMAIL
+export BOUNDARY_API_TOKEN=$TSP_API_KEY
+export BOUNDARY_API_HOST=$TSP_API_HOST
 
 export PATH=$HOME/bin:$PATH
