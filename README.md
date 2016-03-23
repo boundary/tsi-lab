@@ -26,23 +26,12 @@ The virtual machine environment is configured using vagrant.
 $ git clone https://github.bmc.com/dgwartne/tsi-lab
 ```
 
-
-#### Download
-
-[https://github.bmc.com/dgwartne/tsi-lab/archive/v0.0.2.zip](https://github.bmc.com/dgwartne/tsi-lab/archive/v0.0.2.zip)
-
-or
-
-```
-$ wget https://github.bmc.com/dgwartne/tsi-lab/archive/v0.0.2.zip
-```
-
 ### Starting the Virtual Machine
 
 With the TrueSight Intelligence api key perform issue the following command via Unix/Linux shell, or Windows command prompt:
 
 ```
-$ API_KEY=<api key> vagrant up
+$ TSP_API_KEY=<api key> vagrant up
 ```
 
 ### Stopping a Virtual Machine
