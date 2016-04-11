@@ -40,8 +40,6 @@ Vagrant.configure(2) do |config|
                       puppet module install torrancew-cron;
                       puppet module install puppetlabs-mysql;
                       puppet module install puppetlabs-apache;
-                      puppet module install ispavailability-file_concat
-                      puppet module install elasticsearch-logstash;
 		      touch /etc/puppet/hiera.yaml;
                       exit 0"
   end

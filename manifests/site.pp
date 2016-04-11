@@ -3,12 +3,6 @@ Package {
   allow_virtual => false,
 }
 
-file { 'tsirc':
-  path    => '/home/vagrant/.tsi',
-  ensure  => file,
-  content => template('tsirc.erb'),
-}
-
 file { 'tsprc':
   path    => '/home/vagrant/.tsp',
   ensure  => file,
@@ -19,11 +13,6 @@ file { 'bin':
    path => '/home/vagrant/bin',
    source => '/vagrant/manifests/bin',
    recurse => true,
-}
-
-exec { 'entities':
-   command => '/home/vagrant/bin/install.sh',
-   require => File['bin'],
 }
 
 file { 'bash_profile':
@@ -41,7 +30,6 @@ file { 'db':
   path    => '/home/vagrant/.db',
   source => '/vagrant/manifests/db',
 }
-
 
 package { 'epel-release':
   ensure => 'installed',
@@ -72,6 +60,11 @@ exec { 'python-petl':
 
 exec { 'python-pmysql':
    command => '/usr/bin/pip install pymysql',
+   require => Package['python-pip'],
+}
+
+exec { 'python-tspapi':
+   command => '/usr/bin/pip install tspapi',
    require => Package['python-pip'],
 }
 
@@ -129,5 +122,5 @@ cron::job{
      weekday     => '*',
      user        => 'vagrant',
      command     => '/home/vagrant/bin/monitor.py | logger',
-     environment => [ "TSI_API_KEY=$tsi_api_key", "TSI_API_HOST=$tsi_api_host"  ],
+     environment => [ "$TSP_EMAIL=$tsp_email","TSP_API_TOKEN=$tsp_api_token", "TSP_API_HOST=$tsi_api_host"  ],
 }
