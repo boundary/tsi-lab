@@ -18,17 +18,17 @@ The virtual machine environment is configured using vagrant.
 
 ### Downloading the Contents
 
-Either clone (using git) or download the git repository [https://github.bmc.com/dgwartne/tsi-lab](https://github.bmc.com/dgwartne/tsi-lab)
+Either clone (using git) or download the git repository [https://github.com/boundary/vagrant-tsi-lab](https://github.com/boundary/vagrant-tsi-lab)
 
 #### Cloning
 
 ```
-$ git clone https://github.bmc.com/dgwartne/tsi-lab
+$ git clone https://github.com/boundary/vagrant-tsi-lab
 ```
 
 ### Starting the Virtual Machine
 
-With the TrueSight Intelligence api key perform issue the following command via Unix/Linux shell, or Windows command prompt:
+With the TrueSight Pulse api key perform issue the following command via Unix/Linux shell, or Windows command prompt:
 
 ```
 $ TSP_API_KEY=<api key> vagrant up
@@ -50,7 +50,16 @@ $ vagrant destroy
 
 
 
-## Scripts
+## Labs
+
+- [Lab 1 - Pulse data ingestion with Meters and Plugins](lab1.md)
+
+- [Lab 2 - Introduction Rest - Overview to APIs](lab2.md)
+
+- [Lab 3 - API - Events into TrueSightIntelligence](lab3.md)
+
+- [Lab 4 - TSI UI overview with new data](lab4.md)
+
 
 - discovery.py - Configures required entities
 - monitor.py - Sends simulate measurement data
