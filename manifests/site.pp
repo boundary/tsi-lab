@@ -15,6 +15,12 @@ file { 'bin':
    recurse => true,
 }
 
+file { 'labs':
+   path => '/home/vagrant/labs',
+   source => '/vagrant/manifests/labs',
+   recurse => true,
+}
+
 file { 'bash_profile':
   path    => '/home/vagrant/.bash_profile',
   ensure  => file,
@@ -53,8 +59,18 @@ package { 'python-pip':
   require => Package['epel-release'],
 }
 
+package { 'vim-enhanced':
+  ensure => 'installed',
+  require => Package['epel-release'],
+}
+
 exec { 'python-petl':
    command => '/usr/bin/pip install petl',
+   require => Package['python-pip'],
+}
+
+exec { 'ipython':
+   command => '/usr/bin/pip install ipython',
    require => Package['python-pip'],
 }
 
@@ -113,14 +129,14 @@ cron::job{
      command     => '/home/vagrant/bin/db-add.sh | logger',
 }
 
-cron::job{
-  'monitor':
-     minute      => '*',
-     hour        => '*',
-     date        => '*',
-     month       => '*',
-     weekday     => '*',
-     user        => 'vagrant',
-     command     => '/home/vagrant/bin/monitor.py | logger',
-     environment => [ "$TSP_EMAIL=$tsp_email","TSP_API_TOKEN=$tsp_api_token", "TSP_API_HOST=$tsi_api_host"  ],
-}
+#cron::job{
+#  'monitor':
+#     minute      => '*',
+#     hour        => '*',
+#     date        => '*',
+#     month       => '*',
+#     weekday     => '*',
+#     user        => 'vagrant',
+#     command     => '/home/vagrant/bin/monitor.py | logger',
+#     environment => [ "$TSP_EMAIL=$tsp_email","TSP_API_TOKEN=$tsp_api_token", "TSP_API_HOST=$tsi_api_host"  ],
+#}
