@@ -1,4 +1,5 @@
-# TrueSight Intelligence Lab Environment
+TrueSight Intelligence Lab
+============================
 
 Vagrant lab environment for learning about TrueSight Pulse Intelligence.
 
@@ -8,7 +9,7 @@ Includes:
 
 ## Virtual Machine
 
-The virtual machine environment is configured using vagrant.
+The virtual machine environment is configured using vagrant, so it requires the prerequistes listed in the next section.
 
 ### Prerequisites
 
@@ -48,7 +49,9 @@ $ vagrant destroy
 
 ### Logging into the Virtual Machine
 
-
+```
+$ vagrant ssh
+```
 
 ## Labs
 
@@ -56,10 +59,11 @@ $ vagrant destroy
 
 - [Lab 2 - Introduction Rest - Overview to APIs](lab2.md)
 
-- [Lab 3 - API - Events into TrueSightIntelligence](lab3.md)
+- [Lab 3 - API - Events into TrueSight Intelligence](lab3.md)
 
 - [Lab 4 - TSI UI overview with new data](lab4.md)
 
+## Reference
 
 - discovery.py - Configures required entities
 - monitor.py - Sends simulate measurement data
