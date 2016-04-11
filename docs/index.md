@@ -55,10 +55,20 @@ $ vagrant ssh
 
 ## Labs
 
-- [Lab 1 - Pulse data ingestion with Meters and Plugins](lab1.md)
+- [Lab 1 - Meters and Plugins](labs/lab1.md)
 
-- [Lab 2 - Introduction Rest - Overview to APIs](lab2.md)
+- [Lab 2 - Introduction Rest](labs/lab2.md)
 
-- [Lab 3 - API - Events into TrueSight Intelligence](lab3.md)
+- [Lab 3 - API Overview](labs/lab3.md)
 
-- [Lab 4 - TSI UI overview with new data](lab4.md)
+- [Lab 3 - API - Events into TrueSight Intelligence](labs/lab4.md)
+
+- [Lab 5 - UI Overview](labs/lab5.md)
+
+- [Lab 6 - Metrics APIs](labs/lab6.md)
+
+- [Lab 7 - Log File to API](labs/lab7.md)
+
+- [Lab 8 - API Integration](labs/lab8.md)
+
+- [Lab 7 - TSI UI overview with new data](labs/lab4.md)
