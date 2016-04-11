@@ -7,7 +7,6 @@ fi
 
 set -o vi
 
-source $HOME/.tsi
 source $HOME/.tsp
 source $HOME/.db
 
