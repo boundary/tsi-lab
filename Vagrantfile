@@ -39,6 +39,9 @@ Vagrant.configure(2) do |config|
       shell.inline = "puppet module install puppetlabs-stdlib;
                       puppet module install torrancew-cron;
                       puppet module install puppetlabs-mysql;
+                      puppet module install puppetlabs-apache;
+                      puppet module install ispavailability-file_concat
+                      puppet module install elasticsearch-logstash;
 		      touch /etc/puppet/hiera.yaml;
                       exit 0"
   end
@@ -49,11 +52,8 @@ Vagrant.configure(2) do |config|
       puppet.options = ["--templatedir","/tmp/vagrant-puppet/templates"]
       puppet.facter = {
           "tsp_email" => ENV["TSP_EMAIL"],
-          "tsp_api_key" => ENV["TSP_API_KEY"],
+          "tsp_api_token" => ENV["TSP_API_TOKEN"],
           "tsp_api_host" => ENV["TSP_API_HOST"],
-
-          "tsi_api_key" => ENV["TSI_API_KEY"],
-          "tsi_api_host" => ENV["TSI_API_HOST"]
       }
   end
 
