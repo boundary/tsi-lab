@@ -18,7 +18,7 @@ The virtual machine environment is configured using vagrant.
 
 ### Downloading the Contents
 
- Either clone (using git) or download the git repository [https://github.bmc.com/dgwartne/tsi-lab](https://github.bmc.com/dgwartne/tsi-lab)
+Either clone (using git) or download the git repository [https://github.bmc.com/dgwartne/tsi-lab](https://github.bmc.com/dgwartne/tsi-lab)
 
 #### Cloning
 
@@ -80,7 +80,7 @@ Script that generates fake number of requests and request response time
 
 ### Environment variables
 
-`TSI_API_KEY` - Contains the TrueSight Intelligence API key
+`TSP_API_KEY` - Contains the TrueSight Pulse API Token
 
 ## Reference
 
