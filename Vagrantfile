@@ -9,6 +9,7 @@ Vagrant.configure(2) do |config|
 
 
   config.vm.synced_folder "manifests/templates", "/tmp/vagrant-puppet/templates"
+  config.vm.synced_folder "manifests/labs", "/home/vagrant/labs"
 
   # config.vm.network "forwarded_port", guest: 80, host: 8080
 
@@ -49,6 +50,9 @@ Vagrant.configure(2) do |config|
       puppet.manifest_file  = "site.pp"
       puppet.options = ["--templatedir","/tmp/vagrant-puppet/templates"]
       puppet.facter = {
+          "tsi_email" => ENV["TSI_EMAIL"],
+          "tsi_api_token" => ENV["TSI_API_TOKEN"],
+          "tsi_api_host" => ENV["TSI_API_HOST"],
           "tsp_email" => ENV["TSP_EMAIL"],
           "tsp_api_token" => ENV["TSP_API_TOKEN"],
           "tsp_api_host" => ENV["TSP_API_HOST"],

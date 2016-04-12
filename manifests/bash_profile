@@ -6,9 +6,20 @@ if [ -f ~/.bashrc ]; then
 fi
 
 set -o vi
+if [ -r $HOME/.tsi ]
+then
+  source $HOME/.tsi
+fi
 
-source $HOME/.tsp
-source $HOME/.db
+if [ -r $HOME/.tsp ]
+then
+  source $HOME/.tsp
+fi
+
+if [ -r $HOME/.tsp ]
+then
+  source $HOME/.db
+fi
 
 # Provide for backward compatability for older Boundary CLI
 # python package
