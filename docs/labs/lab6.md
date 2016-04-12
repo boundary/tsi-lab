@@ -1,4 +1,4 @@
-API integration
+Lab 6 - API integration
 ===============
 
 ## Open Weather Map

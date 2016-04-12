@@ -1,2 +1,3 @@
-Lab 5 - UI Overview
+Lab 5 - Logfile to API
+======================
 

@@ -1,21 +1,28 @@
-Lab 1 - Pulse data ingestion with Meters and Plugins
-====================================================
+Lab 1 - TrueSight Pulse Meters and Plugins
+==========================================
 
 
 ## Prerequisites
 
 - Make sure you have access to a pulse account in AMA(acronym meaning??)
+- Your virtual machine has been downloaded and started. See [Virtual Machine](virtual_machine.md)
+which provides the instructions for configuring and starting your virtual machine.
 
-### Starting the Virtual Machine
+### Log into the Virtual Machine
 
-With the TrueSight Pulse api key perform issue the following command via Unix/Linux shell, or Windows command prompt:
-
+1. Change directory to where you extracted the zip or cloned the repository using git.
+2. Run the following command to log into the virtual machine:
 ```
-$ TSP_API_TOKEN="<api token>" vagrant up
+$ vagrant ssh
+```
+3. After logging in you should see the following prompt:
+```
+$
 ```
 
 ## Installing the TrueSight Pulse Meter
 
+1. Open a Web Browser
 1. Log into your Pulse Account
 2. Navigate to Settings => Installation
 3. Copy the shell script

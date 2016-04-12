@@ -1,2 +1,2 @@
-Lab 4 - Event APIs
-==================
+Lab 4 - Metric and Measurement APIs
+===================================
