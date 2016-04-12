@@ -1,11 +1,10 @@
-Lab 6 - API integration
-===============
+Lab 6 - API Integration
+=======================
 
-## Open Weather Map
-
-
-## Stocks
+## Exercise 6-1 Open Weather Map
 
 
-## Twitter
-~           
+## Exercise 6-2 Stocks
+
+
+## Exercise 6-3 Twitter
