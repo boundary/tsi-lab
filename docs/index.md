@@ -28,7 +28,7 @@ Specific labs can be navigated to from the links below or from the _Labs_ menu a
 
 - [Lab 1 - Meters and Plugins](labs/lab1.md)
 
-- [Lab 2 - Introduction Rest](labs/lab2.md)
+- [Lab 2 - Introduction REST](labs/lab2.md)
 
 - [Lab 3 - Event APIs](labs/lab3.md)
 
