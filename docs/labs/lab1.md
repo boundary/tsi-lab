@@ -32,15 +32,19 @@ which indicates you have a `bash` shell up and ready to receive commands.
 
 ### Installing the TrueSight Pulse Meter
 
-1. Open a Chrome Web Browser to [https://truesight-staging.bmc.com](https://truesight-staging.bmc.com)
-2. Login using your e-mail and password.
-3. Click on the link [Open pulse.truesight-staging.bmc.com](https://pulse.truesight-staging.bmc.com/)
-4. Navigate to _Settings_ by clicking on the third icon from bottom left of the screen
+1. Past the following in your virtual machine shell:
+```
+export APIHOST_PRE="api.truesight-staging.bmc.com"
+```
+2. Next open a Chrome Web Browser to [https://truesight-staging.bmc.com](https://truesight-staging.bmc.com)
+3. Login using your e-mail and password.
+4. Click on the link [Open pulse.truesight-staging.bmc.com](https://pulse.truesight-staging.bmc.com/)
+5. Navigate to _Settings_ by clicking on the third icon from bottom left of the screen
 that looks like a gear.
-5. Click on the _Installation_ link just below the label _Help With:_
-6. Copy the shell script in the User Interface
-7. Type `sudo` in your virtual machine bash shell.
-8. Next paste the script contents after `sudo` in your virtual machine bash shell and
+6. Click on the _Installation_ link just below the label _Help With:_
+7. Copy the shell script in the User Interface
+8. Type `sudo` in your virtual machine bash shell.
+9. Next paste the script contents after `sudo` in your virtual machine bash shell and
 post fix with `-s`. After this step your command line will resemble the following:
 ```
 [vagrant@tsi-lab-01 ~]$ sudo curl -fsS -d '{"token":"ab75f2fa-d391-4695-9dc7-a9469886f08c"}' \
@@ -48,8 +52,8 @@ post fix with `-s`. After this step your command line will resemble the followin
 https://meter.truesight-staging.bmc.com/setup_meter > setup_meter.sh \
 && chmod +x setup_meter.sh && ./setup_meter.sh -s
 ```
-9. Hit return to run the command
-10. A successful meter installation will end with:
+10. Hit return to run the command
+11. A successful meter installation will end with:
 ```
 The meter has been installed successfully!
 [vagrant@tsi-lab-01 ~]$
