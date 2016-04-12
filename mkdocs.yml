@@ -1,0 +1,16 @@
+site_name: BMC TrueSight Intelligence
+theme: united
+pages:
+- Home: index.md
+- Getting Started:
+   - Prerequisites: 'getting_started/prerequisites.md'
+   - Virtual Machine: 'getting_started/virtual_machine.md'
+#   - Configuring: 'configuration.md'
+- Labs:
+   - Lab 1 - Meters and Meter Plugins: 'labs/lab1.md'
+   - Lab 2 - Introduction ReST: 'labs/lab2.md'
+   - Lab 3 - Event APIs: 'labs/lab3.md'
+   - Lab 4 - Metrics APIs: 'labs/lab4.md'
+   - Lab 5 - Log File to API: 'labs/lab5.md'
+   - Lab 6 - API Integration: 'labs/lab6.md'
+
