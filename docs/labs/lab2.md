@@ -157,6 +157,9 @@ The following are examples of its use, which later be used to call the actual AP
 
 
 ## Exercise 2-1 `GET` request
+
+Run the following by cutting or pasting the curl command or run the script: `labs/lab-2/ex2-1.rest.sh`
+
 ```
 [vagrant@tsi-lab-01 ~]$ curl -X GET -s https://httpbin.org/get 
 {
@@ -171,7 +174,10 @@ The following are examples of its use, which later be used to call the actual AP
 }
 ```
 
-## Exercise 2-2 GET with parameters
+## Exercise 2-2 GET request with parameters
+
+Run the following cutting or pasting the curl command or run the script: `labs/lab-2/ex2-2.rest.sh`
+
 ```
 [vagrant@tsi-lab-01 ~]$ curl -X GET -s 'https://httpbin.org/get?foo=bar&color=red'
 {
@@ -189,30 +195,174 @@ The following are examples of its use, which later be used to call the actual AP
 }
 ```
 
-### Example `POST`
+In the example above, the parameters are returned in the JSON in the field _args_.
+
+### Exercise 2-3 `POST` request
+
+Run the following by cutting or pasting the curl command or run the script: `labs/lab-2/ex2-3.rest.sh`
+
+```
+[vagrant@tsi-lab-01 ~]$ curl -X POST -s https://httpbin.org/post
+{
+  "args": {},
+  "data": "",
+  "files": {},
+  "form": {},
+  "headers": {
+    "Accept": "*/*",
+    "Host": "httpbin.org",
+    "User-Agent": "curl/7.29.0"
+  },
+  "json": null,
+  "origin": "198.147.195.5",
+  "url": "https://httpbin.org/post"
+}
+```
 
 
+### Exercise 2-4 `POST` request with a `JSON` payload
 
-### Example `PUT`
+```
+[vagrant@tsi-lab-01 ~]$ curl -X POST -s https://httpbin.org/post \
+> -H "Content-Type: application/json" \
+> -d '{"foo": "bar", "red": true, "curly": 101}'
+{
+  "args": {},
+  "data": "{\"foo\": \"bar\", \"red\": true, \"curly\": 101}",
+  "files": {},
+  "form": {},
+  "headers": {
+    "Accept": "*/*",
+    "Content-Length": "41",
+    "Content-Type": "application/json",
+    "Host": "httpbin.org",
+    "User-Agent": "curl/7.29.0"
+  },
+  "json": {
+    "curly": 101,
+    "foo": "bar",
+    "red": true
+  },
+  "origin": "198.147.195.5",
+  "url": "https://httpbin.org/post"
+}
+```
 
+In the example above the JSON payload sent in the request is returned in JSON document
+as the field _data_.
 
-### Example `DELETE`
+### Exercise 2-5 `PUT` request
 
+```
+[vagrant@tsi-lab-01 ~]$ curl -X PUT -s https://httpbin.org/put \
+> -H "Content-Type: application/json" \
+> -d '{"foo": "bar", "red": true, "curly": 101}'
+{
+  "args": {},
+  "data": "{\"foo\": \"bar\", \"red\": true, \"curly\": 101}",
+  "files": {},
+  "form": {},
+  "headers": {
+    "Accept": "*/*",
+    "Content-Length": "41",
+    "Content-Type": "application/json",
+    "Host": "httpbin.org",
+    "User-Agent": "curl/7.29.0"
+  },
+  "json": {
+    "curly": 101,
+    "foo": "bar",
+    "red": true
+  },
+  "origin": "198.147.195.5",
+  "url": "https://httpbin.org/put"
+}
+```
 
-### Example `POST` with a `JSON` payload
+In the example above the JSON sent in the `PUT` request is returned in the field _data_.
 
+### Exercise 2-6 `DELETE` request
 
-### Status Codes
+```
+[vagrant@tsi-lab-01 ~]$ curl -X DELETE -s https://httpbin.org/delete
+{
+  "args": {},
+  "data": "",
+  "files": {},
+  "form": {},
+  "headers": {
+    "Accept": "*/*",
+    "Host": "httpbin.org",
+    "User-Agent": "curl/7.29.0"
+  },
+  "json": null,
+  "origin": "198.147.195.5",
+  "url": "https://httpbin.org/delete"
+}
+```
 
+### Exercise 2-7 `GET` request with authentication
+
+```
+[vagrant@tsi-lab-01 ~]$ curl -X GET -s -u foo:bar 'https://httpbin.org/basic-auth/foo/bar'
+{
+  "authenticated": true,
+  "user": "foo"
+}
+```
+
+### Exercise 2-8 `GET` request that returns a `400`
+
+Status codes are displayed by adding the `-i` argument to curl
+
+````
+[vagrant@tsi-lab-01 ~]$ curl -i -X GET -s https://httpbin.org/status/400
+HTTP/1.1 400 BAD REQUEST
+Server: nginx
+Date: Tue, 12 Apr 2016 20:19:28 GMT
+Content-Type: text/html; charset=utf-8
+Content-Length: 0
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Credentials: true
+````
+
+### Exercise 2-9 `GET` request that returns a `401`
+
+````
+[vagrant@tsi-lab-01 ~]$ curl -X GET -i -u foo:blue 'https://httpbin.org/basic-auth/foo/bar'
+HTTP/1.1 401 UNAUTHORIZED
+Server: nginx
+Date: Tue, 12 Apr 2016 20:23:42 GMT
+Content-Length: 0
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+WWW-Authenticate: Basic realm="Fake Realm"
+Access-Control-Allow-Credentials: true
+````
+
+### Exercise 2-10 `GET` request that returns a `422`
+
+````
+[vagrant@tsi-lab-01 ~]$ curl -i -X GET https://httpbin.org/status/422
+HTTP/1.1 422 UNPROCESSABLE ENTITY
+Server: nginx
+Date: Tue, 12 Apr 2016 20:21:50 GMT
+Content-Type: text/html; charset=utf-8
+Content-Length: 0
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Credentials: true
+````
 
 ## TrueSight Pulse APIs
 
 This section gives a brief introduction to the APIs to be used in the later labs. Specifically in the
 remainder of the lab you will use the following APIs:
 
-- Metrics
-- Measurements
-- Events
+- Metric
+- Measurement
+- Event
 
 ### Metrics versus Measures
 
