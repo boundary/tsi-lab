@@ -3,8 +3,7 @@ API integration
 
 
 
-## Opean Weather Map
-
+## Open Weather Map
 
 
 ## Stocks

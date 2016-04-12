@@ -1,7 +1,5 @@
-Lab 2 - Introduction REST - Overview to APIs
-============================================
-
-
+Lab 2 - Introduction REST
+=========================
 
 
 ## Using `curl` to make REST calls.

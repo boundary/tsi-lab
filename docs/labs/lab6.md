@@ -1,3 +1,11 @@
-Lab 6 - Metrics APIs
-====================
+API integration
+===============
 
+## Open Weather Map
+
+
+## Stocks
+
+
+## Twitter
+~           
