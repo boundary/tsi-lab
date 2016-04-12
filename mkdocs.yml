@@ -5,7 +5,6 @@ pages:
 - Getting Started:
    - Prerequisites: 'getting_started/prerequisites.md'
    - Virtual Machine: 'getting_started/virtual_machine.md'
-#   - Configuring: 'configuration.md'
 - Labs:
    - Lab 1 - Meters and Meter Plugins: 'labs/lab1.md'
    - Lab 2 - Introduction ReST: 'labs/lab2.md'

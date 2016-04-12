@@ -20,7 +20,7 @@ we are providing a virtual machine that contains the necessary software tools to
 exercises.
 
 The virtual machine environment is configured using vagrant, so it requires the prerequisites
-listed [here](gettting_started/prerequisites.md) for your particular laptop/desktop and operating system.
+listed [here](getting_started/prerequisites.md) for your particular laptop/desktop and operating system.
 
 ## Labs
 

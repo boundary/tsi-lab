@@ -10,7 +10,7 @@ on how to install the meter and two meter plugins.
 ## Prerequisites
 
 - Make sure you have access to a pulse account in AMA(acronym meaning??)
-- Your virtual machine has been downloaded and started. See [Virtual Machine](virtual_machine.md)
+- Your virtual machine has been downloaded and started. See [Virtual Machine](../getting_started/virtual_machine.md)
 which provides the instructions for configuring and starting your virtual machine.
 
 ## Exercise 1-1 Installing a Meter
