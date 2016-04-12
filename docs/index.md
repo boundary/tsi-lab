@@ -1,5 +1,6 @@
 TrueSight Intelligence Lab
 ==========================
+__version 0.1.0__
 
 Vagrant lab environment for learning about TrueSight Pulse Intelligence.
 
