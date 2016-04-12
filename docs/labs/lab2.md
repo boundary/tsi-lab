@@ -32,13 +32,48 @@ _web address_. A notated example of URL is shown here:
 
 ![](uri.png)
 
-Fields are delineated by double quotes(_"_) and can have data types of numbers, strings, and booleans.
-Additional array of these same data types can be formed. Object structures are created by enclosing
-command separate fields between braces (_{_ and _}_).
+- protocol - For the purpose of this lab either: _HTTP_ or _HTTPS_, though there are others
+such as _FTP_.
+- domain name - Fully qualified domain name or IP address.
+- resource (or path) - Forward slash delimited string uniquely identifying a resource.
+- parameter - URL parameter with specific details of a resource.
 
 ### Headers
 
-### Authentication
+Headers accompany both _HTTP requests_ and _HTTP responses_.
+
+#### HTTP Request Header
+
+The following are the typical request headers to be encountered for this lab
+
+##### Authentication
+
+This header contains specific authentication data used by the server determine if you
+have sufficient privilege to execute the request. Typical types of authentication headers
+include: _Basic_, _Digest_, _Challenge-Response_. For this lab we will only be using Basic.
+
+##### Accept
+
+Communicates the clients acceptable contain that it can receive in a response.
+
+##### Content-Type
+Indicates to the server the content type included in the clients request, typical values include:
+
+- `application/x-www-form-urlencoded`
+- `application/json`
+- `application/xml`
+
+#### HTTP Response
+
+The following are the typical response headers to be encountered for this lab.
+
+##### Content-Type
+
+What is contained ion the body of the HTTP response (`text/html`, `application/json`).
+
+##### Content-Length
+
+Size of the HTTP response body returned to the client.
 
 ### Status Codes
 
@@ -111,8 +146,9 @@ The best way to learn JSON is to observe a JSON as shown here:
 }
 ```
 
-
-
+Fields are delineated by double quotes(_"_) and can have data types of numbers, strings, and booleans.
+Additional array of these same data types can be formed. Object structures are created by enclosing
+command separate fields between braces (_{_ and _}_).
 
 ## Using `curl` to make REST calls.
 
@@ -120,7 +156,7 @@ The `curl` command line utility permits the issuing http(s) request from the com
 The following are examples of its use, which later be used to call the actual APIs.
 
 
-## Exercise 2-1 Example`GET` request
+## Exercise 2-1 `GET` request
 ```
 [vagrant@tsi-lab-01 ~]$ curl -X GET -s https://httpbin.org/get 
 {
@@ -135,7 +171,7 @@ The following are examples of its use, which later be used to call the actual AP
 }
 ```
 
-### Example GET with parameters
+## Exercise 2-2 GET with parameters
 ```
 [vagrant@tsi-lab-01 ~]$ curl -X GET -s 'https://httpbin.org/get?foo=bar&color=red'
 {
@@ -171,16 +207,36 @@ The following are examples of its use, which later be used to call the actual AP
 
 ## TrueSight Pulse APIs
 
+This section gives a brief introduction to the APIs to be used in the later labs. Specifically in the
+remainder of the lab you will use the following APIs:
+
 - Metrics
 - Measurements
 - Events
 
+### Metrics versus Measures
+
+_Metrics_ are the _thing_ to be measured like CPU or network traffic. A _measurement_ is a specific time
+series point of a specific metric. For example, the _CPU_ metric defines the collection of the CPU
+utilization on a host, and measurement is the specific value (e.g 60%) at a given point in time.
+
 ### Metrics
 
-Metrics are the _thing_ to be measured like CPU or network traffic. A metric is uniquely identified by its name.
+A metric is uniquely identified by its name. A metric definition consists of the following fields:
 
+- Name - Primary key of the metric
+- Display Name - Label used in the Web Interface to represent the metric.
+- Display Name Short - Label is used when representing a metric when space in the Web
+Interface is minimal
+- Default Aggregate - Defines the aggregate to be displayed in a graph by default. One of: _avg_,
+_min_, _max_, _sum_.
+- Default Resolution - Indicator(in milliseconds) of how often measurements can be expected for this metric.
+- Unit - Unit of measurement for the metric, which is one of: _bytecount_, _duration_,
+_number_, _percent_.
+- Type - Used to classify or group like metrics. Typically a device metric, a plugin metric, but
+can be of any arbitrary string value.
 
-##### APIs
+##### Metric APIs
 - Create
 - Get
 - Update
@@ -195,16 +251,18 @@ Measurements represent the the actual time series data point. A measurement cons
 - source
 - timestamp
 
-The timestamp is optionally.
-
-##### APIs
+##### Measurement APIs
 
 - Create
 - Get
 
 ### Events
 
+#### Event API
+
 - Create
 - Get
 - List Events
 - List Raw Events
+
+
