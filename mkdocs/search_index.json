@@ -1,0 +1,519 @@
+{
+    "docs": [
+        {
+            "location": "/", 
+            "text": "TrueSight Intelligence Lab\n\n\nversion 0.1.0\n\n\nVagrant lab environment for learning about TrueSight Pulse Intelligence.\n\n\nIncludes:\n\n\n\n\nVirtual machine environment that includes prerequisite tools for running labs.\n\n\nDemonstration scripts for running labs.\n\n\nAll software dependencies for running demonstration scripts.\n\n\n\n\nIt is imperative that you install the prerequisites on your laptop/desktop BEFORE attempting to\ncomplete these labs! See \nPrerequisites\n for details.\n\n\nVirtual Machine\n\n\nTo avoid having to worry about the numerous dependency differences between Windows, Mac OS X, Unix/Linux,\nwe are providing a virtual machine that contains the necessary software tools to complete the lab\nexercises.\n\n\nThe virtual machine environment is configured using vagrant, so it requires the prerequisites\nlisted \nhere\n for your particular laptop/desktop and operating system.\n\n\nLabs\n\n\nSpecific labs can be navigated to from the links below or from the \nLabs\n menu at the top of the page.\n\n\n\n\n\n\nLab 1 - Meters and Plugins\n\n\n\n\n\n\nLab 2 - Introduction REST\n\n\n\n\n\n\nLab 3 - Event APIs\n\n\n\n\n\n\nLab 4 - Metric/Measurement APIs\n\n\n\n\n\n\nLab 5 - Log File to API\n\n\n\n\n\n\nLab 6 - API Integration", 
+            "title": "Home"
+        }, 
+        {
+            "location": "/#truesight-intelligence-lab", 
+            "text": "version 0.1.0  Vagrant lab environment for learning about TrueSight Pulse Intelligence.  Includes:   Virtual machine environment that includes prerequisite tools for running labs.  Demonstration scripts for running labs.  All software dependencies for running demonstration scripts.   It is imperative that you install the prerequisites on your laptop/desktop BEFORE attempting to\ncomplete these labs! See  Prerequisites  for details.", 
+            "title": "TrueSight Intelligence Lab"
+        }, 
+        {
+            "location": "/#virtual-machine", 
+            "text": "To avoid having to worry about the numerous dependency differences between Windows, Mac OS X, Unix/Linux,\nwe are providing a virtual machine that contains the necessary software tools to complete the lab\nexercises.  The virtual machine environment is configured using vagrant, so it requires the prerequisites\nlisted  here  for your particular laptop/desktop and operating system.", 
+            "title": "Virtual Machine"
+        }, 
+        {
+            "location": "/#labs", 
+            "text": "Specific labs can be navigated to from the links below or from the  Labs  menu at the top of the page.    Lab 1 - Meters and Plugins    Lab 2 - Introduction REST    Lab 3 - Event APIs    Lab 4 - Metric/Measurement APIs    Lab 5 - Log File to API    Lab 6 - API Integration", 
+            "title": "Labs"
+        }, 
+        {
+            "location": "/getting_started/prerequisites/", 
+            "text": "Prerequisites\n\n\nThis section describes the hardware, software, and network resources required to complete the accompanying\nlab exercises.\n\n\nHardware\n\n\n\n\nLaptop/Desktop running Mac OS X 10.10.5 or later\n\n\nLaptop/Desktop must have at least 8GB ram\n\n\nLaptop/Desktop must have at least 2GB of free disk space\n\n\n\n\nSoftware\n\n\n\n\nVagrant 1.7.2 or later. Vagrant can be downloaded \nhere\n\n\nVirtualBox 4.3.2.6 or later. VirtualBox can be downloaded \nhere\n\n\nChrome Browser latest version. Chrome can be downloaded from \nhere\n\n\nOptional\n Git 2.2 or later. If downloading the virtual machine contents via git. Git can be downloaded \nhere\n\n\n\n\nNOTE\n: Git is optional since you can download the contents of the virtual machine from a zip file.\n\n\nNetwork\n\n\n\n\nMust have access to the internet so that software components required by the Virtual Machine\ncan be downloaded.", 
+            "title": "Prerequisites"
+        }, 
+        {
+            "location": "/getting_started/prerequisites/#prerequisites", 
+            "text": "This section describes the hardware, software, and network resources required to complete the accompanying\nlab exercises.", 
+            "title": "Prerequisites"
+        }, 
+        {
+            "location": "/getting_started/prerequisites/#hardware", 
+            "text": "Laptop/Desktop running Mac OS X 10.10.5 or later  Laptop/Desktop must have at least 8GB ram  Laptop/Desktop must have at least 2GB of free disk space", 
+            "title": "Hardware"
+        }, 
+        {
+            "location": "/getting_started/prerequisites/#software", 
+            "text": "Vagrant 1.7.2 or later. Vagrant can be downloaded  here  VirtualBox 4.3.2.6 or later. VirtualBox can be downloaded  here  Chrome Browser latest version. Chrome can be downloaded from  here  Optional  Git 2.2 or later. If downloading the virtual machine contents via git. Git can be downloaded  here   NOTE : Git is optional since you can download the contents of the virtual machine from a zip file.", 
+            "title": "Software"
+        }, 
+        {
+            "location": "/getting_started/prerequisites/#network", 
+            "text": "Must have access to the internet so that software components required by the Virtual Machine\ncan be downloaded.", 
+            "title": "Network"
+        }, 
+        {
+            "location": "/getting_started/virtual_machine/", 
+            "text": "Virtual Machine\n\n\nThis section describes how to get your virtual machine environment up and running on\nyour Windows or Mac OS X laptop or Desktop.\n\n\nBefore proceeding ensure that you have met the prerequisites listed \nhere\n\n\nDownloading the Contents\n\n\nThe virtual machine contents can be download by:\n\n\n\n\nDownloading and extracting a zip file; or\n\n\nUsing git to clone the GitHub repository\n\n\n\n\nDownloading a Zip file\n\n\n\n\n\n\nDownload the contents of the following url:\n\nhttps://github.com/boundary/tsi-lab/archive/master.zip\n\n\n\n\n\n\nExtract the zip file.\n\n\n\n\n\n\nCloning\n\n\nUse the git command line tool in a bash shell to clone the contents of the virtual machine\nin the GitHub Repository\n\n\n$ git clone https://github.com/boundary/vagrant-tsi-lab\n\n\n\n\nStarting the Virtual Machine\n\n\nInteraction with the APIs requires the following details:\n\n\n\n\nE-mail - The e-mail associated with your TrueSight Pulse account.\n\n\nAPI Token - The token generated by the system for authenticating a call to the API\n\n\nAPI Host - The host which the API endpoint resides\n\n\n\n\nWith the TrueSight Pulse information above issued the command below in a bash shell,\nor Windows command prompt. The environment variables proceeding the \nvagrant up\n command are used\nto configure your environment as previously mentioned.\n\n\n$ TSP_EMAIL=\nemail\n TSP_API_KEY=\napi key\n TSP_API_HOST=\napi.truesight-staging.bmc.com\n vagrant up\n\n\n\n\nStopping a Virtual Machine\n\n\n$ vagrant halt\n\n\n\n\nDestroying a Virtual Machine\n\n\n$ vagrant destroy\n\n\n\n\nLogging into the Virtual Machine\n\n\n$ vagrant ssh", 
+            "title": "Virtual Machine"
+        }, 
+        {
+            "location": "/getting_started/virtual_machine/#virtual-machine", 
+            "text": "This section describes how to get your virtual machine environment up and running on\nyour Windows or Mac OS X laptop or Desktop.  Before proceeding ensure that you have met the prerequisites listed  here", 
+            "title": "Virtual Machine"
+        }, 
+        {
+            "location": "/getting_started/virtual_machine/#downloading-the-contents", 
+            "text": "The virtual machine contents can be download by:   Downloading and extracting a zip file; or  Using git to clone the GitHub repository", 
+            "title": "Downloading the Contents"
+        }, 
+        {
+            "location": "/getting_started/virtual_machine/#downloading-a-zip-file", 
+            "text": "Download the contents of the following url: https://github.com/boundary/tsi-lab/archive/master.zip    Extract the zip file.", 
+            "title": "Downloading a Zip file"
+        }, 
+        {
+            "location": "/getting_started/virtual_machine/#cloning", 
+            "text": "Use the git command line tool in a bash shell to clone the contents of the virtual machine\nin the GitHub Repository  $ git clone https://github.com/boundary/vagrant-tsi-lab", 
+            "title": "Cloning"
+        }, 
+        {
+            "location": "/getting_started/virtual_machine/#starting-the-virtual-machine", 
+            "text": "Interaction with the APIs requires the following details:   E-mail - The e-mail associated with your TrueSight Pulse account.  API Token - The token generated by the system for authenticating a call to the API  API Host - The host which the API endpoint resides   With the TrueSight Pulse information above issued the command below in a bash shell,\nor Windows command prompt. The environment variables proceeding the  vagrant up  command are used\nto configure your environment as previously mentioned.  $ TSP_EMAIL= email  TSP_API_KEY= api key  TSP_API_HOST= api.truesight-staging.bmc.com  vagrant up", 
+            "title": "Starting the Virtual Machine"
+        }, 
+        {
+            "location": "/getting_started/virtual_machine/#stopping-a-virtual-machine", 
+            "text": "$ vagrant halt", 
+            "title": "Stopping a Virtual Machine"
+        }, 
+        {
+            "location": "/getting_started/virtual_machine/#destroying-a-virtual-machine", 
+            "text": "$ vagrant destroy", 
+            "title": "Destroying a Virtual Machine"
+        }, 
+        {
+            "location": "/getting_started/virtual_machine/#logging-into-the-virtual-machine", 
+            "text": "$ vagrant ssh", 
+            "title": "Logging into the Virtual Machine"
+        }, 
+        {
+            "location": "/labs/lab1/", 
+            "text": "Lab 1 - TrueSight Pulse Meters and Meter Plugins\n\n\nOverview\n\n\nThese exercises introduce you to the TrueSight Pulse Meter and Plugins with step by step instructions\non how to install the meter and two meter plugins.\n\n\nPrerequisites\n\n\n\n\nMake sure you have access to a pulse account in AMA(acronym meaning??)\n\n\nYour virtual machine has been downloaded and started. See \nVirtual Machine\n\nwhich provides the instructions for configuring and starting your virtual machine.\n\n\n\n\nExercise 1-1 Installing a Meter\n\n\nLog into the Virtual Machine\n\n\n\n\nChange directory to where you extracted the zip or cloned the repository using git.\n\n\nRun the following command to log into the virtual machine:\n\n\n\n\n$ vagrant ssh\n\n\n\n\nAfter logging in you should see the following prompt:\n\n\nLast login: Tue Apr 12 13:51:40 2016 from 10.0.2.2\n[vagrant@tsi-lab-01 ~]$\n\n\n\n\nwhich indicates you have a \nbash\n shell up and ready to receive commands.\n\n\nInstalling the TrueSight Pulse Meter\n\n\n\n\nPast the following in your virtual machine shell:\n\n\n\n\nexport APIHOST_PRE=\napi.truesight-staging.bmc.com\n\n\n\n\n\n\n\nNext open a Chrome Web Browser to \nhttps://truesight-staging.bmc.com\n\n\nLogin using your e-mail and password.\n\n\nClick on the link \nOpen pulse.truesight-staging.bmc.com\n\n\nNavigate to \nSettings\n by clicking on the third icon from bottom left of the screen\nthat looks like a gear.\n\n\nClick on the \nInstallation\n link just below the label \nHelp With:\n\n\nCopy the shell script in the User Interface\n\n\nType \nsudo\n in your virtual machine bash shell.\n\n\nNext paste the script contents after \nsudo\n in your virtual machine bash shell and\npost fix with \n-s\n. After this step your command line will resemble the following:\n\n\n\n\n[vagrant@tsi-lab-01 ~]$ sudo curl -fsS -d '{\ntoken\n:\nab75f2fa-d391-4695-9dc7-a9469886f08c\n}' \\\n-H 'Content-Type: application/json' \\\nhttps://meter.truesight-staging.bmc.com/setup_meter \n setup_meter.sh \\\n\n chmod +x setup_meter.sh \n ./setup_meter.sh -s\n\n\n\n\n\n\nHit return to run the command\n\n\nA successful meter installation will end with:\n\n\n\n\nThe meter has been installed successfully!\n[vagrant@tsi-lab-01 ~]$\n\n\n\n\nUpdating the \nmeter.conf\n with \napplication_id\n\n\n\n\nUpdate the meter configuration \n/etc/boundary/meter.conf\n with the \napplication_id\n as shown\nin this configuration snippet:\n\n\n\n\n    \nproperties\n:{\n      \napplication_id\n: \nFOOBAR\n\n    },\n\n\n\n\n\n\nRestart the meter to have the change take affect:\n\n\n\n\n[vagrant@tsi-lab-01 ~]$ sudo service boundary-meter restart\nRestarting boundary-meter (via systemctl):                 [  OK  ]\n\n\n\n\n\n\nOpen your Chrome Web Browser to\n\nhttps://pulse.truesight-staging.bmc.com/home\n\nto verify that measurements are being sent to your TrueSight Pulse dashboards.\n\n\n\n\nExercise 1-2 - Meter Plugins\n\n\nThis exercise will have you install 2 meter plugins:\n\n\n\n\nHTTP Check - Measures the response time of multiple HTTP endpoints\n\n\nCPU Core - Provides CPU Utilization per CPU core.\n\n\n\n\nInstalling the HTTP Check Plugin\n\n\n\n\n\n\nThe HTTP Check Plugin can be installed by following the video\n\nhere\n\n\n\n\n\n\nAfter configuring the HTTP Check Plugin confirm data is being streamed by opening the \nHTTP Check\n\ndashboard.\n\n\n\n\n\n\nInstalling the CPU Core Plugin\n\n\n\n\n\n\nThe CPU Core can be installed by the following the video\n\n\n\n\n\n\n\nAfter configuring the CPU Core Plugin confirm data is being streamed by opening the \nCPU Core\n\ndashboard.", 
+            "title": "Lab 1 - Meters and Meter Plugins"
+        }, 
+        {
+            "location": "/labs/lab1/#lab-1-truesight-pulse-meters-and-meter-plugins", 
+            "text": "", 
+            "title": "Lab 1 - TrueSight Pulse Meters and Meter Plugins"
+        }, 
+        {
+            "location": "/labs/lab1/#overview", 
+            "text": "These exercises introduce you to the TrueSight Pulse Meter and Plugins with step by step instructions\non how to install the meter and two meter plugins.", 
+            "title": "Overview"
+        }, 
+        {
+            "location": "/labs/lab1/#prerequisites", 
+            "text": "Make sure you have access to a pulse account in AMA(acronym meaning??)  Your virtual machine has been downloaded and started. See  Virtual Machine \nwhich provides the instructions for configuring and starting your virtual machine.", 
+            "title": "Prerequisites"
+        }, 
+        {
+            "location": "/labs/lab1/#exercise-1-1-installing-a-meter", 
+            "text": "", 
+            "title": "Exercise 1-1 Installing a Meter"
+        }, 
+        {
+            "location": "/labs/lab1/#log-into-the-virtual-machine", 
+            "text": "Change directory to where you extracted the zip or cloned the repository using git.  Run the following command to log into the virtual machine:   $ vagrant ssh  After logging in you should see the following prompt:  Last login: Tue Apr 12 13:51:40 2016 from 10.0.2.2\n[vagrant@tsi-lab-01 ~]$  which indicates you have a  bash  shell up and ready to receive commands.", 
+            "title": "Log into the Virtual Machine"
+        }, 
+        {
+            "location": "/labs/lab1/#installing-the-truesight-pulse-meter", 
+            "text": "Past the following in your virtual machine shell:   export APIHOST_PRE= api.truesight-staging.bmc.com    Next open a Chrome Web Browser to  https://truesight-staging.bmc.com  Login using your e-mail and password.  Click on the link  Open pulse.truesight-staging.bmc.com  Navigate to  Settings  by clicking on the third icon from bottom left of the screen\nthat looks like a gear.  Click on the  Installation  link just below the label  Help With:  Copy the shell script in the User Interface  Type  sudo  in your virtual machine bash shell.  Next paste the script contents after  sudo  in your virtual machine bash shell and\npost fix with  -s . After this step your command line will resemble the following:   [vagrant@tsi-lab-01 ~]$ sudo curl -fsS -d '{ token : ab75f2fa-d391-4695-9dc7-a9469886f08c }' \\\n-H 'Content-Type: application/json' \\\nhttps://meter.truesight-staging.bmc.com/setup_meter   setup_meter.sh \\  chmod +x setup_meter.sh   ./setup_meter.sh -s   Hit return to run the command  A successful meter installation will end with:   The meter has been installed successfully!\n[vagrant@tsi-lab-01 ~]$", 
+            "title": "Installing the TrueSight Pulse Meter"
+        }, 
+        {
+            "location": "/labs/lab1/#updating-the-meterconf-with-application_id", 
+            "text": "Update the meter configuration  /etc/boundary/meter.conf  with the  application_id  as shown\nin this configuration snippet:        properties :{\n       application_id :  FOOBAR \n    },   Restart the meter to have the change take affect:   [vagrant@tsi-lab-01 ~]$ sudo service boundary-meter restart\nRestarting boundary-meter (via systemctl):                 [  OK  ]   Open your Chrome Web Browser to https://pulse.truesight-staging.bmc.com/home \nto verify that measurements are being sent to your TrueSight Pulse dashboards.", 
+            "title": "Updating the meter.conf with application_id"
+        }, 
+        {
+            "location": "/labs/lab1/#exercise-1-2-meter-plugins", 
+            "text": "This exercise will have you install 2 meter plugins:   HTTP Check - Measures the response time of multiple HTTP endpoints  CPU Core - Provides CPU Utilization per CPU core.", 
+            "title": "Exercise 1-2 - Meter Plugins"
+        }, 
+        {
+            "location": "/labs/lab1/#installing-the-http-check-plugin", 
+            "text": "The HTTP Check Plugin can be installed by following the video here    After configuring the HTTP Check Plugin confirm data is being streamed by opening the  HTTP Check \ndashboard.", 
+            "title": "Installing the HTTP Check Plugin"
+        }, 
+        {
+            "location": "/labs/lab1/#installing-the-cpu-core-plugin", 
+            "text": "The CPU Core can be installed by the following the video    After configuring the CPU Core Plugin confirm data is being streamed by opening the  CPU Core \ndashboard.", 
+            "title": "Installing the CPU Core Plugin"
+        }, 
+        {
+            "location": "/labs/lab2/", 
+            "text": "Lab 2 - Introduction ReST\n\n\nOverview\n\n\nThis lab introduces ReST or \nR\nepresentational \nS\ntate \nT\nransfer. ReST was defined\nby Roy Thomas Fielding in his 2000 PhD dissertation \nArchitectural Styles and the Design\nof Network-based Software Architectures\n ReST is just a fancy name for protocol you use\neveryday in a web browser called HTTP\n\n(\nH\nyper\nt\next \nT\nransfer \nP\nrotocol)\n.\n\n\nThis section provides the essential background to understand how to use the HTTP protocol with\npractical exercises using \ncurl\n command line utility.\n\n\nThe last part of this lab provides a quick overview of the ReST API provided to manipulate:\n\n\n\n\nMetrics\n\n\nMeasures\n\n\nEvents\n\n\n\n\nThe HTTP Protocol\n\n\nA logical starting to talk about the HTTP protocol is to talk about the HTTP request methods.\nOne of the most prevalent of these HTTP methods is \nGET\n which is readily used by a browser\n\n\nURI\n\n\nA \nURI\n or \nU\nniform \nResource\n \nL\nocator is a string of characters used to identify a resource.\nThe most prevalent form of a URI is a \nURL\n or \nU\nniform \nResource\n \nL\nocator usually called a\n\nweb address\n. A notated example of URL is shown here:\n\n\n\n\n\n\nprotocol - For the purpose of this lab either: \nHTTP\n or \nHTTPS\n, though there are others\nsuch as \nFTP\n.\n\n\ndomain name - Fully qualified domain name or IP address.\n\n\nresource (or path) - Forward slash delimited string uniquely identifying a resource.\n\n\nparameter - URL parameter with specific details of a resource.\n\n\n\n\nHeaders\n\n\nHeaders accompany both \nHTTP requests\n and \nHTTP responses\n.\n\n\nHTTP Request Header\n\n\nThe following are the typical request headers to be encountered for this lab\n\n\nAuthentication\n\n\nThis header contains specific authentication data used by the server determine if you\nhave sufficient privilege to execute the request. Typical types of authentication headers\ninclude: \nBasic\n, \nDigest\n, \nChallenge-Response\n. For this lab we will only be using Basic.\n\n\nAccept\n\n\nCommunicates the clients acceptable contain that it can receive in a response.\n\n\nContent-Type\n\n\nIndicates to the server the content type included in the clients request, typical values include:\n\n\n\n\napplication/x-www-form-urlencoded\n\n\napplication/json\n\n\napplication/xml\n\n\n\n\nHTTP Response\n\n\nThe following are the typical response headers to be encountered for this lab.\n\n\nContent-Type\n\n\nWhat is contained ion the body of the HTTP response (\ntext/html\n, \napplication/json\n).\n\n\nContent-Length\n\n\nSize of the HTTP response body returned to the client.\n\n\nStatus Codes\n\n\nWhen HTTP request method (\nGET\n, \nPOST\n, \nPUT\n, \nDELETE\n) is issued to a endpoint the HTTP protocol accounts\nfor returning a status code indicating the result of the request. The Status codes themselves\nare classified by the range of their values:\n\n\n\n\n2XX - Success - The request was received and processed successfully.\n\n\n3XX - Redirection - The client must must take additional action to complete the request.\n\n\n4XX - Client Error - The clients request has an error of some type and could not be completed.\n\n\n5XX - Server Error - The server failed to fulfil a request\n\n\n\n\nFor the sake of this lab, and the APIs to be introduced later, the table shows the relevant HTTP status\ncodes we need to be aware of:\n\n\n\n\n\n\n\n\nStatus Code\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\n200 OK\n\n\nStandard response for successfull requests .\n\n\n\n\n\n\n201 CREATED\n\n\nPort of the Kafka JMX endpoint. Defaults to 9990.\n\n\n\n\n\n\n202 ACCEPTED\n\n\nUsername of the Kafka JMX endpoint.\n\n\n\n\n\n\n400 BAD REQUEST\n\n\nThe server is unable to process the client request that is in error.\n\n\n\n\n\n\n401 UNAUTHORIZED\n\n\nAuthentication is required but was not provided by the client.\n\n\n\n\n\n\n404 NOT FOUND\n\n\nThe request resource could not be found.\n\n\n\n\n\n\n422 UNPROCESSABLE ENTITY\n\n\nThe request was well-formed but contains a semantic error.\n\n\n\n\n\n\n500 INTERNAL SERVER ERROR\n\n\nA generic error, when unexpected condition was encountered.\n\n\n\n\n\n\n503 SERVICE UNAVAILABLE\n\n\nThe server is currently unavailable (overloaded or down for maintenance).\n\n\n\n\n\n\n504 GATEWAY TIMEOUT\n\n\nThe server did not receive a timely response from the upstream server.\n\n\n\n\n\n\n\n\nJSON\n\n\nJSON or \nJava Script Object Notation\n while not specifically\npart of HTTP is a prerequisite for the TrueSight Pulse APIs to be introduced later.\n\n\nJSON (Not to be confused with \nJason Voorhees\n\nof the \nFriday the 13th\n series) is a:\n\n\n\n\nOpen Standard Format\n\n\nHuman Readable\n\n\n\n\nThe best way to learn JSON is to observe a JSON as shown here:\n\n\n{\n  \nfirstName\n: \nJohn\n,\n  \nlastName\n: \nSmith\n,\n  \nisAlive\n: true,\n  \nage\n: 25,\n  \naddress\n: {\n    \nstreetAddress\n: \n21 2nd Street\n,\n    \ncity\n: \nNew York\n,\n    \nstate\n: \nNY\n,\n    \npostalCode\n: \n10021-3100\n\n  },\n  \nphoneNumbers\n: [\n    {\n      \ntype\n: \nhome\n,\n      \nnumber\n: \n212 555-1234\n\n    },\n    {\n      \ntype\n: \noffice\n,\n      \nnumber\n: \n646 555-4567\n\n    },\n    {\n      \ntype\n: \nmobile\n,\n      \nnumber\n: \n123 456-7890\n\n    }\n  ],\n  \nchildren\n: [],\n  \nspouse\n: null\n}\n\n\n\n\nFields are delineated by double quotes(\n\"\n) and can have data types of numbers, strings, and booleans.\nAdditional array of these same data types can be formed. Object structures are created by enclosing\ncommand separate fields between braces (\n{\n and \n}\n).\n\n\nUsing \ncurl\n to make REST calls.\n\n\nThe \ncurl\n command line utility permits the issuing http(s) request from the command line.\nThe following are examples of its use, which later be used to call the actual APIs.\n\n\nExercise 2-1 \nGET\n request\n\n\nRun the following by cutting or pasting the curl command or run the script: \nlabs/lab-2/ex2-1.rest.sh\n\n\n[vagrant@tsi-lab-01 ~]$ curl -X GET -s https://httpbin.org/get \n{\n  \nargs\n: {}, \n  \nheaders\n: {\n    \nAccept\n: \n*/*\n, \n    \nHost\n: \nhttpbin.org\n, \n    \nUser-Agent\n: \ncurl/7.29.0\n\n  }, \n  \norigin\n: \n198.147.195.5\n, \n  \nurl\n: \nhttps://httpbin.org/get\n\n}\n\n\n\n\nExercise 2-2 GET request with parameters\n\n\nRun the following cutting or pasting the curl command or run the script: \nlabs/lab-2/ex2-2.rest.sh\n\n\n[vagrant@tsi-lab-01 ~]$ curl -X GET -s 'https://httpbin.org/get?foo=bar\ncolor=red'\n{\n  \nargs\n: {\n    \ncolor\n: \nred\n, \n    \nfoo\n: \nbar\n\n  }, \n  \nheaders\n: {\n    \nAccept\n: \n*/*\n, \n    \nHost\n: \nhttpbin.org\n, \n    \nUser-Agent\n: \ncurl/7.29.0\n\n  }, \n  \norigin\n: \n198.147.195.5\n, \n  \nurl\n: \nhttps://httpbin.org/get?foo=bar\ncolor=red\n\n}\n\n\n\n\nIn the example above, the parameters are returned in the JSON in the field \nargs\n.\n\n\nExercise 2-3 \nPOST\n request\n\n\nRun the following by cutting or pasting the curl command or run the script: \nlabs/lab-2/ex2-3.rest.sh\n\n\n[vagrant@tsi-lab-01 ~]$ curl -X POST -s https://httpbin.org/post\n{\n  \nargs\n: {},\n  \ndata\n: \n,\n  \nfiles\n: {},\n  \nform\n: {},\n  \nheaders\n: {\n    \nAccept\n: \n*/*\n,\n    \nHost\n: \nhttpbin.org\n,\n    \nUser-Agent\n: \ncurl/7.29.0\n\n  },\n  \njson\n: null,\n  \norigin\n: \n198.147.195.5\n,\n  \nurl\n: \nhttps://httpbin.org/post\n\n}\n\n\n\n\nExercise 2-4 \nPOST\n request with a \nJSON\n payload\n\n\n[vagrant@tsi-lab-01 ~]$ curl -X POST -s https://httpbin.org/post \\\n\n -H \nContent-Type: application/json\n \\\n\n -d '{\nfoo\n: \nbar\n, \nred\n: true, \ncurly\n: 101}'\n{\n  \nargs\n: {},\n  \ndata\n: \n{\\\nfoo\\\n: \\\nbar\\\n, \\\nred\\\n: true, \\\ncurly\\\n: 101}\n,\n  \nfiles\n: {},\n  \nform\n: {},\n  \nheaders\n: {\n    \nAccept\n: \n*/*\n,\n    \nContent-Length\n: \n41\n,\n    \nContent-Type\n: \napplication/json\n,\n    \nHost\n: \nhttpbin.org\n,\n    \nUser-Agent\n: \ncurl/7.29.0\n\n  },\n  \njson\n: {\n    \ncurly\n: 101,\n    \nfoo\n: \nbar\n,\n    \nred\n: true\n  },\n  \norigin\n: \n198.147.195.5\n,\n  \nurl\n: \nhttps://httpbin.org/post\n\n}\n\n\n\n\nIn the example above the JSON payload sent in the request is returned in JSON document\nas the field \ndata\n.\n\n\nExercise 2-5 \nPUT\n request\n\n\n[vagrant@tsi-lab-01 ~]$ curl -X PUT -s https://httpbin.org/put \\\n\n -H \nContent-Type: application/json\n \\\n\n -d '{\nfoo\n: \nbar\n, \nred\n: true, \ncurly\n: 101}'\n{\n  \nargs\n: {},\n  \ndata\n: \n{\\\nfoo\\\n: \\\nbar\\\n, \\\nred\\\n: true, \\\ncurly\\\n: 101}\n,\n  \nfiles\n: {},\n  \nform\n: {},\n  \nheaders\n: {\n    \nAccept\n: \n*/*\n,\n    \nContent-Length\n: \n41\n,\n    \nContent-Type\n: \napplication/json\n,\n    \nHost\n: \nhttpbin.org\n,\n    \nUser-Agent\n: \ncurl/7.29.0\n\n  },\n  \njson\n: {\n    \ncurly\n: 101,\n    \nfoo\n: \nbar\n,\n    \nred\n: true\n  },\n  \norigin\n: \n198.147.195.5\n,\n  \nurl\n: \nhttps://httpbin.org/put\n\n}\n\n\n\n\nIn the example above the JSON sent in the \nPUT\n request is returned in the field \ndata\n.\n\n\nExercise 2-6 \nDELETE\n request\n\n\n[vagrant@tsi-lab-01 ~]$ curl -X DELETE -s https://httpbin.org/delete\n{\n  \nargs\n: {},\n  \ndata\n: \n,\n  \nfiles\n: {},\n  \nform\n: {},\n  \nheaders\n: {\n    \nAccept\n: \n*/*\n,\n    \nHost\n: \nhttpbin.org\n,\n    \nUser-Agent\n: \ncurl/7.29.0\n\n  },\n  \njson\n: null,\n  \norigin\n: \n198.147.195.5\n,\n  \nurl\n: \nhttps://httpbin.org/delete\n\n}\n\n\n\n\nExercise 2-7 \nGET\n request with authentication\n\n\n[vagrant@tsi-lab-01 ~]$ curl -X GET -s -u foo:bar 'https://httpbin.org/basic-auth/foo/bar'\n{\n  \nauthenticated\n: true,\n  \nuser\n: \nfoo\n\n}\n\n\n\n\nExercise 2-8 \nGET\n request that returns a \n400\n\n\nStatus codes are displayed by adding the \n-i\n argument to curl\n\n\n[vagrant@tsi-lab-01 ~]$ curl -i -X GET -s https://httpbin.org/status/400\nHTTP/1.1 400 BAD REQUEST\nServer: nginx\nDate: Tue, 12 Apr 2016 20:19:28 GMT\nContent-Type: text/html; charset=utf-8\nContent-Length: 0\nConnection: keep-alive\nAccess-Control-Allow-Origin: *\nAccess-Control-Allow-Credentials: true\n\n\n\n\nExercise 2-9 \nGET\n request that returns a \n401\n\n\n[vagrant@tsi-lab-01 ~]$ curl -X GET -i -u foo:blue 'https://httpbin.org/basic-auth/foo/bar'\nHTTP/1.1 401 UNAUTHORIZED\nServer: nginx\nDate: Tue, 12 Apr 2016 20:23:42 GMT\nContent-Length: 0\nConnection: keep-alive\nAccess-Control-Allow-Origin: *\nWWW-Authenticate: Basic realm=\nFake Realm\n\nAccess-Control-Allow-Credentials: true\n\n\n\n\nExercise 2-10 \nGET\n request that returns a \n422\n\n\n[vagrant@tsi-lab-01 ~]$ curl -i -X GET https://httpbin.org/status/422\nHTTP/1.1 422 UNPROCESSABLE ENTITY\nServer: nginx\nDate: Tue, 12 Apr 2016 20:21:50 GMT\nContent-Type: text/html; charset=utf-8\nContent-Length: 0\nConnection: keep-alive\nAccess-Control-Allow-Origin: *\nAccess-Control-Allow-Credentials: true\n\n\n\n\nTrueSight Pulse APIs\n\n\nThis section gives a brief introduction to the APIs to be used in the later labs. Specifically in the\nremainder of the lab you will use the following APIs:\n\n\n\n\nMetric\n\n\nMeasurement\n\n\nEvent\n\n\n\n\nMetrics versus Measures\n\n\nMetrics\n are the \nthing\n to be measured like CPU or network traffic. A \nmeasurement\n is a specific time\nseries point of a specific metric. For example, the \nCPU\n metric defines the collection of the CPU\nutilization on a host, and measurement is the specific value (e.g 60%) at a given point in time.\n\n\nMetrics\n\n\nA metric is uniquely identified by its name. A metric definition consists of the following fields:\n\n\n\n\nName - Primary key of the metric\n\n\nDisplay Name - Label used in the Web Interface to represent the metric.\n\n\nDisplay Name Short - Label is used when representing a metric when space in the Web\nInterface is minimal\n\n\nDefault Aggregate - Defines the aggregate to be displayed in a graph by default. One of: \navg\n,\n\nmin\n, \nmax\n, \nsum\n.\n\n\nDefault Resolution - Indicator(in milliseconds) of how often measurements can be expected for this metric.\n\n\nUnit - Unit of measurement for the metric, which is one of: \nbytecount\n, \nduration\n,\n\nnumber\n, \npercent\n.\n\n\nType - Used to classify or group like metrics. Typically a device metric, a plugin metric, but\ncan be of any arbitrary string value.\n\n\n\n\nMetric APIs\n\n\n\n\nCreate\n\n\nGet\n\n\nUpdate\n\n\nDelete\n\n\n\n\nMeasurements\n\n\nMeasurements represent the the actual time series data point. A measurement consists of 4 pieces of information:\n\n\n\n\nmetric\n\n\nvalue\n\n\nsource\n\n\ntimestamp\n\n\n\n\nMeasurement APIs\n\n\n\n\nCreate\n\n\nGet\n\n\n\n\nEvents\n\n\nEvent API\n\n\n\n\nCreate\n\n\nGet\n\n\nList Events\n\n\nList Raw Events", 
+            "title": "Lab 2 - Introduction ReST"
+        }, 
+        {
+            "location": "/labs/lab2/#lab-2-introduction-rest", 
+            "text": "", 
+            "title": "Lab 2 - Introduction ReST"
+        }, 
+        {
+            "location": "/labs/lab2/#overview", 
+            "text": "This lab introduces ReST or  R epresentational  S tate  T ransfer. ReST was defined\nby Roy Thomas Fielding in his 2000 PhD dissertation  Architectural Styles and the Design\nof Network-based Software Architectures  ReST is just a fancy name for protocol you use\neveryday in a web browser called HTTP ( H yper t ext  T ransfer  P rotocol) .  This section provides the essential background to understand how to use the HTTP protocol with\npractical exercises using  curl  command line utility.  The last part of this lab provides a quick overview of the ReST API provided to manipulate:   Metrics  Measures  Events", 
+            "title": "Overview"
+        }, 
+        {
+            "location": "/labs/lab2/#the-http-protocol", 
+            "text": "A logical starting to talk about the HTTP protocol is to talk about the HTTP request methods.\nOne of the most prevalent of these HTTP methods is  GET  which is readily used by a browser", 
+            "title": "The HTTP Protocol"
+        }, 
+        {
+            "location": "/labs/lab2/#uri", 
+            "text": "A  URI  or  U niform  Resource   L ocator is a string of characters used to identify a resource.\nThe most prevalent form of a URI is a  URL  or  U niform  Resource   L ocator usually called a web address . A notated example of URL is shown here:    protocol - For the purpose of this lab either:  HTTP  or  HTTPS , though there are others\nsuch as  FTP .  domain name - Fully qualified domain name or IP address.  resource (or path) - Forward slash delimited string uniquely identifying a resource.  parameter - URL parameter with specific details of a resource.", 
+            "title": "URI"
+        }, 
+        {
+            "location": "/labs/lab2/#headers", 
+            "text": "Headers accompany both  HTTP requests  and  HTTP responses .", 
+            "title": "Headers"
+        }, 
+        {
+            "location": "/labs/lab2/#http-request-header", 
+            "text": "The following are the typical request headers to be encountered for this lab", 
+            "title": "HTTP Request Header"
+        }, 
+        {
+            "location": "/labs/lab2/#authentication", 
+            "text": "This header contains specific authentication data used by the server determine if you\nhave sufficient privilege to execute the request. Typical types of authentication headers\ninclude:  Basic ,  Digest ,  Challenge-Response . For this lab we will only be using Basic.", 
+            "title": "Authentication"
+        }, 
+        {
+            "location": "/labs/lab2/#accept", 
+            "text": "Communicates the clients acceptable contain that it can receive in a response.", 
+            "title": "Accept"
+        }, 
+        {
+            "location": "/labs/lab2/#content-type", 
+            "text": "Indicates to the server the content type included in the clients request, typical values include:   application/x-www-form-urlencoded  application/json  application/xml", 
+            "title": "Content-Type"
+        }, 
+        {
+            "location": "/labs/lab2/#http-response", 
+            "text": "The following are the typical response headers to be encountered for this lab.", 
+            "title": "HTTP Response"
+        }, 
+        {
+            "location": "/labs/lab2/#content-type_1", 
+            "text": "What is contained ion the body of the HTTP response ( text/html ,  application/json ).", 
+            "title": "Content-Type"
+        }, 
+        {
+            "location": "/labs/lab2/#content-length", 
+            "text": "Size of the HTTP response body returned to the client.", 
+            "title": "Content-Length"
+        }, 
+        {
+            "location": "/labs/lab2/#status-codes", 
+            "text": "When HTTP request method ( GET ,  POST ,  PUT ,  DELETE ) is issued to a endpoint the HTTP protocol accounts\nfor returning a status code indicating the result of the request. The Status codes themselves\nare classified by the range of their values:   2XX - Success - The request was received and processed successfully.  3XX - Redirection - The client must must take additional action to complete the request.  4XX - Client Error - The clients request has an error of some type and could not be completed.  5XX - Server Error - The server failed to fulfil a request   For the sake of this lab, and the APIs to be introduced later, the table shows the relevant HTTP status\ncodes we need to be aware of:     Status Code  Description      200 OK  Standard response for successfull requests .    201 CREATED  Port of the Kafka JMX endpoint. Defaults to 9990.    202 ACCEPTED  Username of the Kafka JMX endpoint.    400 BAD REQUEST  The server is unable to process the client request that is in error.    401 UNAUTHORIZED  Authentication is required but was not provided by the client.    404 NOT FOUND  The request resource could not be found.    422 UNPROCESSABLE ENTITY  The request was well-formed but contains a semantic error.    500 INTERNAL SERVER ERROR  A generic error, when unexpected condition was encountered.    503 SERVICE UNAVAILABLE  The server is currently unavailable (overloaded or down for maintenance).    504 GATEWAY TIMEOUT  The server did not receive a timely response from the upstream server.", 
+            "title": "Status Codes"
+        }, 
+        {
+            "location": "/labs/lab2/#json", 
+            "text": "JSON or  Java Script Object Notation  while not specifically\npart of HTTP is a prerequisite for the TrueSight Pulse APIs to be introduced later.  JSON (Not to be confused with  Jason Voorhees \nof the  Friday the 13th  series) is a:   Open Standard Format  Human Readable   The best way to learn JSON is to observe a JSON as shown here:  {\n   firstName :  John ,\n   lastName :  Smith ,\n   isAlive : true,\n   age : 25,\n   address : {\n     streetAddress :  21 2nd Street ,\n     city :  New York ,\n     state :  NY ,\n     postalCode :  10021-3100 \n  },\n   phoneNumbers : [\n    {\n       type :  home ,\n       number :  212 555-1234 \n    },\n    {\n       type :  office ,\n       number :  646 555-4567 \n    },\n    {\n       type :  mobile ,\n       number :  123 456-7890 \n    }\n  ],\n   children : [],\n   spouse : null\n}  Fields are delineated by double quotes( \" ) and can have data types of numbers, strings, and booleans.\nAdditional array of these same data types can be formed. Object structures are created by enclosing\ncommand separate fields between braces ( {  and  } ).", 
+            "title": "JSON"
+        }, 
+        {
+            "location": "/labs/lab2/#using-curl-to-make-rest-calls", 
+            "text": "The  curl  command line utility permits the issuing http(s) request from the command line.\nThe following are examples of its use, which later be used to call the actual APIs.", 
+            "title": "Using curl to make REST calls."
+        }, 
+        {
+            "location": "/labs/lab2/#exercise-2-1-get-request", 
+            "text": "Run the following by cutting or pasting the curl command or run the script:  labs/lab-2/ex2-1.rest.sh  [vagrant@tsi-lab-01 ~]$ curl -X GET -s https://httpbin.org/get \n{\n   args : {}, \n   headers : {\n     Accept :  */* , \n     Host :  httpbin.org , \n     User-Agent :  curl/7.29.0 \n  }, \n   origin :  198.147.195.5 , \n   url :  https://httpbin.org/get \n}", 
+            "title": "Exercise 2-1 GET request"
+        }, 
+        {
+            "location": "/labs/lab2/#exercise-2-2-get-request-with-parameters", 
+            "text": "Run the following cutting or pasting the curl command or run the script:  labs/lab-2/ex2-2.rest.sh  [vagrant@tsi-lab-01 ~]$ curl -X GET -s 'https://httpbin.org/get?foo=bar color=red'\n{\n   args : {\n     color :  red , \n     foo :  bar \n  }, \n   headers : {\n     Accept :  */* , \n     Host :  httpbin.org , \n     User-Agent :  curl/7.29.0 \n  }, \n   origin :  198.147.195.5 , \n   url :  https://httpbin.org/get?foo=bar color=red \n}  In the example above, the parameters are returned in the JSON in the field  args .", 
+            "title": "Exercise 2-2 GET request with parameters"
+        }, 
+        {
+            "location": "/labs/lab2/#exercise-2-3-post-request", 
+            "text": "Run the following by cutting or pasting the curl command or run the script:  labs/lab-2/ex2-3.rest.sh  [vagrant@tsi-lab-01 ~]$ curl -X POST -s https://httpbin.org/post\n{\n   args : {},\n   data :  ,\n   files : {},\n   form : {},\n   headers : {\n     Accept :  */* ,\n     Host :  httpbin.org ,\n     User-Agent :  curl/7.29.0 \n  },\n   json : null,\n   origin :  198.147.195.5 ,\n   url :  https://httpbin.org/post \n}", 
+            "title": "Exercise 2-3 POST request"
+        }, 
+        {
+            "location": "/labs/lab2/#exercise-2-4-post-request-with-a-json-payload", 
+            "text": "[vagrant@tsi-lab-01 ~]$ curl -X POST -s https://httpbin.org/post \\  -H  Content-Type: application/json  \\  -d '{ foo :  bar ,  red : true,  curly : 101}'\n{\n   args : {},\n   data :  {\\ foo\\ : \\ bar\\ , \\ red\\ : true, \\ curly\\ : 101} ,\n   files : {},\n   form : {},\n   headers : {\n     Accept :  */* ,\n     Content-Length :  41 ,\n     Content-Type :  application/json ,\n     Host :  httpbin.org ,\n     User-Agent :  curl/7.29.0 \n  },\n   json : {\n     curly : 101,\n     foo :  bar ,\n     red : true\n  },\n   origin :  198.147.195.5 ,\n   url :  https://httpbin.org/post \n}  In the example above the JSON payload sent in the request is returned in JSON document\nas the field  data .", 
+            "title": "Exercise 2-4 POST request with a JSON payload"
+        }, 
+        {
+            "location": "/labs/lab2/#exercise-2-5-put-request", 
+            "text": "[vagrant@tsi-lab-01 ~]$ curl -X PUT -s https://httpbin.org/put \\  -H  Content-Type: application/json  \\  -d '{ foo :  bar ,  red : true,  curly : 101}'\n{\n   args : {},\n   data :  {\\ foo\\ : \\ bar\\ , \\ red\\ : true, \\ curly\\ : 101} ,\n   files : {},\n   form : {},\n   headers : {\n     Accept :  */* ,\n     Content-Length :  41 ,\n     Content-Type :  application/json ,\n     Host :  httpbin.org ,\n     User-Agent :  curl/7.29.0 \n  },\n   json : {\n     curly : 101,\n     foo :  bar ,\n     red : true\n  },\n   origin :  198.147.195.5 ,\n   url :  https://httpbin.org/put \n}  In the example above the JSON sent in the  PUT  request is returned in the field  data .", 
+            "title": "Exercise 2-5 PUT request"
+        }, 
+        {
+            "location": "/labs/lab2/#exercise-2-6-delete-request", 
+            "text": "[vagrant@tsi-lab-01 ~]$ curl -X DELETE -s https://httpbin.org/delete\n{\n   args : {},\n   data :  ,\n   files : {},\n   form : {},\n   headers : {\n     Accept :  */* ,\n     Host :  httpbin.org ,\n     User-Agent :  curl/7.29.0 \n  },\n   json : null,\n   origin :  198.147.195.5 ,\n   url :  https://httpbin.org/delete \n}", 
+            "title": "Exercise 2-6 DELETE request"
+        }, 
+        {
+            "location": "/labs/lab2/#exercise-2-7-get-request-with-authentication", 
+            "text": "[vagrant@tsi-lab-01 ~]$ curl -X GET -s -u foo:bar 'https://httpbin.org/basic-auth/foo/bar'\n{\n   authenticated : true,\n   user :  foo \n}", 
+            "title": "Exercise 2-7 GET request with authentication"
+        }, 
+        {
+            "location": "/labs/lab2/#exercise-2-8-get-request-that-returns-a-400", 
+            "text": "Status codes are displayed by adding the  -i  argument to curl  [vagrant@tsi-lab-01 ~]$ curl -i -X GET -s https://httpbin.org/status/400\nHTTP/1.1 400 BAD REQUEST\nServer: nginx\nDate: Tue, 12 Apr 2016 20:19:28 GMT\nContent-Type: text/html; charset=utf-8\nContent-Length: 0\nConnection: keep-alive\nAccess-Control-Allow-Origin: *\nAccess-Control-Allow-Credentials: true", 
+            "title": "Exercise 2-8 GET request that returns a 400"
+        }, 
+        {
+            "location": "/labs/lab2/#exercise-2-9-get-request-that-returns-a-401", 
+            "text": "[vagrant@tsi-lab-01 ~]$ curl -X GET -i -u foo:blue 'https://httpbin.org/basic-auth/foo/bar'\nHTTP/1.1 401 UNAUTHORIZED\nServer: nginx\nDate: Tue, 12 Apr 2016 20:23:42 GMT\nContent-Length: 0\nConnection: keep-alive\nAccess-Control-Allow-Origin: *\nWWW-Authenticate: Basic realm= Fake Realm \nAccess-Control-Allow-Credentials: true", 
+            "title": "Exercise 2-9 GET request that returns a 401"
+        }, 
+        {
+            "location": "/labs/lab2/#exercise-2-10-get-request-that-returns-a-422", 
+            "text": "[vagrant@tsi-lab-01 ~]$ curl -i -X GET https://httpbin.org/status/422\nHTTP/1.1 422 UNPROCESSABLE ENTITY\nServer: nginx\nDate: Tue, 12 Apr 2016 20:21:50 GMT\nContent-Type: text/html; charset=utf-8\nContent-Length: 0\nConnection: keep-alive\nAccess-Control-Allow-Origin: *\nAccess-Control-Allow-Credentials: true", 
+            "title": "Exercise 2-10 GET request that returns a 422"
+        }, 
+        {
+            "location": "/labs/lab2/#truesight-pulse-apis", 
+            "text": "This section gives a brief introduction to the APIs to be used in the later labs. Specifically in the\nremainder of the lab you will use the following APIs:   Metric  Measurement  Event", 
+            "title": "TrueSight Pulse APIs"
+        }, 
+        {
+            "location": "/labs/lab2/#metrics-versus-measures", 
+            "text": "Metrics  are the  thing  to be measured like CPU or network traffic. A  measurement  is a specific time\nseries point of a specific metric. For example, the  CPU  metric defines the collection of the CPU\nutilization on a host, and measurement is the specific value (e.g 60%) at a given point in time.", 
+            "title": "Metrics versus Measures"
+        }, 
+        {
+            "location": "/labs/lab2/#metrics", 
+            "text": "A metric is uniquely identified by its name. A metric definition consists of the following fields:   Name - Primary key of the metric  Display Name - Label used in the Web Interface to represent the metric.  Display Name Short - Label is used when representing a metric when space in the Web\nInterface is minimal  Default Aggregate - Defines the aggregate to be displayed in a graph by default. One of:  avg , min ,  max ,  sum .  Default Resolution - Indicator(in milliseconds) of how often measurements can be expected for this metric.  Unit - Unit of measurement for the metric, which is one of:  bytecount ,  duration , number ,  percent .  Type - Used to classify or group like metrics. Typically a device metric, a plugin metric, but\ncan be of any arbitrary string value.", 
+            "title": "Metrics"
+        }, 
+        {
+            "location": "/labs/lab2/#metric-apis", 
+            "text": "Create  Get  Update  Delete", 
+            "title": "Metric APIs"
+        }, 
+        {
+            "location": "/labs/lab2/#measurements", 
+            "text": "Measurements represent the the actual time series data point. A measurement consists of 4 pieces of information:   metric  value  source  timestamp", 
+            "title": "Measurements"
+        }, 
+        {
+            "location": "/labs/lab2/#measurement-apis", 
+            "text": "Create  Get", 
+            "title": "Measurement APIs"
+        }, 
+        {
+            "location": "/labs/lab2/#events", 
+            "text": "", 
+            "title": "Events"
+        }, 
+        {
+            "location": "/labs/lab2/#event-api", 
+            "text": "Create  Get  List Events  List Raw Events", 
+            "title": "Event API"
+        }, 
+        {
+            "location": "/labs/lab3/", 
+            "text": "Lab 3 - Event APIs\n\n\nOverview\n\n\nEvents are notifications of a specific situation that occurs in your environment.\nIn the implementation there are two types of Events that are manipulated with the API:\n\nRaw Events\n, and \nEvents\n. Each of the event types are described in more detail\nin the following sections. \nNOTE:\n The scope of these exercises are limited to generation of events,\nthe querying and extraction of events is not discussed.\n\n\nRaw Events\n\n\nEvery event occurrence is persisted as a \nRaw Event\n and based upon the \nfingerprint\n fields a new \nEvent\n\nwill be created or an existing event will be used to de-duplicate. Raw Events sent using the API\nare the only means by which Events can be created.\n\n\nEvents\n\n\nEvents are stateful in that the accumulate the field values affected by Raw Events.\n\n\nFingerprint Fields\n\n\nAn array of fields of a Raw Event that are used to calculate whether to generate a new event or\nuse an existing event (de-duplication). When fingerprint fields are prefixed with '@', such as\n@title and @message fields, this indicates that the Raw Event title and/or message fiels should\nbe used in the computation of what constitutes a duplicate event. Other fields not adorned with \n@\n\nare references to properties associated with the Raw Event. Each field must have a non-null,\nnon-empty field value with a basic type (string, number, or boolean)\n\n\nProperties\n\n\nProperties\n key/value pairs that provide additional data to a Raw Event and are able to participate in the\nde-duplication of events.\n\n\nSources\n\n\nSources identify the origin of an event and consist of key/value pairs of the following:\n\n\n\n\nRef\n\n\nType\n\n\nName\n\n\nProperties\n\n\n\n\nStatus\n\n\nOptional free-form text that indicates the disposition of the event. Typical values for status are\nthe following:\n\n\n\n\nOPEN\n\n\nCLOSED\n\n\nACKNOWLEDGED\n\n\nOK\n\n\n\n\nSeverity\n\n\nSeverity\n is a free-form text that indicates the quality of the event. A typical set of severities are\nthe following:\n\n\n\n\nINFO\n\n\nWARN\n\n\nERROR\n\n\nCRITICAL\n\n\n\n\nTags\n\n\nTags\n are additional key/value pairs that provide additional classification of an event.\n\n\nManipulating Events using \ncurl\n\n\nIn previous labs we introduced the curl command line utility which permits the generation of HTTP requests\nand receipt of the HTTP response. We are going to use curl to generate a Raw Event and the corresponding\nEvent.\n\n\nThe minimal required fields to generate a raw event consist of:\n\n\n\n\nTitle\n\n\nSource\n\n\nFingerprint Fields\n\n\n\n\nfor this exercise we add two additional fields:\n\n\n\n\nStatus\n\n\nSeverity\n\n\n\n\nThe fields are used to create a JSON document that becomes the payload of the HTTP request:\n\n\n{\n  \ntitle\n: \ntest event\n,\n  \nfingerprintFields\n: [\n@title\n, \n@message\n],\n   \nstatus\n: \nOPEN\n,\n   \n\n   \nsource\n: {\nref\n: \nmyhost\n, \ntype\n: \nhost\n}\n}\n\n\n\n\nThe complete command to generate a Raw Event is listed here:\n\n\ncurl -i \nhttps://$TSP_API_HOST/v1/events\n \\\n-X POST \\\n-u \n$TSP_EMAIL:$TSP_API_TOKEN\n \\\n-H \nContent-Type: application/json\n \\\n-d '{\n       \ntitle\n: \ntest event\n,\n       \nfingerprintFields\n: [\n@title\n, \n@message\n],\n       \nstatus\n: \nOPEN\n,\n       \nsource\n: {\nref\n: \nmyhost\n, \ntype\n: \nhost\n}\n    }'\n\n\n\n\nRun the above command as a script located at \nlabs/lab-2/ex-2-1-events.sh\n\n\nExercise 2-1 - Creating Additional Events Using \ncurl\n\n\n\n\n\n\nUsing the script located at \nlabs/lab-2/ex-2-1-events.sh\n as template create 3 to 5, or more events on\nyour with the following changed content:\n\n\n\n\n\n\n3 with status and severity of your choice\n\n\n\n\n\n\n1 with no severity i.e a change event or an DEV Ops event from chef or puppet\n\nTODO\n Change Event?\n\n\n\n\n\n\nVerify and view the events inside the INSIGHTS page in TSI\n\n\n\n\n\n\nTrueSight Pulse Python API library\n\n\nThe TrueSight Pulse Python API can be used to generate an event with having to knowing\nthe details of generating an HTTP request and handling its response. The API library hides\nthe details behind the Python language. API Library can be used with Python versions 2.7.10 or later.\n\n\nInstalling the Python API library\n\n\nThe Python API can be installed via a PyPi package by running the following command:\n\n\n$ pip install tspapi\n\n\n\n\nDepending on the installation location of your Python you may have to prefix the above instruction with \nsudo\n.\n\n\nNOTE\n: The Vagrant virtual machine already has this library installed so there is no need for this step.\nThe details are provided here so as to be able to install the libraries on other systems.\n\n\nUsing the Python API library\n\n\nTo use the Python API in a program you must import and allocate an \nAPI\n instance with your e-mail, api-token,\nand api endpoint, a snippet of which is shown here:\n\n\nimport tspapi\n\napi = tspapi.API()\n\n\n\n\nCreating an Event with the Python API Library\n\n\nExercise 2-2 Creating Additional Events Using Python", 
+            "title": "Lab 3 - Event APIs"
+        }, 
+        {
+            "location": "/labs/lab3/#lab-3-event-apis", 
+            "text": "", 
+            "title": "Lab 3 - Event APIs"
+        }, 
+        {
+            "location": "/labs/lab3/#overview", 
+            "text": "Events are notifications of a specific situation that occurs in your environment.\nIn the implementation there are two types of Events that are manipulated with the API: Raw Events , and  Events . Each of the event types are described in more detail\nin the following sections.  NOTE:  The scope of these exercises are limited to generation of events,\nthe querying and extraction of events is not discussed.", 
+            "title": "Overview"
+        }, 
+        {
+            "location": "/labs/lab3/#raw-events", 
+            "text": "Every event occurrence is persisted as a  Raw Event  and based upon the  fingerprint  fields a new  Event \nwill be created or an existing event will be used to de-duplicate. Raw Events sent using the API\nare the only means by which Events can be created.", 
+            "title": "Raw Events"
+        }, 
+        {
+            "location": "/labs/lab3/#events", 
+            "text": "Events are stateful in that the accumulate the field values affected by Raw Events.", 
+            "title": "Events"
+        }, 
+        {
+            "location": "/labs/lab3/#fingerprint-fields", 
+            "text": "An array of fields of a Raw Event that are used to calculate whether to generate a new event or\nuse an existing event (de-duplication). When fingerprint fields are prefixed with '@', such as\n@title and @message fields, this indicates that the Raw Event title and/or message fiels should\nbe used in the computation of what constitutes a duplicate event. Other fields not adorned with  @ \nare references to properties associated with the Raw Event. Each field must have a non-null,\nnon-empty field value with a basic type (string, number, or boolean)", 
+            "title": "Fingerprint Fields"
+        }, 
+        {
+            "location": "/labs/lab3/#properties", 
+            "text": "Properties  key/value pairs that provide additional data to a Raw Event and are able to participate in the\nde-duplication of events.", 
+            "title": "Properties"
+        }, 
+        {
+            "location": "/labs/lab3/#sources", 
+            "text": "Sources identify the origin of an event and consist of key/value pairs of the following:   Ref  Type  Name  Properties", 
+            "title": "Sources"
+        }, 
+        {
+            "location": "/labs/lab3/#status", 
+            "text": "Optional free-form text that indicates the disposition of the event. Typical values for status are\nthe following:   OPEN  CLOSED  ACKNOWLEDGED  OK", 
+            "title": "Status"
+        }, 
+        {
+            "location": "/labs/lab3/#severity", 
+            "text": "Severity  is a free-form text that indicates the quality of the event. A typical set of severities are\nthe following:   INFO  WARN  ERROR  CRITICAL", 
+            "title": "Severity"
+        }, 
+        {
+            "location": "/labs/lab3/#tags", 
+            "text": "Tags  are additional key/value pairs that provide additional classification of an event.", 
+            "title": "Tags"
+        }, 
+        {
+            "location": "/labs/lab3/#manipulating-events-using-curl", 
+            "text": "In previous labs we introduced the curl command line utility which permits the generation of HTTP requests\nand receipt of the HTTP response. We are going to use curl to generate a Raw Event and the corresponding\nEvent.  The minimal required fields to generate a raw event consist of:   Title  Source  Fingerprint Fields   for this exercise we add two additional fields:   Status  Severity   The fields are used to create a JSON document that becomes the payload of the HTTP request:  {\n   title :  test event ,\n   fingerprintFields : [ @title ,  @message ],\n    status :  OPEN ,\n    \n    source : { ref :  myhost ,  type :  host }\n}  The complete command to generate a Raw Event is listed here:  curl -i  https://$TSP_API_HOST/v1/events  \\\n-X POST \\\n-u  $TSP_EMAIL:$TSP_API_TOKEN  \\\n-H  Content-Type: application/json  \\\n-d '{\n        title :  test event ,\n        fingerprintFields : [ @title ,  @message ],\n        status :  OPEN ,\n        source : { ref :  myhost ,  type :  host }\n    }'  Run the above command as a script located at  labs/lab-2/ex-2-1-events.sh", 
+            "title": "Manipulating Events using curl"
+        }, 
+        {
+            "location": "/labs/lab3/#exercise-2-1-creating-additional-events-using-curl", 
+            "text": "Using the script located at  labs/lab-2/ex-2-1-events.sh  as template create 3 to 5, or more events on\nyour with the following changed content:    3 with status and severity of your choice    1 with no severity i.e a change event or an DEV Ops event from chef or puppet TODO  Change Event?    Verify and view the events inside the INSIGHTS page in TSI", 
+            "title": "Exercise 2-1 - Creating Additional Events Using curl"
+        }, 
+        {
+            "location": "/labs/lab3/#truesight-pulse-python-api-library", 
+            "text": "The TrueSight Pulse Python API can be used to generate an event with having to knowing\nthe details of generating an HTTP request and handling its response. The API library hides\nthe details behind the Python language. API Library can be used with Python versions 2.7.10 or later.", 
+            "title": "TrueSight Pulse Python API library"
+        }, 
+        {
+            "location": "/labs/lab3/#installing-the-python-api-library", 
+            "text": "The Python API can be installed via a PyPi package by running the following command:  $ pip install tspapi  Depending on the installation location of your Python you may have to prefix the above instruction with  sudo .  NOTE : The Vagrant virtual machine already has this library installed so there is no need for this step.\nThe details are provided here so as to be able to install the libraries on other systems.", 
+            "title": "Installing the Python API library"
+        }, 
+        {
+            "location": "/labs/lab3/#using-the-python-api-library", 
+            "text": "To use the Python API in a program you must import and allocate an  API  instance with your e-mail, api-token,\nand api endpoint, a snippet of which is shown here:  import tspapi\n\napi = tspapi.API()", 
+            "title": "Using the Python API library"
+        }, 
+        {
+            "location": "/labs/lab3/#creating-an-event-with-the-python-api-library", 
+            "text": "", 
+            "title": "Creating an Event with the Python API Library"
+        }, 
+        {
+            "location": "/labs/lab3/#exercise-2-2-creating-additional-events-using-python", 
+            "text": "", 
+            "title": "Exercise 2-2 Creating Additional Events Using Python"
+        }, 
+        {
+            "location": "/labs/lab4/", 
+            "text": "Lab 4 - Metric and Measurement APIs\n\n\nOverview\n\n\nMetric API\n\n\nMeasurement API\n\n\nExample Background\n\n\nMySQL Database\n\n\nDatabase Schema\n\n\nExercise 4-1 Defining Your Metrics\n\n\nExercise 4-2 Extracting Data From The Database Using SQL\n\n\nExercise 4-3 Sending Extracted Data Using Measurement API", 
+            "title": "Lab 4 - Metrics APIs"
+        }, 
+        {
+            "location": "/labs/lab4/#lab-4-metric-and-measurement-apis", 
+            "text": "", 
+            "title": "Lab 4 - Metric and Measurement APIs"
+        }, 
+        {
+            "location": "/labs/lab4/#overview", 
+            "text": "", 
+            "title": "Overview"
+        }, 
+        {
+            "location": "/labs/lab4/#metric-api", 
+            "text": "", 
+            "title": "Metric API"
+        }, 
+        {
+            "location": "/labs/lab4/#measurement-api", 
+            "text": "", 
+            "title": "Measurement API"
+        }, 
+        {
+            "location": "/labs/lab4/#example-background", 
+            "text": "", 
+            "title": "Example Background"
+        }, 
+        {
+            "location": "/labs/lab4/#mysql-database", 
+            "text": "", 
+            "title": "MySQL Database"
+        }, 
+        {
+            "location": "/labs/lab4/#database-schema", 
+            "text": "", 
+            "title": "Database Schema"
+        }, 
+        {
+            "location": "/labs/lab4/#exercise-4-1-defining-your-metrics", 
+            "text": "", 
+            "title": "Exercise 4-1 Defining Your Metrics"
+        }, 
+        {
+            "location": "/labs/lab4/#exercise-4-2-extracting-data-from-the-database-using-sql", 
+            "text": "", 
+            "title": "Exercise 4-2 Extracting Data From The Database Using SQL"
+        }, 
+        {
+            "location": "/labs/lab4/#exercise-4-3-sending-extracted-data-using-measurement-api", 
+            "text": "", 
+            "title": "Exercise 4-3 Sending Extracted Data Using Measurement API"
+        }, 
+        {
+            "location": "/labs/lab5/", 
+            "text": "Lab 5 - Logfile to API\n\n\nOverview\n\n\nThis lab will introduce to parsing an Apache HTTP log to derived measurments that are then sent to\nthe measurement APIs\n\n\nApache Web Server Introduction\n\n\nExercise 5-1 Reading a Static Apache Log File\n\n\nExercise 5-2 Reading the live Apache Log File", 
+            "title": "Lab 5 - Log File to API"
+        }, 
+        {
+            "location": "/labs/lab5/#lab-5-logfile-to-api", 
+            "text": "", 
+            "title": "Lab 5 - Logfile to API"
+        }, 
+        {
+            "location": "/labs/lab5/#overview", 
+            "text": "This lab will introduce to parsing an Apache HTTP log to derived measurments that are then sent to\nthe measurement APIs", 
+            "title": "Overview"
+        }, 
+        {
+            "location": "/labs/lab5/#apache-web-server-introduction", 
+            "text": "", 
+            "title": "Apache Web Server Introduction"
+        }, 
+        {
+            "location": "/labs/lab5/#exercise-5-1-reading-a-static-apache-log-file", 
+            "text": "", 
+            "title": "Exercise 5-1 Reading a Static Apache Log File"
+        }, 
+        {
+            "location": "/labs/lab5/#exercise-5-2-reading-the-live-apache-log-file", 
+            "text": "", 
+            "title": "Exercise 5-2 Reading the live Apache Log File"
+        }, 
+        {
+            "location": "/labs/lab6/", 
+            "text": "Lab 6 - API Integration\n\n\nExercise 6-1 Open Weather Map\n\n\nExercise 6-2 Stocks\n\n\nExercise 6-3 Twitter", 
+            "title": "Lab 6 - API Integration"
+        }, 
+        {
+            "location": "/labs/lab6/#lab-6-api-integration", 
+            "text": "", 
+            "title": "Lab 6 - API Integration"
+        }, 
+        {
+            "location": "/labs/lab6/#exercise-6-1-open-weather-map", 
+            "text": "", 
+            "title": "Exercise 6-1 Open Weather Map"
+        }, 
+        {
+            "location": "/labs/lab6/#exercise-6-2-stocks", 
+            "text": "", 
+            "title": "Exercise 6-2 Stocks"
+        }, 
+        {
+            "location": "/labs/lab6/#exercise-6-3-twitter", 
+            "text": "", 
+            "title": "Exercise 6-3 Twitter"
+        }
+    ]
+}

@@ -7,14 +7,14 @@
         
         
         
-        <link rel="shortcut icon" href="./img/favicon.ico">
+        <link rel="shortcut icon" href="../../img/favicon.ico">
 
-	<title>BMC TrueSight Intelligence</title>
+	<title>Prerequisites - BMC TrueSight Intelligence</title>
 
-        <link href="./css/bootstrap-custom.min.css" rel="stylesheet">
-        <link href="./css/font-awesome-4.0.3.css" rel="stylesheet">
-        <link rel="stylesheet" href="./css/highlight.css">
-        <link href="./css/base.css" rel="stylesheet">
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.0.3.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+        <link href="../../css/base.css" rel="stylesheet">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -41,7 +41,7 @@
             </button>
 
             <!-- Main title -->
-            <a class="navbar-brand" href=".">BMC TrueSight Intelligence</a>
+            <a class="navbar-brand" href="../..">BMC TrueSight Intelligence</a>
         </div>
 
         <!-- Expanded navigation -->
@@ -50,25 +50,25 @@
             <ul class="nav navbar-nav">
             
             
-                <li class="active">
-                    <a href=".">Home</a>
+                <li >
+                    <a href="../..">Home</a>
                 </li>
             
             
             
-                <li class="dropdown">
+                <li class="dropdown active">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Getting Started <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                     
                         
-<li >
-    <a href="getting_started/prerequisites/">Prerequisites</a>
+<li class="active">
+    <a href="./">Prerequisites</a>
 </li>
 
                     
                         
 <li >
-    <a href="getting_started/virtual_machine/">Virtual Machine</a>
+    <a href="../virtual_machine/">Virtual Machine</a>
 </li>
 
                     
@@ -83,37 +83,37 @@
                     
                         
 <li >
-    <a href="labs/lab1/">Lab 1 - Meters and Meter Plugins</a>
+    <a href="../../labs/lab1/">Lab 1 - Meters and Meter Plugins</a>
 </li>
 
                     
                         
 <li >
-    <a href="labs/lab2/">Lab 2 - Introduction ReST</a>
+    <a href="../../labs/lab2/">Lab 2 - Introduction ReST</a>
 </li>
 
                     
                         
 <li >
-    <a href="labs/lab3/">Lab 3 - Event APIs</a>
+    <a href="../../labs/lab3/">Lab 3 - Event APIs</a>
 </li>
 
                     
                         
 <li >
-    <a href="labs/lab4/">Lab 4 - Metrics APIs</a>
+    <a href="../../labs/lab4/">Lab 4 - Metrics APIs</a>
 </li>
 
                     
                         
 <li >
-    <a href="labs/lab5/">Lab 5 - Log File to API</a>
+    <a href="../../labs/lab5/">Lab 5 - Log File to API</a>
 </li>
 
                     
                         
 <li >
-    <a href="labs/lab6/">Lab 6 - API Integration</a>
+    <a href="../../labs/lab6/">Lab 6 - API Integration</a>
 </li>
 
                     
@@ -130,13 +130,13 @@
                         <i class="fa fa-search"></i> Search
                     </a>
                 </li>
-                <li class="disabled">
-                    <a rel="next" >
+                <li >
+                    <a rel="next" href="../..">
                         <i class="fa fa-arrow-left"></i> Previous
                     </a>
                 </li>
                 <li >
-                    <a rel="prev" href="getting_started/prerequisites/">
+                    <a rel="prev" href="../virtual_machine/">
                         Next <i class="fa fa-arrow-right"></i>
                     </a>
                 </li>
@@ -150,55 +150,40 @@
             <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
-        <li class="main active"><a href="#truesight-intelligence-lab">TrueSight Intelligence Lab</a></li>
+        <li class="main active"><a href="#prerequisites">Prerequisites</a></li>
         
-            <li><a href="#virtual-machine">Virtual Machine</a></li>
+            <li><a href="#hardware">Hardware</a></li>
         
-            <li><a href="#labs">Labs</a></li>
+            <li><a href="#software">Software</a></li>
+        
+            <li><a href="#network">Network</a></li>
         
     
     </ul>
 </div></div>
             <div class="col-md-9" role="main">
 
-<h1 id="truesight-intelligence-lab">TrueSight Intelligence Lab</h1>
-<p><strong>version 0.1.0</strong></p>
-<p>Vagrant lab environment for learning about TrueSight Pulse Intelligence.</p>
-<p>Includes:</p>
+<h1 id="prerequisites">Prerequisites</h1>
+<p>This section describes the hardware, software, and network resources required to complete the accompanying
+lab exercises.</p>
+<h2 id="hardware">Hardware</h2>
 <ul>
-<li>Virtual machine environment that includes prerequisite tools for running labs.</li>
-<li>Demonstration scripts for running labs.</li>
-<li>All software dependencies for running demonstration scripts.</li>
+<li>Laptop/Desktop running Mac OS X 10.10.5 or later</li>
+<li>Laptop/Desktop must have at least 8GB ram</li>
+<li>Laptop/Desktop must have at least 2GB of free disk space</li>
 </ul>
-<p><strong>It is imperative that you install the prerequisites on your laptop/desktop BEFORE attempting to
-complete these labs! See <a href="getting_started/prerequisites/">Prerequisites</a> for details.</strong></p>
-<h2 id="virtual-machine">Virtual Machine</h2>
-<p>To avoid having to worry about the numerous dependency differences between Windows, Mac OS X, Unix/Linux,
-we are providing a virtual machine that contains the necessary software tools to complete the lab
-exercises.</p>
-<p>The virtual machine environment is configured using vagrant, so it requires the prerequisites
-listed <a href="gettting_started/prerequisites.md">here</a> for your particular laptop/desktop and operating system.</p>
-<h2 id="labs">Labs</h2>
-<p>Specific labs can be navigated to from the links below or from the <em>Labs</em> menu at the top of the page.</p>
+<h2 id="software">Software</h2>
 <ul>
-<li>
-<p><a href="labs/lab1/">Lab 1 - Meters and Plugins</a></p>
-</li>
-<li>
-<p><a href="labs/lab2/">Lab 2 - Introduction REST</a></p>
-</li>
-<li>
-<p><a href="labs/lab3/">Lab 3 - Event APIs</a></p>
-</li>
-<li>
-<p><a href="labs/lab4/">Lab 4 - Metric/Measurement APIs</a></p>
-</li>
-<li>
-<p><a href="labs/lab5/">Lab 5 - Log File to API</a></p>
-</li>
-<li>
-<p><a href="labs/lab6/">Lab 6 - API Integration</a></p>
-</li>
+<li>Vagrant 1.7.2 or later. Vagrant can be downloaded <a href="https://www.vagrantup.com/downloads.html">here</a></li>
+<li>VirtualBox 4.3.2.6 or later. VirtualBox can be downloaded <a href="https://www.virtualbox.org/wiki/Downloads">here</a></li>
+<li>Chrome Browser latest version. Chrome can be downloaded from <a href="https://www.google.com/chrome/browser/desktop/">here</a></li>
+<li><strong>Optional</strong> Git 2.2 or later. If downloading the virtual machine contents via git. Git can be downloaded <a href="http://git-scm.com/download">here</a></li>
+</ul>
+<p><em>NOTE</em>: Git is optional since you can download the contents of the virtual machine from a zip file.</p>
+<h2 id="network">Network</h2>
+<ul>
+<li>Must have access to the internet so that software components required by the Virtual Machine
+can be downloaded.</li>
 </ul></div>
         </div>
 
@@ -208,12 +193,12 @@ listed <a href="gettting_started/prerequisites.md">here</a> for your particular 
             <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</center>
         </footer>
 
-        <script src="./js/jquery-1.10.2.min.js"></script>
-        <script src="./js/bootstrap-3.0.3.min.js"></script>
-        <script src="./js/highlight.pack.js"></script>
-        <script>var base_url = '.';</script>
-        <script data-main="./mkdocs/js/search.js" src="./mkdocs/js/require.js"></script>
-        <script src="./js/base.js"></script>
+        <script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script>
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
             <div class="modal-dialog">

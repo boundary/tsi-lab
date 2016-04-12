@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+
+	<title>Lab 3 - Event APIs - BMC TrueSight Intelligence</title>
+
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.0.3.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+        <link href="../../css/base.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <!-- Main title -->
+            <a class="navbar-brand" href="../..">BMC TrueSight Intelligence</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            <!-- Main navigation -->
+            <ul class="nav navbar-nav">
+            
+            
+                <li >
+                    <a href="../..">Home</a>
+                </li>
+            
+            
+            
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Getting Started <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        
+<li >
+    <a href="../../getting_started/prerequisites/">Prerequisites</a>
+</li>
+
+                    
+                        
+<li >
+    <a href="../../getting_started/virtual_machine/">Virtual Machine</a>
+</li>
+
+                    
+                    </ul>
+                </li>
+            
+            
+            
+                <li class="dropdown active">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        
+<li >
+    <a href="../lab1/">Lab 1 - Meters and Meter Plugins</a>
+</li>
+
+                    
+                        
+<li >
+    <a href="../lab2/">Lab 2 - Introduction ReST</a>
+</li>
+
+                    
+                        
+<li class="active">
+    <a href="./">Lab 3 - Event APIs</a>
+</li>
+
+                    
+                        
+<li >
+    <a href="../lab4/">Lab 4 - Metrics APIs</a>
+</li>
+
+                    
+                        
+<li >
+    <a href="../lab5/">Lab 5 - Log File to API</a>
+</li>
+
+                    
+                        
+<li >
+    <a href="../lab6/">Lab 6 - API Integration</a>
+</li>
+
+                    
+                    </ul>
+                </li>
+            
+            
+            </ul>
+
+            <!-- Search, Navigation and Repo links -->
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                <li >
+                    <a rel="next" href="../lab2/">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </li>
+                <li >
+                    <a rel="prev" href="../lab4/">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#lab-3-event-apis">Lab 3 - Event APIs</a></li>
+        
+            <li><a href="#overview">Overview</a></li>
+        
+            <li><a href="#manipulating-events-using-curl">Manipulating Events using curl</a></li>
+        
+            <li><a href="#exercise-2-1-creating-additional-events-using-curl">Exercise 2-1 - Creating Additional Events Using curl</a></li>
+        
+            <li><a href="#truesight-pulse-python-api-library">TrueSight Pulse Python API library</a></li>
+        
+            <li><a href="#using-the-python-api-library">Using the Python API library</a></li>
+        
+            <li><a href="#exercise-2-2-creating-additional-events-using-python">Exercise 2-2 Creating Additional Events Using Python</a></li>
+        
+    
+    </ul>
+</div></div>
+            <div class="col-md-9" role="main">
+
+<h1 id="lab-3-event-apis">Lab 3 - Event APIs</h1>
+<h2 id="overview">Overview</h2>
+<p>Events are notifications of a specific situation that occurs in your environment.
+In the implementation there are two types of Events that are manipulated with the API:
+<em>Raw Events</em>, and <em>Events</em>. Each of the event types are described in more detail
+in the following sections. <em>NOTE:</em> The scope of these exercises are limited to generation of events,
+the querying and extraction of events is not discussed.</p>
+<h3 id="raw-events">Raw Events</h3>
+<p>Every event occurrence is persisted as a <em>Raw Event</em> and based upon the <em>fingerprint</em> fields a new <em>Event</em>
+will be created or an existing event will be used to de-duplicate. Raw Events sent using the API
+are the only means by which Events can be created.</p>
+<h3 id="events">Events</h3>
+<p>Events are stateful in that the accumulate the field values affected by Raw Events.</p>
+<h3 id="fingerprint-fields">Fingerprint Fields</h3>
+<p>An array of fields of a Raw Event that are used to calculate whether to generate a new event or
+use an existing event (de-duplication). When fingerprint fields are prefixed with '@', such as
+@title and @message fields, this indicates that the Raw Event title and/or message fiels should
+be used in the computation of what constitutes a duplicate event. Other fields not adorned with <code>@</code>
+are references to properties associated with the Raw Event. Each field must have a non-null,
+non-empty field value with a basic type (string, number, or boolean)</p>
+<h3 id="properties">Properties</h3>
+<p><em>Properties</em> key/value pairs that provide additional data to a Raw Event and are able to participate in the
+de-duplication of events.</p>
+<h3 id="sources">Sources</h3>
+<p>Sources identify the origin of an event and consist of key/value pairs of the following:</p>
+<ul>
+<li>Ref</li>
+<li>Type</li>
+<li>Name</li>
+<li>Properties</li>
+</ul>
+<h3 id="status">Status</h3>
+<p>Optional free-form text that indicates the disposition of the event. Typical values for status are
+the following:</p>
+<ul>
+<li>OPEN</li>
+<li>CLOSED</li>
+<li>ACKNOWLEDGED</li>
+<li>OK</li>
+</ul>
+<h3 id="severity">Severity</h3>
+<p><em>Severity</em> is a free-form text that indicates the quality of the event. A typical set of severities are
+the following:</p>
+<ul>
+<li>INFO</li>
+<li>WARN</li>
+<li>ERROR</li>
+<li>CRITICAL</li>
+</ul>
+<h3 id="tags">Tags</h3>
+<p><em>Tags</em> are additional key/value pairs that provide additional classification of an event.</p>
+<h2 id="manipulating-events-using-curl">Manipulating Events using <code>curl</code></h2>
+<p>In previous labs we introduced the curl command line utility which permits the generation of HTTP requests
+and receipt of the HTTP response. We are going to use curl to generate a Raw Event and the corresponding
+Event.</p>
+<p>The minimal required fields to generate a raw event consist of:</p>
+<ul>
+<li>Title</li>
+<li>Source</li>
+<li>Fingerprint Fields</li>
+</ul>
+<p>for this exercise we add two additional fields:</p>
+<ul>
+<li>Status</li>
+<li>Severity</li>
+</ul>
+<p>The fields are used to create a JSON document that becomes the payload of the HTTP request:</p>
+<pre><code>{
+  &quot;title&quot;: &quot;test event&quot;,
+  &quot;fingerprintFields&quot;: [&quot;@title&quot;, &quot;@message&quot;],
+   &quot;status&quot;: &quot;OPEN&quot;,
+   &quot;
+   &quot;source&quot;: {&quot;ref&quot;: &quot;myhost&quot;, &quot;type&quot;: &quot;host&quot;}
+}
+</code></pre>
+
+<p>The complete command to generate a Raw Event is listed here:</p>
+<pre><code>curl -i &quot;https://$TSP_API_HOST/v1/events&quot; \
+-X POST \
+-u &quot;$TSP_EMAIL:$TSP_API_TOKEN&quot; \
+-H &quot;Content-Type: application/json&quot; \
+-d '{
+       &quot;title&quot;: &quot;test event&quot;,
+       &quot;fingerprintFields&quot;: [&quot;@title&quot;, &quot;@message&quot;],
+       &quot;status&quot;: &quot;OPEN&quot;,
+       &quot;source&quot;: {&quot;ref&quot;: &quot;myhost&quot;, &quot;type&quot;: &quot;host&quot;}
+    }'
+</code></pre>
+
+<p>Run the above command as a script located at <code>labs/lab-2/ex-2-1-events.sh</code></p>
+<h2 id="exercise-2-1-creating-additional-events-using-curl">Exercise 2-1 - Creating Additional Events Using <code>curl</code></h2>
+<ol>
+<li>
+<p>Using the script located at <code>labs/lab-2/ex-2-1-events.sh</code> as template create 3 to 5, or more events on
+your with the following changed content:</p>
+</li>
+<li>
+<p>3 with status and severity of your choice</p>
+</li>
+<li>
+<p>1 with no severity i.e a change event or an DEV Ops event from chef or puppet
+<strong>TODO</strong> Change Event?</p>
+</li>
+<li>
+<p>Verify and view the events inside the INSIGHTS page in TSI</p>
+</li>
+</ol>
+<h2 id="truesight-pulse-python-api-library">TrueSight Pulse Python API library</h2>
+<p>The TrueSight Pulse Python API can be used to generate an event with having to knowing
+the details of generating an HTTP request and handling its response. The API library hides
+the details behind the Python language. API Library can be used with Python versions 2.7.10 or later.</p>
+<h3 id="installing-the-python-api-library">Installing the Python API library</h3>
+<p>The Python API can be installed via a PyPi package by running the following command:</p>
+<pre><code>$ pip install tspapi
+</code></pre>
+
+<p>Depending on the installation location of your Python you may have to prefix the above instruction with <code>sudo</code>.</p>
+<p><em>NOTE</em>: The Vagrant virtual machine already has this library installed so there is no need for this step.
+The details are provided here so as to be able to install the libraries on other systems.</p>
+<h2 id="using-the-python-api-library">Using the Python API library</h2>
+<p>To use the Python API in a program you must import and allocate an <code>API</code> instance with your e-mail, api-token,
+and api endpoint, a snippet of which is shown here:</p>
+<pre><code>import tspapi
+
+api = tspapi.API()
+</code></pre>
+
+<h3 id="creating-an-event-with-the-python-api-library">Creating an Event with the Python API Library</h3>
+<h2 id="exercise-2-2-creating-additional-events-using-python">Exercise 2-2 Creating Additional Events Using Python</h2></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            
+            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</center>
+        </footer>
+
+        <script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script>
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            From here you can search these documents. Enter
+                            your search terms below.
+                        </p>
+                        <form role="form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                            </div>
+                        </form>
+                        <div id="mkdocs-search-results"></div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
