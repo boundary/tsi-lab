@@ -8,7 +8,7 @@ pages:
 #   - Configuring: 'configuration.md'
 - Labs:
    - Lab 1 - Meters and Meter Plugins: 'labs/lab1.md'
-   - Lab 2 - Introduction REST: 'labs/lab2.md'
+   - Lab 2 - Introduction ReST: 'labs/lab2.md'
    - Lab 3 - Event APIs: 'labs/lab3.md'
    - Lab 4 - Metrics APIs: 'labs/lab4.md'
    - Lab 5 - Log File to API: 'labs/lab5.md'
