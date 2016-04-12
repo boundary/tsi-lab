@@ -4,7 +4,7 @@ Lab 4 - Metric and Measurement APIs
 ## Overview
 
 
-### Metrics versus Measures
+
 
 ### Metric API
 
