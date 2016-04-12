@@ -2,7 +2,7 @@ Lab 3 - Event APIs
 ==================
 
 
-## Overview of Events
+## Overview
 
 Events are notifications of a specific situation that occurs in your environment.
 In the implementation there are two types of Events that are manipulated with the API:
@@ -116,7 +116,7 @@ curl -i "https://$TSP_API_HOST/v1/events" \
 
 Run the above command as a script located at `labs/lab-2/ex-2-1-events.sh`
 
-### Exercise 2-1
+## Exercise 2-1 - Creating Additional Events Using `curl`
 
 1. Using the script located at `labs/lab-2/ex-2-1-events.sh` as template create 3 to 5, or more events on
 your with the following changed content:
@@ -160,3 +160,7 @@ api = tspapi.API()
 ```
 
 ### Creating an Event with the Python API Library
+
+## Exercise 2-2 Creating Additional Events Using Python
+
+
