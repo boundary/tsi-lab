@@ -3,6 +3,7 @@ Package {
   allow_virtual => false,
 }
 
+
 # Run comman file for configuration specific
 # to TrueSight Intelligence
 file { 'tsirc':
@@ -115,6 +116,8 @@ package { 'jq':
   require => Package['epel-release'],
 }
 
+class {'apache': }
+
 # Install MySQL for lab exercises that require
 # a database
 class { '::mysql::server':
@@ -142,7 +145,7 @@ mysql::db { 'app':
 
 # System wide cron job that inserts data into the
 # application data base to simulate new data being generated
-cron::job{
+cron::job {
   'db-add':
      minute      => '*',
      hour        => '*',
@@ -153,14 +156,14 @@ cron::job{
      command     => '/home/vagrant/bin/db-add.sh | logger',
 }
 
-#cron::job{
-#  'monitor':
-#     minute      => '*',
-#     hour        => '*',
-#     date        => '*',
-#     month       => '*',
-#     weekday     => '*',
-#     user        => 'vagrant',
-#     command     => '/home/vagrant/bin/monitor.py | logger',
-#     environment => [ "$TSP_EMAIL=$tsp_email","TSP_API_TOKEN=$tsp_api_token", "TSP_API_HOST=$tsi_api_host"  ],
-#}
+cron::job {
+  'one-liners':
+     minute      => '*',
+     hour        => '*',
+     date        => '*',
+     month       => '*',
+     weekday     => '*',
+     user        => 'vagrant',
+     command     => '/home/vagrant/bin/one-liners.py',
+     environment => [],
+}
