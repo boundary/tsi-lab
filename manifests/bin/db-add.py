@@ -8,7 +8,7 @@ user = os.environ['DB_USER']
 password = os.environ['DB_PASSWORD']
 db = os.environ['DB_DATABASE']
 
-syslog.openlog(facility=syslog.LOG_USER)
+syslog.openlog(logoption=syslog.LOG_PID, facility=syslog.LOG_USER)
 syslog.syslog("Inserting new business data into database.")
 
 connection = pymysql.connect(host=host,
