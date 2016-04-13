@@ -2,13 +2,14 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  # boxes at https://atlas.hashicorp.com/search.
+
   config.vm.box = "puppetlabs/centos-7.0-64-puppet"
   config.vm.box_version = "1.0.1"
   config.vm.hostname = "tsi-lab-01"
 
 
   config.vm.synced_folder "manifests/templates", "/tmp/vagrant-puppet/templates"
+  config.vm.synced_folder "labs", "/home/vagrant/labs"
 
   # config.vm.network "forwarded_port", guest: 80, host: 8080
 
@@ -21,7 +22,6 @@ Vagrant.configure(2) do |config|
   # your network.
   # config.vm.network "public_network"
 
-  # config.vm.synced_folder "../data", "/vagrant_data"
 
   # config.vm.provider "virtualbox" do |vb|
   #   # Display the VirtualBox GUI when booting the machine
@@ -49,6 +49,9 @@ Vagrant.configure(2) do |config|
       puppet.manifest_file  = "site.pp"
       puppet.options = ["--templatedir","/tmp/vagrant-puppet/templates"]
       puppet.facter = {
+          "tsi_email" => ENV["TSI_EMAIL"],
+          "tsi_api_token" => ENV["TSI_API_TOKEN"],
+          "tsi_api_host" => ENV["TSI_API_HOST"],
           "tsp_email" => ENV["TSP_EMAIL"],
           "tsp_api_token" => ENV["TSP_API_TOKEN"],
           "tsp_api_host" => ENV["TSP_API_HOST"],

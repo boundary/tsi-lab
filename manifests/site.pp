@@ -3,18 +3,39 @@ Package {
   allow_virtual => false,
 }
 
+# Run comman file for configuration specific
+# to TrueSight Intelligence
+file { 'tsirc':
+  path    => '/home/vagrant/.tsi',
+  ensure  => file,
+  content => template('tsirc.erb'),
+}
+
+# Run comman file for configuration specific
+# to TrueSight Pulse
 file { 'tsprc':
   path    => '/home/vagrant/.tsp',
   ensure  => file,
   content => template('tsprc.erb'),
 }
 
+# Create a bin directory to put local
+# executables and scripts that are
+# required to be in the PATH variabl
 file { 'bin':
    path => '/home/vagrant/bin',
    source => '/vagrant/manifests/bin',
    recurse => true,
 }
 
+# Directory for lab exercises
+#file { 'labs':
+#   path => '/home/vagrant/labs',
+#   source => '/vagrant/manifests/labs',
+#   recurse => true,
+#}
+
+# Bash shell configuration
 file { 'bash_profile':
   path    => '/home/vagrant/.bash_profile',
   ensure  => file,
@@ -53,8 +74,18 @@ package { 'python-pip':
   require => Package['epel-release'],
 }
 
+package { 'vim-enhanced':
+  ensure => 'installed',
+  require => Package['epel-release'],
+}
+
 exec { 'python-petl':
    command => '/usr/bin/pip install petl',
+   require => Package['python-pip'],
+}
+
+exec { 'ipython':
+   command => '/usr/bin/pip install ipython',
    require => Package['python-pip'],
 }
 
@@ -78,21 +109,28 @@ exec { 'python-security':
    require => Package['python-pip'],
 }
 
+# Utility for pretty printing and querying JSON documents
 package { 'jq':
   ensure => 'installed',
   require => Package['epel-release'],
 }
 
+# Install MySQL for lab exercises that require
+# a database
 class { '::mysql::server':
   root_password => 'root123',
 }
 
+# Create a monitor user if we want to install
+# the TrueSight Pulse MySQL Plugin
 class { '::mysql::server::monitor':
   mysql_monitor_username => 'monitor',
   mysql_monitor_password => 'monitor123',
   mysql_monitor_hostname => '127.0.0.1',
 }
 
+# Create a database for storing our application
+# schema for lab exercises
 mysql::db { 'app':
   user     => 'admin',
   password => 'admin123',
@@ -102,6 +140,8 @@ mysql::db { 'app':
   import_timeout => 900,
 }
 
+# System wide cron job that inserts data into the
+# application data base to simulate new data being generated
 cron::job{
   'db-add':
      minute      => '*',
@@ -113,14 +153,14 @@ cron::job{
      command     => '/home/vagrant/bin/db-add.sh | logger',
 }
 
-cron::job{
-  'monitor':
-     minute      => '*',
-     hour        => '*',
-     date        => '*',
-     month       => '*',
-     weekday     => '*',
-     user        => 'vagrant',
-     command     => '/home/vagrant/bin/monitor.py | logger',
-     environment => [ "$TSP_EMAIL=$tsp_email","TSP_API_TOKEN=$tsp_api_token", "TSP_API_HOST=$tsi_api_host"  ],
-}
+#cron::job{
+#  'monitor':
+#     minute      => '*',
+#     hour        => '*',
+#     date        => '*',
+#     month       => '*',
+#     weekday     => '*',
+#     user        => 'vagrant',
+#     command     => '/home/vagrant/bin/monitor.py | logger',
+#     environment => [ "$TSP_EMAIL=$tsp_email","TSP_API_TOKEN=$tsp_api_token", "TSP_API_HOST=$tsi_api_host"  ],
+#}
