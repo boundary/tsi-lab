@@ -14,14 +14,16 @@ the measurement APIs
 ## Exercise 5-1 - Parsing an Apache Log File
 
 1. Change directory to `labs/lab-5`
-```
-$ cd labs/lab-5
-```
+
+     ```
+     $ cd labs/lab-5
+     ```
 
 2. Run the following command:
-```
-$ ex5-1.log.py access_log
-```
+
+     ```
+    $ ex5-1.log.py access_log
+     ```
 
 ## Exercise 5-2 - Reading the live Apache Log File
 
