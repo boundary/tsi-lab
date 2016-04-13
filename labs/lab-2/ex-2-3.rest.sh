@@ -1,3 +1,3 @@
 #!/bin/bash
 
-curl -X POST -s https://httpbin.org/post 
+curl -X POST -s "https://httpbin.org/post"
