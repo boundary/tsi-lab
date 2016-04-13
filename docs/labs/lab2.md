@@ -161,15 +161,15 @@ The following are examples of its use, which later be used to call the actual AP
 Run the following by cutting or pasting the curl command or run the script: `labs/lab-2/ex2-1.rest.sh`
 
 ```
-[vagrant@tsi-lab-01 ~]$ curl -X GET -s https://httpbin.org/get 
+[vagrant@tsi-lab-01 ~]$ curl -X GET -s https://httpbin.org/get
 {
-  "args": {}, 
+  "args": {},
   "headers": {
-    "Accept": "*/*", 
-    "Host": "httpbin.org", 
+    "Accept": "*/*",
+    "Host": "httpbin.org",
     "User-Agent": "curl/7.29.0"
-  }, 
-  "origin": "198.147.195.5", 
+  },
+  "origin": "198.147.195.5",
   "url": "https://httpbin.org/get"
 }
 ```
@@ -182,15 +182,15 @@ Run the following cutting or pasting the curl command or run the script: `labs/l
 [vagrant@tsi-lab-01 ~]$ curl -X GET -s 'https://httpbin.org/get?foo=bar&color=red'
 {
   "args": {
-    "color": "red", 
+    "color": "red",
     "foo": "bar"
-  }, 
+  },
   "headers": {
-    "Accept": "*/*", 
-    "Host": "httpbin.org", 
+    "Accept": "*/*",
+    "Host": "httpbin.org",
     "User-Agent": "curl/7.29.0"
-  }, 
-  "origin": "198.147.195.5", 
+  },
+  "origin": "198.147.195.5",
   "url": "https://httpbin.org/get?foo=bar&color=red"
 }
 ```
@@ -414,5 +414,3 @@ Measurements represent the the actual time series data point. A measurement cons
 - Get
 - List Events
 - List Raw Events
-
-
