@@ -168,13 +168,13 @@ You should see output similar to this:
 
 ```
 {
-  "args": {}, 
+  "args": {},
   "headers": {
-    "Accept": "*/*", 
-    "Host": "httpbin.org", 
+    "Accept": "*/*",
+    "Host": "httpbin.org",
     "User-Agent": "curl/7.29.0"
-  }, 
-  "origin": "198.147.195.5", 
+  },
+  "origin": "198.147.195.5",
   "url": "https://httpbin.org/get"
 }
 ```
@@ -191,15 +191,15 @@ You should see output similar to this:
 ```
 {
   "args": {
-    "color": "red", 
+    "color": "red",
     "foo": "bar"
-  }, 
+  },
   "headers": {
-    "Accept": "*/*", 
-    "Host": "httpbin.org", 
+    "Accept": "*/*",
+    "Host": "httpbin.org",
     "User-Agent": "curl/7.29.0"
-  }, 
-  "origin": "198.147.195.5", 
+  },
+  "origin": "198.147.195.5",
   "url": "https://httpbin.org/get?foo=bar&color=red"
 }
 ```
@@ -460,5 +460,3 @@ Measurements represent the the actual time series data point. A measurement cons
 - Get
 - List Events
 - List Raw Events
-
-

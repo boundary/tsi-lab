@@ -6,4 +6,4 @@ To get access to an instance of TrueSight Pulse and Intelligence please click on
 [https://truesight-staging.bmc.com/signup/intelligence/](https://truesight-staging.bmc.com/signup/intelligence/)
 
 
-
+Click Next (upper right) when completed with registration and have logged in successfully.

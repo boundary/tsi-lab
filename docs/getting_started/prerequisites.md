@@ -25,3 +25,7 @@ _NOTE_: Git is optional since you can download the contents of the virtual machi
 
 - Must have access to the internet so that software components required by the Virtual Machine
 can be downloaded.
+
+
+
+Click Next (upper right) when completed with download and installation of all components on this page.
