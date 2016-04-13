@@ -105,6 +105,11 @@ exec { 'python-boundary-cli':
    require => Package['python-pip'],
 }
 
+exec { 'ystockquote':
+   command => '/usr/bin/pip install ystockquote',
+   require => Package['python-pip'],
+}
+
 exec { 'python-security':
    command => '/usr/bin/pip install requests[security]',
    require => Package['python-pip'],
