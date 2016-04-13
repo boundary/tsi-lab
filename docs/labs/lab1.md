@@ -65,7 +65,7 @@ The meter has been installed successfully!
 in this configuration snippet:
 ```
     "properties":{
-      "application_id": "FOOBAR"
+      "application_id": "<your application id here>"
     },
 ```
 2. Restart the meter to have the change take affect:

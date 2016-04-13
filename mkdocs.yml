@@ -4,6 +4,7 @@ pages:
 - Home: index.md
 - Getting Started:
    - Prerequisites: 'getting_started/prerequisites.md'
+   - Sign-Up: 'getting_started/signup.md'
    - Virtual Machine: 'getting_started/virtual_machine.md'
 - Labs:
    - Lab 1 - Meters and Meter Plugins: 'labs/lab1.md'
