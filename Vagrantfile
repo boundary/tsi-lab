@@ -11,7 +11,7 @@ Vagrant.configure(2) do |config|
   config.vm.synced_folder "manifests/templates", "/tmp/vagrant-puppet/templates"
   config.vm.synced_folder "labs", "/home/vagrant/labs"
 
-  # config.vm.network "forwarded_port", guest: 80, host: 8080
+  config.vm.network "forwarded_port", guest: 80, host: 8181
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -37,6 +37,7 @@ Vagrant.configure(2) do |config|
   #
   config.vm.provision :shell do |shell|
       shell.inline = "puppet module install puppetlabs-stdlib;
+                      puppet module install puppetlabs-concat;
                       puppet module install torrancew-cron;
                       puppet module install puppetlabs-mysql;
                       puppet module install puppetlabs-apache;
