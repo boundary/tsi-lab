@@ -1,6 +1,6 @@
 TrueSight Intelligence Lab
 ==========================
-__version 0.1.0__
+__version 0.1.1__
 
 Virtual machine lab environment for learning about TrueSight Pulse Intelligence.
 
