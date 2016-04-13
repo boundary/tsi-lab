@@ -93,7 +93,7 @@ codes we need to be aware of:
 |:--------------------------|:-------------------------------------------------------------------------|
 | 200 OK                    | Standard response for successfull requests .                             |
 | 201 CREATED               | Port of the Kafka JMX endpoint. Defaults to 9990.                        |
-| 202 ACCEPTED              | Username of the Kafka JMX endpoint.                                      |
+| 202 ACCEPTED              | The request has been accepted for processing, but the processing has not been completed.                                      |
 | 400 BAD REQUEST           | The server is unable to process the client request that is in error.     |
 | 401 UNAUTHORIZED          | Authentication is required but was not provided by the client.           |
 | 404 NOT FOUND             | The request resource could not be found.                                 |
@@ -105,7 +105,7 @@ codes we need to be aware of:
 ### JSON
 
 JSON or [Java Script Object Notation](https://en.wikipedia.org/wiki/JSON) while not specifically
-part of HTTP is a prerequisite for the TrueSight Pulse APIs to be introduced later.
+part of HTTP is a prerequisite for the TrueSight Intelligence APIs to be introduced later.
 
 JSON (Not to be confused with [Jason Voorhees](https://en.wikipedia.org/wiki/Jason_Voorhees)
 of the [Friday the 13th](https://en.wikipedia.org/wiki/Friday_the_13th_(franchise)) series) is a:
@@ -241,8 +241,8 @@ You should see output similar to this:
 
 ```
 [vagrant@tsi-lab-01 ~]$ curl -X POST -s https://httpbin.org/post \
-> -H "Content-Type: application/json" \
-> -d '{"foo": "bar", "red": true, "curly": 101}'
+-H "Content-Type: application/json" \
+-d '{"foo": "bar", "red": true, "curly": 101}'
 ```
 
 You should see output similar to this:
@@ -276,8 +276,8 @@ as the field _data_.
 
 ```
 [vagrant@tsi-lab-01 ~]$ curl -X PUT -s https://httpbin.org/put \
-> -H "Content-Type: application/json" \
-> -d '{"foo": "bar", "red": true, "curly": 101}'
+-H "Content-Type: application/json" \
+-d '{"foo": "bar", "red": true, "curly": 101}'
 ```
 
 You should see output similar to this:
@@ -404,7 +404,7 @@ Access-Control-Allow-Origin: *
 Access-Control-Allow-Credentials: true
 ```
 
-## TrueSight Pulse APIs
+## TrueSight Intelligence APIs
 
 This section gives a brief introduction to the APIs to be used in the later labs. Specifically in the
 remainder of the lab you will use the following APIs:

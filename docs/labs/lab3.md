@@ -116,9 +116,9 @@ curl -i "https://$TSP_API_HOST/v1/events" \
 
 Run the above command as a script located at `labs/lab-2/ex-2-1-events.sh`
 
-## Exercise 2-1 - Creating Additional Events Using `curl`
+## Exercise 3-1 - Creating Additional Events Using `curl`
 
-1. Using the script located at `labs/lab-2/ex-2-1-events.sh` as template create 3 to 5, or more events on
+1. Using the script located at `labs/lab-3/ex-3-1-events.sh` as template create 3 to 5, or more events on
 your with the following changed content:
 
 - 3 with status and severity of your choice
@@ -175,5 +175,3 @@ api.event_create(title='Hello World',source=source, fingerprint_fields=['@title]
 ## Exercise 2-2 - Creating Additional Events Using Python
 
 Using `labs`
-
-
