@@ -162,6 +162,14 @@ Run the following by cutting or pasting the curl command or run the script: `lab
 
 ```
 [vagrant@tsi-lab-01 ~]$ curl -X GET -s https://httpbin.org/get
+<<<<<<< HEAD
+=======
+```
+
+You should see output similar to this:
+
+```
+>>>>>>> boundary/master
 {
   "args": {},
   "headers": {
@@ -180,6 +188,10 @@ Run the following cutting or pasting the curl command or run the script: `labs/l
 
 ```
 [vagrant@tsi-lab-01 ~]$ curl -X GET -s 'https://httpbin.org/get?foo=bar&color=red'
+```
+
+You should see output similar to this:
+```
 {
   "args": {
     "color": "red",
@@ -203,6 +215,11 @@ Run the following by cutting or pasting the curl command or run the script: `lab
 
 ```
 [vagrant@tsi-lab-01 ~]$ curl -X POST -s https://httpbin.org/post
+```
+
+You should see output similar to this:
+
+```
 {
   "args": {},
   "data": "",
@@ -226,6 +243,10 @@ Run the following by cutting or pasting the curl command or run the script: `lab
 [vagrant@tsi-lab-01 ~]$ curl -X POST -s https://httpbin.org/post \
 > -H "Content-Type: application/json" \
 > -d '{"foo": "bar", "red": true, "curly": 101}'
+```
+
+You should see output similar to this:
+```
 {
   "args": {},
   "data": "{\"foo\": \"bar\", \"red\": true, \"curly\": 101}",
@@ -257,6 +278,11 @@ as the field _data_.
 [vagrant@tsi-lab-01 ~]$ curl -X PUT -s https://httpbin.org/put \
 > -H "Content-Type: application/json" \
 > -d '{"foo": "bar", "red": true, "curly": 101}'
+```
+
+You should see output similar to this:
+
+```
 {
   "args": {},
   "data": "{\"foo\": \"bar\", \"red\": true, \"curly\": 101}",
@@ -285,6 +311,11 @@ In the example above the JSON sent in the `PUT` request is returned in the field
 
 ```
 [vagrant@tsi-lab-01 ~]$ curl -X DELETE -s https://httpbin.org/delete
+```
+
+You should see output similar to this:
+
+```
 {
   "args": {},
   "data": "",
@@ -305,6 +336,11 @@ In the example above the JSON sent in the `PUT` request is returned in the field
 
 ```
 [vagrant@tsi-lab-01 ~]$ curl -X GET -s -u foo:bar 'https://httpbin.org/basic-auth/foo/bar'
+```
+
+You should see output similar to this:
+
+```
 {
   "authenticated": true,
   "user": "foo"
@@ -315,8 +351,13 @@ In the example above the JSON sent in the `PUT` request is returned in the field
 
 Status codes are displayed by adding the `-i` argument to curl
 
-````
+```
 [vagrant@tsi-lab-01 ~]$ curl -i -X GET -s https://httpbin.org/status/400
+```
+
+You should see output similar to this:
+
+```
 HTTP/1.1 400 BAD REQUEST
 Server: nginx
 Date: Tue, 12 Apr 2016 20:19:28 GMT
@@ -325,12 +366,16 @@ Content-Length: 0
 Connection: keep-alive
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Credentials: true
-````
+```
 
 ### Exercise 2-9 `GET` request that returns a `401`
 
-````
+```
 [vagrant@tsi-lab-01 ~]$ curl -X GET -i -u foo:blue 'https://httpbin.org/basic-auth/foo/bar'
+```
+
+You should see output similar to this:
+```
 HTTP/1.1 401 UNAUTHORIZED
 Server: nginx
 Date: Tue, 12 Apr 2016 20:23:42 GMT
@@ -339,12 +384,16 @@ Connection: keep-alive
 Access-Control-Allow-Origin: *
 WWW-Authenticate: Basic realm="Fake Realm"
 Access-Control-Allow-Credentials: true
-````
+```
 
 ### Exercise 2-10 `GET` request that returns a `422`
 
-````
+```
 [vagrant@tsi-lab-01 ~]$ curl -i -X GET https://httpbin.org/status/422
+```
+You should see output similar to this:
+
+```
 HTTP/1.1 422 UNPROCESSABLE ENTITY
 Server: nginx
 Date: Tue, 12 Apr 2016 20:21:50 GMT
@@ -353,7 +402,7 @@ Content-Length: 0
 Connection: keep-alive
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Credentials: true
-````
+```
 
 ## TrueSight Pulse APIs
 
