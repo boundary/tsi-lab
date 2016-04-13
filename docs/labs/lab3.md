@@ -128,7 +128,7 @@ __TODO__ Change Event?
 2. Verify and view the events inside the INSIGHTS page in TSI
 
 
-## TrueSight Pulse Python API library
+### TrueSight Pulse Python API library
 
 The TrueSight Pulse Python API can be used to generate an event with having to knowing
 the details of generating an HTTP request and handling its response. The API library hides
@@ -148,7 +148,7 @@ Depending on the installation location of your Python you may have to prefix the
 _NOTE_: The Vagrant virtual machine already has this library installed so there is no need for this step.
 The details are provided here so as to be able to install the libraries on other systems.
 
-## Using the Python API library
+### Using the Python API library
 
 To use the Python API in a program you must import and allocate an `API` instance with your e-mail, api-token,
 and api endpoint, a snippet of which is shown here:
@@ -156,11 +156,24 @@ and api endpoint, a snippet of which is shown here:
 ```
 import tspapi
 
+# Allocate an instance of API
 api = tspapi.API()
 ```
 
 ### Creating an Event with the Python API Library
 
-## Exercise 2-2 Creating Additional Events Using Python
+With an instance of an `API` you can now create an event:
+
+```
+# Create a source instance to identify the orign of the event
+source = Source(ref='myhost', _type='host')
+
+# Create an event instance
+api.event_create(title='Hello World',source=source, fingerprint_fields=['@title])
+```
+
+## Exercise 2-2 - Creating Additional Events Using Python
+
+Using `labs`
 
 
