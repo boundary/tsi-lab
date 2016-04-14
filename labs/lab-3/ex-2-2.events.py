@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-
 import tspapi
 
 api = tspapi.API()
