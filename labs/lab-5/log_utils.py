@@ -15,6 +15,7 @@
 # limitations under the License.
 #
 import apachelog
+import os
 import sys
 import time
 
@@ -61,3 +62,29 @@ def parse_apache_line(parser, line):
     except apachelog.ApacheLogParserError:
         sys.stderr.write("Unable to parse %s" % line)
     return s
+
+
+class LogfileParser(object):
+    def __init__(self, path):
+        """
+        Constructs a Logfile parser instance given a path to a log file
+        :param path:
+        :return:
+        """
+        # Opened handle to our log file
+        self.log_file = open(path, "r")
+
+    def monitor_file(self):
+        lines = monitor_file(self.log_file)
+        for line in lines:
+            self.parse_line(line.strip())
+
+    def parse_line(self, line):
+        print(line)
+
+if __name__ == '__main__':
+    if len(sys.argv) == 2:
+        parser = LogfileParser()
+        parser.monitor_file()
+    else:
+        sys.stderr.write("usage: {0} <path>".format(os.path.baseline(sys.argv[0])))
