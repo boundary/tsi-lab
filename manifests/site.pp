@@ -169,6 +169,6 @@ cron::job {
      month       => '*',
      weekday     => '*',
      user        => 'vagrant',
-     command     => '/home/vagrant/bin/one-liners.py',
+     command     => '/home/vagrant/bin/one-liners.py 2>&1 > /dev/null',
      environment => [],
 }
