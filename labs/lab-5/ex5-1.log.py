@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 #
 # Copyright 2016 BMC Software, Inc.
 #
@@ -14,26 +14,46 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-import apachelog
+import os
 import sys
+import time
 
-# %b - Size
-# %h - Remote IP or Host
-# %l - Remote Log Name
-# %r - Request
-# %>s - HTTP Status Code
-# %t - eventTime
-# %u - Remote User
-# %{Referer}i - Referer
-# %{User-agent}i - UserAgent
 
-log_format = r'%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}\i"'
-p = apachelog.parser(log_format)
+def follow(f):
+    """
+    Reads a line from a file when available
+    :param f: open file
+    :return: a line from the file
+    """
+    # Go to the end of the file
+    f.seek(0, 2)
 
-for line in open('/var/log/httpd/access_log'):
-    try:
-        s = p.parse(line)
-        print("host: {0}, time: {1}, request: {2}, status: {3}, size: {4}, referer: {5}, agent: {6}".format(
-                s['%h'], s['%t'], s['%r'], s['%>s'], s['%b'], s['%{Referer}i'], s['%{User-Agent}\\i"']))
-    except apachelog.ApacheLogParserError:
-        sys.stderr.write("Unable to parse %s" % line)
+    # Loop waiting for lines to be written
+    while True:
+        log_line = f.readline()
+        # If there is nothing to read then wait a bit
+        # and try again
+        if not log_line:
+            time.sleep(0.1)
+            continue
+        # We have a line return the line
+        yield log_line
+
+
+if __name__ == '__main__':
+    # We are expecting two arguments
+    #  The first is the name of the script
+    #  The second is a path to a log file
+    if len(sys.argv) == 2:
+        # Open our file for reading
+        log_file = open(sys.argv[1], "r")
+        # Create our iterable function
+        log_lines = follow(log_file)
+        # Process the lines as they are appended
+        for line in log_lines:
+            # Strip out the new line an print the line
+            print("{0}".format(line.strip()))
+    else:
+        # Incorrect number of arguments
+        # Output usage to standard out
+        sys.stderr.write("usage: {0} <path>\n".format(os.path.basename(sys.argv[0])))
