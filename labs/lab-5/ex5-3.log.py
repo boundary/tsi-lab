@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#/usr/bin/python
 #
 # Copyright 2016 BMC Software, Inc.
 #
@@ -15,21 +15,15 @@
 # limitations under the License.
 #
 import apachelog
+from log_utils import LogfileParser
 
 
-class ApacheLogfileParser(object):
+class ApacheLogfileParser(LogfileParser):
 
-    def __init__(self, path):
-        self.path = path
-        self.file = None
+    def __init(self):
 
-    def tail_file(self):
-        pass
-
-    def run(self):
-        pass
 
 
 if __name__ == '__main__':
-    parser = ApacheLogfileParser()
-    parser.run()
+    parser =LogfileParser()
+    parser.monitor_file()
