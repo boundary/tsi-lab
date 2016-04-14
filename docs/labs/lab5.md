@@ -3,7 +3,7 @@ Lab 5 - Logfile to API
 
 ## Overview
 
-This lab will introduce to parsing an Apache HTTP log to extract measurements that are then sent to
+This lab will introduce to parsing an Apache HTTP server log to extract measurements that are then sent to
 the measurement APIs
 
 
@@ -26,7 +26,7 @@ To extract useful content from the log file at we need to perform the following:
 3. Extract the content of interest by filtering and searching each line or record.
 4. Send the extract content to TrueSight Intelligence using the Measurement API.
 
-## Background for _Exercise 5-1 Monitoring a Logfile_
+## Introduction to _Exercise 5-1 Monitoring a Logfile_
 
 A useful unix utility [`tail`](https://en.wikipedia.org/wiki/Tail_(Unix)) permits the monitoring of a log
 file and outputs new lines or records as they are written to the file. An example of using this utility is shown
@@ -83,6 +83,7 @@ if you want to have a deep understanding of how this works take a look at this
 
 Okay, onward to run some examples of what we just learned.
 
+
 ## Exercise 5-1 - Monitoring A Log File
 
 Is this exercise we will run a complete script that opens a file named on the command line
@@ -115,6 +116,43 @@ Apr 14 20:50:31 localhost one-liners.py[26992]: The quickest way to a man's hear
 If you feeling curious (like the monkey named [George](https://en.wikipedia.org/wiki/Curious_George))
 take a gander at the complete script `~/labs/lab-5/ex-5-1.log.py`.
 
+## Introduction to _Exercise 5-2 Parsing an Apache `access_log`_
+
+One of the beauties of Python is there is a heck of a lot of code out there already written for us
+that we can leverage in our own scripts. For this lab we want to show how to parse an Apache HTTP server
+log file, but who wants to write the parser, we didn't. A quick search of the internet (The thing invented
+by former senator and vice president [Al Gore](https://en.wikipedia.org/wiki/Information_superhighway)) yielded
+a suitable Python package ripe for the picking: `apachelog`. Using
+[`pip`](https://en.wikipedia.org/wiki/Pip_(package_manager)) we can install this package by the following:
+
+```
+$ pip install apachelog
+```
+
+_NOTE_: No needed to run this we have already installed this in the virtual machine, but thought
+you might want to know for that pet log parsing project down the road.
+
+With our new best friend/package parsing an Apache HTTP server log is now trivial. Here you go, a
+quick Python snippet that shows you how easy it is:
+
+```
+import apachelog
+
+log_format = r'%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}\i"'
+p = apachelog.parser(log_format)
+parsed = p.parse(line)
+```
+
+In the above snippet the `parsed` variable contains a Python dictionary with the parsed out log entry with
+the format spelled out in `log_format`. Cool Huh? Here is an example value of what the `parsed` values contents:
+
+```
+{'%l': '-', '%>s': '200', '%h': '::1', '%b': '481', '%{Referer}i': 'www.bmc.com', '%{User-Agent}\\i"': 'curl/7.29.0', '%u': '-', '%t': '[13/Apr/2016:05:25:25 +0000]', '%r': 'GET / HTTP/1.1'}
+```
+
+Let's proceed to the exercise.
+
+
 ## Exercise 5-2 - Parsing an Apache `access_log`
 
 1. Change directory to `labs/lab-5`
@@ -123,7 +161,7 @@ take a gander at the complete script `~/labs/lab-5/ex-5-1.log.py`.
      [vagrant@tsi-lab-01 ~]$ cd labs/lab-5/
      ```
 
-2. Run the following command:
+2. Run the following command with sample `access_log` provide:
 
     ```
     vagrant@tsi-lab-01 lab-5]$ ./ex5-2.log.py access_log
@@ -139,6 +177,12 @@ which displays the following output:
     host: ::1, time: [13/Apr/2016:03:26:30 +0000], request: GET /favicon.ico HTTP/1.1,  ...
     host: ::1, time: [13/Apr/2016:05:24:35 +0000], request: GET / HTTP/1.0, status: 200 ...
     host: ::1, time: [13/Apr/2016:05:25:25 +0000], request: GET / HTTP/1.1, status: 200 ...
+
+Look at the script `~/labs/lab-5/ex5-2.log.py` in its entirety to understand how it works.
+
+## Introduction to _Exercise 5-3 - Reading live Apache Log Files and Sending Measurements_
+
+Okay, last stop in the log file saga.
 
 ## Exercise 5-3 - Reading live Apache Log Files and Sending Measurements
 
