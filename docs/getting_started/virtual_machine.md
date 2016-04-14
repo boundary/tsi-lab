@@ -53,6 +53,18 @@ to configure your environment as previously mentioned.
 $ TSP_EMAIL="<email>" TSP_API_TOKEN="<api key>" TSP_API_HOST="api.truesight-staging.bmc.com" vagrant up
 ```
 
+### Checking Credentials of your Virtual Machine
+
+Run the following command immediately after the command above to verify the settings took.
+```
+$ cred
+
+Sample Output:
+TSP_EMAIL=rknaub@gmail.com
+TSP_API_HOST=api.truesight-staging.bmc.com
+TSP_API_TOKEN=fbecec7a-b0f7-40c4-a4cb-ec09b3b6b7cb
+```
+
 ### Stopping a Virtual Machine
 
 Run the following command before shutting down you laptop/desktop.

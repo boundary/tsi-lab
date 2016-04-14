@@ -78,7 +78,8 @@ Size of the HTTP response body returned to the client.
 ### Status Codes
 
 When HTTP request method (`GET`, `POST`, `PUT`, `DELETE`) is issued to a endpoint the HTTP protocol accounts
-for returning a status code indicating the result of the request. The Status codes themselves
+for returning a [status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes)
+indicating the result of the request. The Status codes themselves
 are classified by the range of their values:
 
 - 2XX - Success - The request was received and processed successfully.
@@ -89,23 +90,23 @@ are classified by the range of their values:
 For the sake of this lab, and the APIs to be introduced later, the table shows the relevant HTTP status
 codes we need to be aware of:
 
-|Status Code                | Description                                                                                              |
-|:--------------------------|:-------------------------------------------------------------------------|
-| 200 OK                    | Standard response for successfull requests .                             |
-| 201 CREATED               | Port of the Kafka JMX endpoint. Defaults to 9990.                        |
-| 202 ACCEPTED              | Username of the Kafka JMX endpoint.                                      |
-| 400 BAD REQUEST           | The server is unable to process the client request that is in error.     |
-| 401 UNAUTHORIZED          | Authentication is required but was not provided by the client.           |
-| 404 NOT FOUND             | The request resource could not be found.                                 |
-| 422 UNPROCESSABLE ENTITY  | The request was well-formed but contains a semantic error.               |
-| 500 INTERNAL SERVER ERROR | A generic error, when unexpected condition was encountered.              |
-| 503 SERVICE UNAVAILABLE   | The server is currently unavailable (overloaded or down for maintenance).|
-| 504 GATEWAY TIMEOUT       | The server did not receive a timely response from the upstream server.   |
+|Status Code                | Description                                                                          |
+|:--------------------------|:-------------------------------------------------------------------------------------|
+| 200 OK                    | Standard response for successfull requests .                                         |
+| 201 CREATED               | The request has been fulfilled, resulting in the creation of a new resource          |
+| 202 ACCEPTED              | Request has been accepted for processing, but the processing has not been completed. |
+| 400 BAD REQUEST           | Server is unable to process the client request that is in error.                     |
+| 401 UNAUTHORIZED          | Authentication is required but was not provided by the client.                       |
+| 404 NOT FOUND             | Request resource could not be found.                                                 |
+| 422 UNPROCESSABLE ENTITY  | Request was well-formed but contains a semantic error.                               |
+| 500 INTERNAL SERVER ERROR | A generic error, ocurrs when unexpected condition was encountered.                   |
+| 503 SERVICE UNAVAILABLE   | Server is currently unavailable (overloaded or down for maintenance).                |
+| 504 GATEWAY TIMEOUT       | Server did not receive a timely response from the upstream server.                   |
 
 ### JSON
 
 JSON or [Java Script Object Notation](https://en.wikipedia.org/wiki/JSON) while not specifically
-part of HTTP is a prerequisite for the TrueSight Pulse APIs to be introduced later.
+part of HTTP is a prerequisite for the TrueSight Intelligence APIs to be introduced later.
 
 JSON (Not to be confused with [Jason Voorhees](https://en.wikipedia.org/wiki/Jason_Voorhees)
 of the [Friday the 13th](https://en.wikipedia.org/wiki/Friday_the_13th_(franchise)) series) is a:
@@ -161,7 +162,7 @@ The following are examples of its use, which later be used to call the actual AP
 Run the following by cutting or pasting the curl command or run the script: `labs/lab-2/ex2-1.rest.sh`
 
 ```
-[vagrant@tsi-lab-01 ~]$ curl -X GET -s https://httpbin.org/get
+[vagrant@tsi-lab-01 ~]$ curl -X GET -s "https://httpbin.org/get"
 ```
 
 You should see output similar to this:
@@ -184,10 +185,11 @@ You should see output similar to this:
 Run the following cutting or pasting the curl command or run the script: `labs/lab-2/ex2-2.rest.sh`
 
 ```
-[vagrant@tsi-lab-01 ~]$ curl -X GET -s 'https://httpbin.org/get?foo=bar&color=red'
+[vagrant@tsi-lab-01 ~]$ curl -X GET -s "https://httpbin.org/get?foo=bar&color=red"
 ```
 
 You should see output similar to this:
+
 ```
 {
   "args": {
@@ -211,7 +213,7 @@ In the example above, the parameters are returned in the JSON in the field _args
 Run the following by cutting or pasting the curl command or run the script: `labs/lab-2/ex2-3.rest.sh`
 
 ```
-[vagrant@tsi-lab-01 ~]$ curl -X POST -s https://httpbin.org/post
+[vagrant@tsi-lab-01 ~]$ curl -X POST -s "https://httpbin.org/post"
 ```
 
 You should see output similar to this:
@@ -237,9 +239,9 @@ You should see output similar to this:
 ### Exercise 2-4 `POST` request with a `JSON` payload
 
 ```
-[vagrant@tsi-lab-01 ~]$ curl -X POST -s https://httpbin.org/post \
-> -H "Content-Type: application/json" \
-> -d '{"foo": "bar", "red": true, "curly": 101}'
+[vagrant@tsi-lab-01 ~]$ curl -X POST -s "https://httpbin.org/post" \
+-H "Content-Type: application/json" \
+-d '{"foo": "bar", "red": true, "curly": 101}'
 ```
 
 You should see output similar to this:
@@ -272,9 +274,9 @@ as the field _data_.
 ### Exercise 2-5 `PUT` request
 
 ```
-[vagrant@tsi-lab-01 ~]$ curl -X PUT -s https://httpbin.org/put \
-> -H "Content-Type: application/json" \
-> -d '{"foo": "bar", "red": true, "curly": 101}'
+[vagrant@tsi-lab-01 ~]$ curl -X PUT -s "https://httpbin.org/put" \
+-H "Content-Type: application/json" \
+-d '{"foo": "bar", "red": true, "curly": 101}'
 ```
 
 You should see output similar to this:
@@ -307,7 +309,7 @@ In the example above the JSON sent in the `PUT` request is returned in the field
 ### Exercise 2-6 `DELETE` request
 
 ```
-[vagrant@tsi-lab-01 ~]$ curl -X DELETE -s https://httpbin.org/delete
+[vagrant@tsi-lab-01 ~]$ curl -X DELETE -s "https://httpbin.org/delete"
 ```
 
 You should see output similar to this:
@@ -332,7 +334,7 @@ You should see output similar to this:
 ### Exercise 2-7 `GET` request with authentication
 
 ```
-[vagrant@tsi-lab-01 ~]$ curl -X GET -s -u foo:bar 'https://httpbin.org/basic-auth/foo/bar'
+[vagrant@tsi-lab-01 ~]$ curl -X GET -s -u foo:bar "https://httpbin.org/basic-auth/foo/bar"
 ```
 
 You should see output similar to this:
@@ -346,10 +348,10 @@ You should see output similar to this:
 
 ### Exercise 2-8 `GET` request that returns a `400`
 
-Status codes are displayed by adding the `-i` argument to curl
+Status codes and headers are displayed by adding the `-i` argument to `curl`.
 
 ```
-[vagrant@tsi-lab-01 ~]$ curl -i -X GET -s https://httpbin.org/status/400
+[vagrant@tsi-lab-01 ~]$ curl -i -X GET -s "https://httpbin.org/status/400"
 ```
 
 You should see output similar to this:
@@ -368,7 +370,7 @@ Access-Control-Allow-Credentials: true
 ### Exercise 2-9 `GET` request that returns a `401`
 
 ```
-[vagrant@tsi-lab-01 ~]$ curl -X GET -i -u foo:blue 'https://httpbin.org/basic-auth/foo/bar'
+[vagrant@tsi-lab-01 ~]$ curl -i -X GET -u foo:blue "https://httpbin.org/basic-auth/foo/bar"
 ```
 
 You should see output similar to this:
@@ -386,8 +388,9 @@ Access-Control-Allow-Credentials: true
 ### Exercise 2-10 `GET` request that returns a `422`
 
 ```
-[vagrant@tsi-lab-01 ~]$ curl -i -X GET https://httpbin.org/status/422
+[vagrant@tsi-lab-01 ~]$ curl -i -X GET "https://httpbin.org/status/422"
 ```
+
 You should see output similar to this:
 
 ```
@@ -401,7 +404,7 @@ Access-Control-Allow-Origin: *
 Access-Control-Allow-Credentials: true
 ```
 
-## TrueSight Pulse APIs
+## TrueSight Intelligence APIs
 
 This section gives a brief introduction to the APIs to be used in the later labs. Specifically in the
 remainder of the lab you will use the following APIs:
