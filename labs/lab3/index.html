@@ -68,6 +68,12 @@
                     
                         
 <li >
+    <a href="../../getting_started/signup/">Sign-Up</a>
+</li>
+
+                    
+                        
+<li >
     <a href="../../getting_started/virtual_machine/">Virtual Machine</a>
 </li>
 
@@ -158,11 +164,7 @@
         
             <li><a href="#exercise-2-1-creating-additional-events-using-curl">Exercise 2-1 - Creating Additional Events Using curl</a></li>
         
-            <li><a href="#truesight-pulse-python-api-library">TrueSight Pulse Python API library</a></li>
-        
-            <li><a href="#using-the-python-api-library">Using the Python API library</a></li>
-        
-            <li><a href="#exercise-2-2-creating-additional-events-using-python">Exercise 2-2 Creating Additional Events Using Python</a></li>
+            <li><a href="#exercise-2-2-creating-additional-events-using-python">Exercise 2-2 - Creating Additional Events Using Python</a></li>
         
     
     </ul>
@@ -276,7 +278,7 @@ your with the following changed content:</p>
 <p>Verify and view the events inside the INSIGHTS page in TSI</p>
 </li>
 </ol>
-<h2 id="truesight-pulse-python-api-library">TrueSight Pulse Python API library</h2>
+<h3 id="truesight-pulse-python-api-library">TrueSight Pulse Python API library</h3>
 <p>The TrueSight Pulse Python API can be used to generate an event with having to knowing
 the details of generating an HTTP request and handling its response. The API library hides
 the details behind the Python language. API Library can be used with Python versions 2.7.10 or later.</p>
@@ -288,16 +290,26 @@ the details behind the Python language. API Library can be used with Python vers
 <p>Depending on the installation location of your Python you may have to prefix the above instruction with <code>sudo</code>.</p>
 <p><em>NOTE</em>: The Vagrant virtual machine already has this library installed so there is no need for this step.
 The details are provided here so as to be able to install the libraries on other systems.</p>
-<h2 id="using-the-python-api-library">Using the Python API library</h2>
+<h3 id="using-the-python-api-library">Using the Python API library</h3>
 <p>To use the Python API in a program you must import and allocate an <code>API</code> instance with your e-mail, api-token,
 and api endpoint, a snippet of which is shown here:</p>
 <pre><code>import tspapi
 
+# Allocate an instance of API
 api = tspapi.API()
 </code></pre>
 
 <h3 id="creating-an-event-with-the-python-api-library">Creating an Event with the Python API Library</h3>
-<h2 id="exercise-2-2-creating-additional-events-using-python">Exercise 2-2 Creating Additional Events Using Python</h2></div>
+<p>With an instance of an <code>API</code> you can now create an event:</p>
+<pre><code># Create a source instance to identify the orign of the event
+source = Source(ref='myhost', _type='host')
+
+# Create an event instance
+api.event_create(title='Hello World',source=source, fingerprint_fields=['@title])
+</code></pre>
+
+<h2 id="exercise-2-2-creating-additional-events-using-python">Exercise 2-2 - Creating Additional Events Using Python</h2>
+<p>Using <code>labs</code></p></div>
         </div>
 
         <footer class="col-md-12">

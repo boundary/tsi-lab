@@ -68,6 +68,12 @@
                     
                         
 <li >
+    <a href="../../getting_started/signup/">Sign-Up</a>
+</li>
+
+                    
+                        
+<li >
     <a href="../../getting_started/virtual_machine/">Virtual Machine</a>
 </li>
 
@@ -156,9 +162,11 @@
         
             <li><a href="#apache-web-server-introduction">Apache Web Server Introduction</a></li>
         
-            <li><a href="#exercise-5-1-reading-a-static-apache-log-file">Exercise 5-1 Reading a Static Apache Log File</a></li>
+            <li><a href="#exercise-5-1-parsing-an-apache-log-file">Exercise 5-1 - Parsing an Apache Log File</a></li>
         
-            <li><a href="#exercise-5-2-reading-the-live-apache-log-file">Exercise 5-2 Reading the live Apache Log File</a></li>
+            <li><a href="#exercise-5-2-reading-the-live-apache-log-file">Exercise 5-2 - Reading the live Apache Log File</a></li>
+        
+            <li><a href="#exercise-5-3-reading-live-apache-log-files-and-sending-measurements">Exercise 5-3 - Reading live Apache Log Files and Sending Measurements</a></li>
         
     
     </ul>
@@ -167,11 +175,33 @@
 
 <h1 id="lab-5-logfile-to-api">Lab 5 - Logfile to API</h1>
 <h2 id="overview">Overview</h2>
-<p>This lab will introduce to parsing an Apache HTTP log to derived measurments that are then sent to
+<p>This lab will introduce to parsing an Apache HTTP log to extract measurements that are then sent to
 the measurement APIs</p>
 <h2 id="apache-web-server-introduction">Apache Web Server Introduction</h2>
-<h2 id="exercise-5-1-reading-a-static-apache-log-file">Exercise 5-1 Reading a Static Apache Log File</h2>
-<h2 id="exercise-5-2-reading-the-live-apache-log-file">Exercise 5-2 Reading the live Apache Log File</h2></div>
+<h2 id="exercise-5-1-parsing-an-apache-log-file">Exercise 5-1 - Parsing an Apache Log File</h2>
+<ol>
+<li>
+<p>Change directory to <code>labs/lab-5</code></p>
+<p><code>$ cd labs/lab-5</code></p>
+</li>
+<li>
+<p>Run the following command:</p>
+<p><code>$ ex5-1.log.py access_log</code></p>
+</li>
+</ol>
+<h2 id="exercise-5-2-reading-the-live-apache-log-file">Exercise 5-2 - Reading the live Apache Log File</h2>
+<ol>
+<li>Run the following command:</li>
+</ol>
+<pre><code>$ sudo ex5-2.log.py /var/log/httpd/access_log
+</code></pre>
+
+<h2 id="exercise-5-3-reading-live-apache-log-files-and-sending-measurements">Exercise 5-3 - Reading live Apache Log Files and Sending Measurements</h2>
+<ol>
+<li>Run the following command:</li>
+</ol>
+<pre><code>$ sudo ex5-3.log.py /var/log/httpd/access_log
+</code></pre></div>
         </div>
 
         <footer class="col-md-12">

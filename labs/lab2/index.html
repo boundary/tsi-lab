@@ -68,6 +68,12 @@
                     
                         
 <li >
+    <a href="../../getting_started/signup/">Sign-Up</a>
+</li>
+
+                    
+                        
+<li >
     <a href="../../getting_started/virtual_machine/">Virtual Machine</a>
 </li>
 
@@ -332,8 +338,11 @@ command separate fields between braces (<em>{</em> and <em>}</em>).</p>
 The following are examples of its use, which later be used to call the actual APIs.</p>
 <h2 id="exercise-2-1-get-request">Exercise 2-1 <code>GET</code> request</h2>
 <p>Run the following by cutting or pasting the curl command or run the script: <code>labs/lab-2/ex2-1.rest.sh</code></p>
-<pre><code>[vagrant@tsi-lab-01 ~]$ curl -X GET -s https://httpbin.org/get 
-{
+<pre><code>[vagrant@tsi-lab-01 ~]$ curl -X GET -s https://httpbin.org/get
+</code></pre>
+
+<p>You should see output similar to this:</p>
+<pre><code>{
   &quot;args&quot;: {}, 
   &quot;headers&quot;: {
     &quot;Accept&quot;: &quot;*/*&quot;, 
@@ -348,7 +357,10 @@ The following are examples of its use, which later be used to call the actual AP
 <h2 id="exercise-2-2-get-request-with-parameters">Exercise 2-2 GET request with parameters</h2>
 <p>Run the following cutting or pasting the curl command or run the script: <code>labs/lab-2/ex2-2.rest.sh</code></p>
 <pre><code>[vagrant@tsi-lab-01 ~]$ curl -X GET -s 'https://httpbin.org/get?foo=bar&amp;color=red'
-{
+</code></pre>
+
+<p>You should see output similar to this:</p>
+<pre><code>{
   &quot;args&quot;: {
     &quot;color&quot;: &quot;red&quot;, 
     &quot;foo&quot;: &quot;bar&quot;
@@ -367,7 +379,10 @@ The following are examples of its use, which later be used to call the actual AP
 <h3 id="exercise-2-3-post-request">Exercise 2-3 <code>POST</code> request</h3>
 <p>Run the following by cutting or pasting the curl command or run the script: <code>labs/lab-2/ex2-3.rest.sh</code></p>
 <pre><code>[vagrant@tsi-lab-01 ~]$ curl -X POST -s https://httpbin.org/post
-{
+</code></pre>
+
+<p>You should see output similar to this:</p>
+<pre><code>{
   &quot;args&quot;: {},
   &quot;data&quot;: &quot;&quot;,
   &quot;files&quot;: {},
@@ -387,7 +402,10 @@ The following are examples of its use, which later be used to call the actual AP
 <pre><code>[vagrant@tsi-lab-01 ~]$ curl -X POST -s https://httpbin.org/post \
 &gt; -H &quot;Content-Type: application/json&quot; \
 &gt; -d '{&quot;foo&quot;: &quot;bar&quot;, &quot;red&quot;: true, &quot;curly&quot;: 101}'
-{
+</code></pre>
+
+<p>You should see output similar to this:</p>
+<pre><code>{
   &quot;args&quot;: {},
   &quot;data&quot;: &quot;{\&quot;foo\&quot;: \&quot;bar\&quot;, \&quot;red\&quot;: true, \&quot;curly\&quot;: 101}&quot;,
   &quot;files&quot;: {},
@@ -415,7 +433,10 @@ as the field <em>data</em>.</p>
 <pre><code>[vagrant@tsi-lab-01 ~]$ curl -X PUT -s https://httpbin.org/put \
 &gt; -H &quot;Content-Type: application/json&quot; \
 &gt; -d '{&quot;foo&quot;: &quot;bar&quot;, &quot;red&quot;: true, &quot;curly&quot;: 101}'
-{
+</code></pre>
+
+<p>You should see output similar to this:</p>
+<pre><code>{
   &quot;args&quot;: {},
   &quot;data&quot;: &quot;{\&quot;foo\&quot;: \&quot;bar\&quot;, \&quot;red\&quot;: true, \&quot;curly\&quot;: 101}&quot;,
   &quot;files&quot;: {},
@@ -440,7 +461,10 @@ as the field <em>data</em>.</p>
 <p>In the example above the JSON sent in the <code>PUT</code> request is returned in the field <em>data</em>.</p>
 <h3 id="exercise-2-6-delete-request">Exercise 2-6 <code>DELETE</code> request</h3>
 <pre><code>[vagrant@tsi-lab-01 ~]$ curl -X DELETE -s https://httpbin.org/delete
-{
+</code></pre>
+
+<p>You should see output similar to this:</p>
+<pre><code>{
   &quot;args&quot;: {},
   &quot;data&quot;: &quot;&quot;,
   &quot;files&quot;: {},
@@ -458,7 +482,10 @@ as the field <em>data</em>.</p>
 
 <h3 id="exercise-2-7-get-request-with-authentication">Exercise 2-7 <code>GET</code> request with authentication</h3>
 <pre><code>[vagrant@tsi-lab-01 ~]$ curl -X GET -s -u foo:bar 'https://httpbin.org/basic-auth/foo/bar'
-{
+</code></pre>
+
+<p>You should see output similar to this:</p>
+<pre><code>{
   &quot;authenticated&quot;: true,
   &quot;user&quot;: &quot;foo&quot;
 }
@@ -467,7 +494,10 @@ as the field <em>data</em>.</p>
 <h3 id="exercise-2-8-get-request-that-returns-a-400">Exercise 2-8 <code>GET</code> request that returns a <code>400</code></h3>
 <p>Status codes are displayed by adding the <code>-i</code> argument to curl</p>
 <pre><code>[vagrant@tsi-lab-01 ~]$ curl -i -X GET -s https://httpbin.org/status/400
-HTTP/1.1 400 BAD REQUEST
+</code></pre>
+
+<p>You should see output similar to this:</p>
+<pre><code>HTTP/1.1 400 BAD REQUEST
 Server: nginx
 Date: Tue, 12 Apr 2016 20:19:28 GMT
 Content-Type: text/html; charset=utf-8
@@ -479,7 +509,10 @@ Access-Control-Allow-Credentials: true
 
 <h3 id="exercise-2-9-get-request-that-returns-a-401">Exercise 2-9 <code>GET</code> request that returns a <code>401</code></h3>
 <pre><code>[vagrant@tsi-lab-01 ~]$ curl -X GET -i -u foo:blue 'https://httpbin.org/basic-auth/foo/bar'
-HTTP/1.1 401 UNAUTHORIZED
+</code></pre>
+
+<p>You should see output similar to this:</p>
+<pre><code>HTTP/1.1 401 UNAUTHORIZED
 Server: nginx
 Date: Tue, 12 Apr 2016 20:23:42 GMT
 Content-Length: 0
@@ -491,7 +524,10 @@ Access-Control-Allow-Credentials: true
 
 <h3 id="exercise-2-10-get-request-that-returns-a-422">Exercise 2-10 <code>GET</code> request that returns a <code>422</code></h3>
 <pre><code>[vagrant@tsi-lab-01 ~]$ curl -i -X GET https://httpbin.org/status/422
-HTTP/1.1 422 UNPROCESSABLE ENTITY
+</code></pre>
+
+<p>You should see output similar to this:</p>
+<pre><code>HTTP/1.1 422 UNPROCESSABLE ENTITY
 Server: nginx
 Date: Tue, 12 Apr 2016 20:21:50 GMT
 Content-Type: text/html; charset=utf-8
