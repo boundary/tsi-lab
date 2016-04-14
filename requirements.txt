@@ -1,6 +1,7 @@
+apachelog
+mkdocs
+nose
 requests==2.7.0
 tspapi
-mkdocs
 ystockquote
-nosetests
 

@@ -118,12 +118,11 @@ Run the above command as a script located at `labs/lab-2/ex-2-1-events.sh`
 
 ## Exercise 3-1 - Creating Additional Events Using `curl`
 
-1. Using the script located at `labs/lab-3/ex-3-1-events.sh` as template create 3 to 5, or more events on
+1. Using the script located at `labs/lab-3/ex-3-1.events.sh` as template create 3 to 5, or more events on
 your with the following changed content:
 
 - 3 with status and severity of your choice
 - 1 with no severity i.e a change event or an DEV Ops event from chef or puppet
-__TODO__ Change Event?
 
 2. Verify and view the events inside the INSIGHTS page in TSI
 
@@ -162,16 +161,49 @@ api = tspapi.API()
 
 ### Creating an Event with the Python API Library
 
-With an instance of an `API` you can now create an event:
+With an instance of an `API` you can now create an event by first allocating a source instance:
 
 ```
 # Create a source instance to identify the orign of the event
 source = Source(ref='myhost', _type='host')
+```
 
+Next call the `create_event` method on the instance `api`:
+
+```
 # Create an event instance
 api.event_create(title='Hello World',source=source, fingerprint_fields=['@title])
 ```
+Here is the Python script in its entirety:
 
-## Exercise 2-2 - Creating Additional Events Using Python
+```
+#!/usr/bin/env python
+import tspapi
 
-Using `labs`
+api = tspapi.API()
+
+source = tspapi.Source(ref='myhost')
+api.event_create(title="bar", fingerprint_fields=['@title'], source=source)
+```
+
+## Exercise 3-2 - Creating Events Using Python
+
+Run the script `labs\lab-3\ex-2-2.events.py` which contains the Python script from the previous section.
+
+1. Change directory to your home directory:
+
+    ```
+    $ cd
+    ```
+
+2. Run the following:
+
+    ```
+    $ labs\lab-3\ex-2-2.events.py
+    ```
+
+## Exercise 3-2 - Creating Additional Events Using Python
+
+Using `labs\lab-3\ex-2-2.events.py` as template create additional events similiary as
+you did in exercize 3-1.
+

@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 #
 # Copyright 2016 BMC Software, Inc.
 #
@@ -14,27 +14,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-import time
+import apachelog
 import sys
 
+# %b - Size
+# %h - Remote IP or Host
+# %l - Remote Log Name
+# %r - Request
+# %>s - HTTP Status Code
+# %t - eventTime
+# %u - Remote User
+# %{Referer}i - Referer
+# %{User-agent}i - UserAgent
 
-def follow(f):
-    """
-    Reads a line from a file when available
-    :param f: open file
-    :return: a line from the file
-    """
-    f.seek(0, 2)
-    while True:
-        log_line = f.readline()
-        if not log_line:
-            time.sleep(0.1)
-            continue
-        yield log_line
+log_format = r'%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}\i"'
+p = apachelog.parser(log_format)
 
-if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        log_file = open(sys.argv[1], "r")
-        log_lines = follow(log_file)
-        for line in log_lines:
-            print("{0}".format(line.strip()))
+for line in open('/var/log/httpd/access_log'):
+    try:
+        s = p.parse(line)
+        print("host: {0}, time: {1}, request: {2}, status: {3}, size: {4}, referer: {5}, agent: {6}".format(
+                s['%h'], s['%t'], s['%r'], s['%>s'], s['%b'], s['%{Referer}i'], s['%{User-Agent}\\i"']))
+    except apachelog.ApacheLogParserError:
+        sys.stderr.write("Unable to parse %s" % line)

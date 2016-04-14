@@ -16,10 +16,13 @@
 #
 import syslog
 import random
+import time
 
 
 class OneLiners(object):
-    def __init__(self):
+    def __init__(self, lines=12, delay=5):
+	self._lines = lines
+	self._delay = delay
         self._one_liners = [
             "I wrote a few children's books... Not on purpose. - Steven Wright",
             "I looked up my family tree and found out I was the sap. - Rodney Dangerfield",
@@ -49,9 +52,11 @@ class OneLiners(object):
 
     def give_me_one(self):
         syslog.openlog(logoption=syslog.LOG_PID, facility=syslog.LOG_USER)
-        line = self._one_liners[random.randrange(0, len(self._one_liners))]
-        print(line)
-        syslog.syslog(line)
+	for i in range(1, self._lines + 1):
+            line = self._one_liners[random.randrange(0, len(self._one_liners))]
+            print(line)
+            syslog.syslog(line)
+	    time.sleep(self._delay)
 
 
 if __name__ == '__main__':
