@@ -180,14 +180,19 @@ which displays the following output:
 
 Look at the script `~/labs/lab-5/ex5-2.log.py` in its entirety to understand how it works.
 
-## Introduction to _Exercise 5-3 - Reading live Apache Log Files and Sending Measurements_
+## Introduction to _Exercise 5-3 - Reading Log Files and Sending Measurements_
 
-Okay, last stop in the log file saga.
+Okay, last stop in the logfile saga.
 
-## Exercise 5-3 - Reading live Apache Log Files and Sending Measurements
+## Exercise 5-3 - Reading Log Files and Sending Measurements
 
-1. Run the following command:
+For this finally exercise we will use the running Apache HTTP server in the virtual machine
+and monitor its `access_log`
+
+1. Run the following command passing the path to the Apache HTTP server `access_log`:
     ```
     $ sudo ex5-3.log.py /var/log/httpd/access_log
     ```
+
+2. Observe the measurements on TrueSight Intelligence.
 
