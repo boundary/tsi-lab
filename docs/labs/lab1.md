@@ -61,18 +61,22 @@ The meter has been installed successfully!
 
 ### Updating the `meter.conf` with `application_id`
 
-1. Update the meter configuration `/etc/boundary/meter.conf` with the `application_id` as shown
-in this configuration snippet:
-```
+1. Update the meter configuration `/etc/boundary/meter.conf` with the `application_id` by editing the
+file with `vi`, `nano`, `emacs`, or your favorite [editor](https://en.wikipedia.org/wiki/List_of_text_editors)
+as shown in this configuration snippet:
+
+    ```
     "properties":{
-      "application_id": "<your application id here>"
+       "application_id": "<your application id here>"
     },
-```
+    ```
+
 2. Restart the meter to have the change take affect:
-```
-[vagrant@tsi-lab-01 ~]$ sudo service boundary-meter restart
-Restarting boundary-meter (via systemctl):                 [  OK  ]
-```
+    ```
+    [vagrant@tsi-lab-01 ~]$ sudo service boundary-meter restart
+    Restarting boundary-meter (via systemctl):                 [  OK  ]
+    ```
+
 3. Open your Chrome Web Browser to
 [https://pulse.truesight-staging.bmc.com/home](https://pulse.truesight-staging.bmc.com/home)
 to verify that measurements are being sent to your TrueSight Pulse dashboards.
