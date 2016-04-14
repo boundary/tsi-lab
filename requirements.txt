@@ -4,4 +4,5 @@ nose
 requests==2.7.0
 tspapi
 ystockquote
+python-dateutil
 
