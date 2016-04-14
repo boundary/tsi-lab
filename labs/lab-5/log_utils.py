@@ -14,7 +14,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+import apachelog
+import sys
 import time
+
 
 def follow(f):
     """
@@ -36,3 +39,25 @@ def follow(f):
         # We have a line return the line
         yield log_line
 
+
+# %b - Size
+# %h - Remote IP or Host
+# %l - Remote Log Name
+# %r - Request
+# %>s - HTTP Status Code
+# %t - eventTime
+# %u - Remote User
+# %{Referer}i - Referer
+# %{User-agent}i - UserAgent
+
+# log_format = r'%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}\i"'
+# p = apachelog.parser(log_format)
+
+
+def parse_apache_line(parser, line):
+    s = None
+    try:
+        s = parser.parse(line)
+    except apachelog.ApacheLogParserError:
+        sys.stderr.write("Unable to parse %s" % line)
+    return s
