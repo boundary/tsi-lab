@@ -162,7 +162,7 @@
         
             <li><a href="#apache-web-server-introduction">Apache Web Server Introduction</a></li>
         
-            <li><a href="#exercise-5-1-parsing-an-apache-log-file">Exercise 5-1 - Parsing an Apache Log File</a></li>
+            <li><a href="#exercise-5-1-getting-updates-from-a-log-file">Exercise 5-1 - Getting Updates From A Log File</a></li>
         
             <li><a href="#exercise-5-2-reading-the-live-apache-log-file">Exercise 5-2 - Reading the live Apache Log File</a></li>
         
@@ -178,7 +178,30 @@
 <p>This lab will introduce to parsing an Apache HTTP log to extract measurements that are then sent to
 the measurement APIs</p>
 <h2 id="apache-web-server-introduction">Apache Web Server Introduction</h2>
-<h2 id="exercise-5-1-parsing-an-apache-log-file">Exercise 5-1 - Parsing an Apache Log File</h2>
+<p>The <a href="https://en.wikipedia.org/wiki/Apache_HTTP_Server">Apache HTTP Server</a> has a long history with
+its initial release in 1995. The Apache HTTP Server is descendant of the
+<a href="https://en.wikipedia.org/wiki/NCSA_HTTPd">NCSA HTTPd Server</a> and was started when development on the
+NCSA HTTPd Server stalled.</p>
+<p>A key feature of the Apache Web Server is the ability to log received requests to a log file of
+your choosing and format. The out of the box file is named <code>access_log</code> and on RHEL/Centos platforms
+the path to the file is <code>/var/log/httpd/access_log</code>. The default format of the log file is referred to
+as <code>combined</code>. Information about received requests are continuously appended to the log file.</p>
+<p>To extract useful content from the log file at we need to perform the following:</p>
+<ol>
+<li>Continuously read the log file looking for new requests appended to the log.</li>
+<li>For each line parse the content knowing the format of each line or record.</li>
+<li>Extract the content of interest by filtering and searching each line or record.</li>
+<li>Send the extract content to TrueSight Intelligence using the Measurement API.</li>
+</ol>
+<h2 id="exercise-5-1-getting-updates-from-a-log-file">Exercise 5-1 - Getting Updates From A Log File</h2>
+<p>A useful unix untility <a href="https://en.wikipedia.org/wiki/Tail_(Unix)"><code>tail</code></a> permits the monitoring of a log
+file and outputs new lines or records as they are written to the file. An example of using this utility is shown
+here:</p>
+<pre><code>$ tail -f /var/log/cron
+</code></pre>
+
+<p>which is a log that shows [<code>cron</code>] jobs that have been executed by the system.</p>
+<p>For this exercise we will introduce the same capability by in Python code.</p>
 <ol>
 <li>
 <p>Change directory to <code>labs/lab-5</code></p>
@@ -191,17 +214,14 @@ the measurement APIs</p>
 </ol>
 <h2 id="exercise-5-2-reading-the-live-apache-log-file">Exercise 5-2 - Reading the live Apache Log File</h2>
 <ol>
-<li>Run the following command:</li>
+<li>Run the following command:
+    <code>$ sudo ex5-2.log.py /var/log/httpd/access_log</code></li>
 </ol>
-<pre><code>$ sudo ex5-2.log.py /var/log/httpd/access_log
-</code></pre>
-
 <h2 id="exercise-5-3-reading-live-apache-log-files-and-sending-measurements">Exercise 5-3 - Reading live Apache Log Files and Sending Measurements</h2>
 <ol>
-<li>Run the following command:</li>
-</ol>
-<pre><code>$ sudo ex5-3.log.py /var/log/httpd/access_log
-</code></pre></div>
+<li>Run the following command:
+    <code>$ sudo ex5-3.log.py /var/log/httpd/access_log</code></li>
+</ol></div>
         </div>
 
         <footer class="col-md-12">
