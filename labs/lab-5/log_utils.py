@@ -19,7 +19,7 @@ import sys
 import time
 
 
-def follow(f):
+def monitor_file(f):
     """
     Reads a line from a file when available
     :param f: open file

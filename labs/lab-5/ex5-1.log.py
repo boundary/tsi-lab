@@ -17,7 +17,7 @@
 import os
 import sys
 import time
-from log_utils import follow
+from log_utils import monitor_file
 
 if __name__ == '__main__':
     # We are expecting two arguments
@@ -28,9 +28,9 @@ if __name__ == '__main__':
         log_file = open(sys.argv[1], "r")
 
         # Create our iterable function
-        log_lines = follow(log_file)
+        log_lines = monitor_file(log_file)
 
-        # Process the lines as they are appended
+        # Process the lines as they are appended to the file
         for line in log_lines:
             # Strip out the new line an print the line
             print("{0}".format(line.strip()))
