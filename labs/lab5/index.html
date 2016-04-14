@@ -60,23 +60,17 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Getting Started <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                     
-                        
-<li >
-    <a href="../../getting_started/prerequisites/">Prerequisites</a>
-</li>
-
+                        <li >
+                            <a href="../../getting_started/prerequisites/">Prerequisites</a>
+                        </li>
                     
-                        
-<li >
-    <a href="../../getting_started/signup/">Sign-Up</a>
-</li>
-
+                        <li >
+                            <a href="../../getting_started/signup/">Sign-Up</a>
+                        </li>
                     
-                        
-<li >
-    <a href="../../getting_started/virtual_machine/">Virtual Machine</a>
-</li>
-
+                        <li >
+                            <a href="../../getting_started/virtual_machine/">Virtual Machine</a>
+                        </li>
                     
                     </ul>
                 </li>
@@ -87,41 +81,29 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                     
-                        
-<li >
-    <a href="../lab1/">Lab 1 - Meters and Meter Plugins</a>
-</li>
-
+                        <li >
+                            <a href="../lab1/">Lab 1 - Meters and Meter Plugins</a>
+                        </li>
                     
-                        
-<li >
-    <a href="../lab2/">Lab 2 - Introduction ReST</a>
-</li>
-
+                        <li >
+                            <a href="../lab2/">Lab 2 - Introduction ReST</a>
+                        </li>
                     
-                        
-<li >
-    <a href="../lab3/">Lab 3 - Event APIs</a>
-</li>
-
+                        <li >
+                            <a href="../lab3/">Lab 3 - Event APIs</a>
+                        </li>
                     
-                        
-<li >
-    <a href="../lab4/">Lab 4 - Metrics APIs</a>
-</li>
-
+                        <li >
+                            <a href="../lab4/">Lab 4 - Metrics APIs</a>
+                        </li>
                     
-                        
-<li class="active">
-    <a href="./">Lab 5 - Log File to API</a>
-</li>
-
+                        <li class="active">
+                            <a href="./">Lab 5 - Log File to API</a>
+                        </li>
                     
-                        
-<li >
-    <a href="../lab6/">Lab 6 - API Integration</a>
-</li>
-
+                        <li >
+                            <a href="../lab6/">Lab 6 - API Integration</a>
+                        </li>
                     
                     </ul>
                 </li>
@@ -131,11 +113,6 @@
 
             <!-- Search, Navigation and Repo links -->
             <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
-                        <i class="fa fa-search"></i> Search
-                    </a>
-                </li>
                 <li >
                     <a rel="next" href="../lab4/">
                         <i class="fa fa-arrow-left"></i> Previous
@@ -162,11 +139,17 @@
         
             <li><a href="#apache-web-server-introduction">Apache Web Server Introduction</a></li>
         
-            <li><a href="#exercise-5-1-getting-updates-from-a-log-file">Exercise 5-1 - Getting Updates From A Log File</a></li>
+            <li><a href="#introduction-to-exercise-5-1-monitoring-a-logfile">Introduction to Exercise 5-1 Monitoring a Logfile</a></li>
         
-            <li><a href="#exercise-5-2-reading-the-live-apache-log-file">Exercise 5-2 - Reading the live Apache Log File</a></li>
+            <li><a href="#exercise-5-1-monitoring-a-log-file">Exercise 5-1 - Monitoring A Log File</a></li>
         
-            <li><a href="#exercise-5-3-reading-live-apache-log-files-and-sending-measurements">Exercise 5-3 - Reading live Apache Log Files and Sending Measurements</a></li>
+            <li><a href="#introduction-to-exercise-5-2-parsing-an-apache-access_log">Introduction to Exercise 5-2 Parsing an Apache access_log</a></li>
+        
+            <li><a href="#exercise-5-2-parsing-an-apache-access_log">Exercise 5-2 - Parsing an Apache access_log</a></li>
+        
+            <li><a href="#introduction-to-exercise-5-3-reading-log-files-and-sending-measurements">Introduction to Exercise 5-3 - Reading Log Files and Sending Measurements</a></li>
+        
+            <li><a href="#exercise-5-3-reading-log-files-and-sending-measurements">Exercise 5-3 - Reading Log Files and Sending Measurements</a></li>
         
     
     </ul>
@@ -175,7 +158,7 @@
 
 <h1 id="lab-5-logfile-to-api">Lab 5 - Logfile to API</h1>
 <h2 id="overview">Overview</h2>
-<p>This lab will introduce to parsing an Apache HTTP log to extract measurements that are then sent to
+<p>This lab will introduce to parsing an Apache HTTP server log to extract measurements that are then sent to
 the measurement APIs</p>
 <h2 id="apache-web-server-introduction">Apache Web Server Introduction</h2>
 <p>The <a href="https://en.wikipedia.org/wiki/Apache_HTTP_Server">Apache HTTP Server</a> has a long history with
@@ -193,34 +176,141 @@ as <code>combined</code>. Information about received requests are continuously a
 <li>Extract the content of interest by filtering and searching each line or record.</li>
 <li>Send the extract content to TrueSight Intelligence using the Measurement API.</li>
 </ol>
-<h2 id="exercise-5-1-getting-updates-from-a-log-file">Exercise 5-1 - Getting Updates From A Log File</h2>
-<p>A useful unix untility <a href="https://en.wikipedia.org/wiki/Tail_(Unix)"><code>tail</code></a> permits the monitoring of a log
+<h2 id="introduction-to-exercise-5-1-monitoring-a-logfile">Introduction to <em>Exercise 5-1 Monitoring a Logfile</em></h2>
+<p>A useful unix utility <a href="https://en.wikipedia.org/wiki/Tail_(Unix)"><code>tail</code></a> permits the monitoring of a log
 file and outputs new lines or records as they are written to the file. An example of using this utility is shown
 here:</p>
 <pre><code>$ tail -f /var/log/cron
 </code></pre>
 
-<p>which is a log that shows [<code>cron</code>] jobs that have been executed by the system.</p>
-<p>For this exercise we will introduce the same capability by in Python code.</p>
+<p>which is a log that shows <a href="https://en.wikipedia.org/wiki/Cron"><code>cron</code></a> jobs that have been executed by the system.</p>
+<p>For this exercise we will introduce the same capability by in Python code as shown here:</p>
+<pre><code>def follow(f):
+    &quot;&quot;&quot;
+    Reads a line from a file when available
+    :param f: open file
+    :return: a line from the file
+    &quot;&quot;&quot;
+    # Go to the end of the file
+    f.seek(0, 2)
+
+    # Loop waiting for lines to be written
+    while True:
+        log_line = f.readline()
+        # If there is nothing to read then wait a bit
+        # and try again
+        if not log_line:
+            time.sleep(0.1)
+            continue
+        # We have a line return the line
+        yield log_line
+</code></pre>
+
+<p>This function uses one of the esoteric features of python namely <code>yield</code>. Suffice to the say the above function
+returns a line which is append in the file everytime <code>yield log_line</code> is executed. This function <em>generates</em> log lines
+from the passed in open file and can be iterated over as shown in this Python snippet:</p>
+<pre><code># Open our file for reading
+log_file = open(sys.argv[1], &quot;r&quot;)
+
+# Create our iterable function
+log_lines = monitor_file(log_file)
+
+# Process the lines as they are appended to the file
+for line in log_lines:
+    # Strip out the new line an print the line
+    print(&quot;{0}&quot;.format(line.strip()))
+</code></pre>
+
+<p>if you want to have a deep understanding of how this works take a look at this
+<a href="https://wiki.python.org/moin/Generators">page</a></p>
+<p>Okay, onward to run some examples of what we just learned.</p>
+<h2 id="exercise-5-1-monitoring-a-log-file">Exercise 5-1 - Monitoring A Log File</h2>
+<p>Is this exercise we will run a complete script that opens a file named on the command line
+and writes out the lines append to the file.</p>
 <ol>
 <li>
 <p>Change directory to <code>labs/lab-5</code></p>
-<p><code>$ cd labs/lab-5</code></p>
+<p><code>[vagrant@tsi-lab-01 ~]$ cd labs/lab-5/</code></p>
 </li>
 <li>
-<p>Run the following command:</p>
-<p><code>$ ex5-1.log.py access_log</code></p>
+<p>Run the script against the <code>/var/log/messages</code> file which is generated by the syslog daemon. You
+can monitor what is being written to this file by by running the following command (<em>NOTE</em>: the prefixed
+<code>sudo</code> command is required since <code>/var/log/messages</code> is read-only by the <code>root</code> user):</p>
+<p><code>vagrant@tsi-lab-01 lab-5]$ sudo ./ex5-1.log.py /var/log/messages</code></p>
 </li>
 </ol>
-<h2 id="exercise-5-2-reading-the-live-apache-log-file">Exercise 5-2 - Reading the live Apache Log File</h2>
+<p>which will present output similar to the following:</p>
+<pre><code>Apr 14 20:50:11 localhost one-liners.py[26992]: Two cannibals were eating a clown - one ...
+Apr 14 20:50:16 localhost one-liners.py[26992]: How do you tell when you're out of invi ...
+Apr 14 20:50:21 localhost one-liners.py[26992]: I have a lot of growing up to do. I rea ...
+Apr 14 20:50:26 localhost one-liners.py[26992]: Did you hear about the shrimp that went ...
+Apr 14 20:50:31 localhost one-liners.py[26992]: The quickest way to a man's heart is th ...
+</code></pre>
+
+<p>If you feeling curious (like the monkey named <a href="https://en.wikipedia.org/wiki/Curious_George">George</a>)
+take a gander at the complete script <code>~/labs/lab-5/ex-5-1.log.py</code>.</p>
+<h2 id="introduction-to-exercise-5-2-parsing-an-apache-access_log">Introduction to <em>Exercise 5-2 Parsing an Apache <code>access_log</code></em></h2>
+<p>One of the beauties of Python is there is a heck of a lot of code out there already written for us
+that we can leverage in our own scripts. For this lab we want to show how to parse an Apache HTTP server
+log file, but who wants to write the parser, we didn't. A quick search of the internet (The thing invented
+by former senator and vice president <a href="https://en.wikipedia.org/wiki/Information_superhighway">Al Gore</a>) yielded
+a suitable Python package ripe for the picking: <code>apachelog</code>. Using
+<a href="https://en.wikipedia.org/wiki/Pip_(package_manager)"><code>pip</code></a> we can install this package by the following:</p>
+<pre><code>$ pip install apachelog
+</code></pre>
+
+<p><em>NOTE</em>: No needed to run this we have already installed this in the virtual machine, but thought
+you might want to know for that pet log parsing project down the road.</p>
+<p>With our new best friend/package parsing an Apache HTTP server log is now trivial. Here you go, a
+quick Python snippet that shows you how easy it is:</p>
+<pre><code>import apachelog
+
+log_format = r'%h %l %u %t \&quot;%r\&quot; %&gt;s %b \&quot;%{Referer}i\&quot; \&quot;%{User-Agent}\i&quot;'
+p = apachelog.parser(log_format)
+parsed = p.parse(line)
+</code></pre>
+
+<p>In the above snippet the <code>parsed</code> variable contains a Python dictionary with the parsed out log entry with
+the format spelled out in <code>log_format</code>. Cool Huh? Here is an example value of what the <code>parsed</code> values contents:</p>
+<pre><code>{'%l': '-', '%&gt;s': '200', '%h': '::1', '%b': '481', '%{Referer}i': 'www.bmc.com', '%{User-Agent}\\i&quot;': 'curl/7.29.0', '%u': '-', '%t': '[13/Apr/2016:05:25:25 +0000]', '%r': 'GET / HTTP/1.1'}
+</code></pre>
+
+<p>Let's proceed to the exercise.</p>
+<h2 id="exercise-5-2-parsing-an-apache-access_log">Exercise 5-2 - Parsing an Apache <code>access_log</code></h2>
 <ol>
-<li>Run the following command:
-    <code>$ sudo ex5-2.log.py /var/log/httpd/access_log</code></li>
+<li>
+<p>Change directory to <code>labs/lab-5</code></p>
+<p><code>[vagrant@tsi-lab-01 ~]$ cd labs/lab-5/</code></p>
+</li>
+<li>
+<p>Run the following command with sample <code>access_log</code> provide:</p>
+<p><code>vagrant@tsi-lab-01 lab-5]$ ./ex5-2.log.py access_log</code></p>
+</li>
 </ol>
-<h2 id="exercise-5-3-reading-live-apache-log-files-and-sending-measurements">Exercise 5-3 - Reading live Apache Log Files and Sending Measurements</h2>
+<p>which displays the following output:</p>
+<pre><code>host: ::1, time: [13/Apr/2016:02:35:06 +0000], request: GET / HTTP/1.1, status: 200 ...
+host: ::1, time: [13/Apr/2016:02:35:14 +0000], request: GET /favicon HTTP/1.1, stat ...
+host: ::1, time: [13/Apr/2016:02:35:21 +0000], request: GET /fav.icon HTTP/1.1, sta ...
+host: ::1, time: [13/Apr/2016:02:36:16 +0000], request: GET /favicon.ico HTTP/1.1,  ...
+host: ::1, time: [13/Apr/2016:03:21:02 +0000], request: GET /fav HTTP/1.1, status:  ...
+host: ::1, time: [13/Apr/2016:03:26:30 +0000], request: GET /favicon.ico HTTP/1.1,  ...
+host: ::1, time: [13/Apr/2016:05:24:35 +0000], request: GET / HTTP/1.0, status: 200 ...
+host: ::1, time: [13/Apr/2016:05:25:25 +0000], request: GET / HTTP/1.1, status: 200 ...
+</code></pre>
+<p>Look at the script <code>~/labs/lab-5/ex5-2.log.py</code> in its entirety to understand how it works.</p>
+<h2 id="introduction-to-exercise-5-3-reading-log-files-and-sending-measurements">Introduction to <em>Exercise 5-3 - Reading Log Files and Sending Measurements</em></h2>
+<p>Okay, last stop in the logfile saga.</p>
+<h2 id="exercise-5-3-reading-log-files-and-sending-measurements">Exercise 5-3 - Reading Log Files and Sending Measurements</h2>
+<p>For this finally exercise we will use the running Apache HTTP server in the virtual machine
+and monitor its <code>access_log</code></p>
 <ol>
-<li>Run the following command:
-    <code>$ sudo ex5-3.log.py /var/log/httpd/access_log</code></li>
+<li>
+<p>Run the following command passing the path to the Apache HTTP server <code>access_log</code>:
+    <code>$ sudo ex5-3.log.py /var/log/httpd/access_log</code></p>
+</li>
+<li>
+<p>Observe the measurements on TrueSight Intelligence.</p>
+</li>
 </ol></div>
         </div>
 
@@ -233,33 +323,6 @@ here:</p>
         <script src="../../js/jquery-1.10.2.min.js"></script>
         <script src="../../js/bootstrap-3.0.3.min.js"></script>
         <script src="../../js/highlight.pack.js"></script>
-        <script>var base_url = '../..';</script>
-        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
         <script src="../../js/base.js"></script>
-
-        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>
-                            From here you can search these documents. Enter
-                            your search terms below.
-                        </p>
-                        <form role="form">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
-                            </div>
-                        </form>
-                        <div id="mkdocs-search-results"></div>
-                    </div>
-                    <div class="modal-footer">
-                    </div>
-                </div>
-            </div>
-        </div>
     </body>
 </html>

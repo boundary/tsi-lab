@@ -60,23 +60,17 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Getting Started <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                     
-                        
-<li >
-    <a href="../../getting_started/prerequisites/">Prerequisites</a>
-</li>
-
+                        <li >
+                            <a href="../../getting_started/prerequisites/">Prerequisites</a>
+                        </li>
                     
-                        
-<li >
-    <a href="../../getting_started/signup/">Sign-Up</a>
-</li>
-
+                        <li >
+                            <a href="../../getting_started/signup/">Sign-Up</a>
+                        </li>
                     
-                        
-<li >
-    <a href="../../getting_started/virtual_machine/">Virtual Machine</a>
-</li>
-
+                        <li >
+                            <a href="../../getting_started/virtual_machine/">Virtual Machine</a>
+                        </li>
                     
                     </ul>
                 </li>
@@ -87,41 +81,29 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                     
-                        
-<li class="active">
-    <a href="./">Lab 1 - Meters and Meter Plugins</a>
-</li>
-
+                        <li class="active">
+                            <a href="./">Lab 1 - Meters and Meter Plugins</a>
+                        </li>
                     
-                        
-<li >
-    <a href="../lab2/">Lab 2 - Introduction ReST</a>
-</li>
-
+                        <li >
+                            <a href="../lab2/">Lab 2 - Introduction ReST</a>
+                        </li>
                     
-                        
-<li >
-    <a href="../lab3/">Lab 3 - Event APIs</a>
-</li>
-
+                        <li >
+                            <a href="../lab3/">Lab 3 - Event APIs</a>
+                        </li>
                     
-                        
-<li >
-    <a href="../lab4/">Lab 4 - Metrics APIs</a>
-</li>
-
+                        <li >
+                            <a href="../lab4/">Lab 4 - Metrics APIs</a>
+                        </li>
                     
-                        
-<li >
-    <a href="../lab5/">Lab 5 - Log File to API</a>
-</li>
-
+                        <li >
+                            <a href="../lab5/">Lab 5 - Log File to API</a>
+                        </li>
                     
-                        
-<li >
-    <a href="../lab6/">Lab 6 - API Integration</a>
-</li>
-
+                        <li >
+                            <a href="../lab6/">Lab 6 - API Integration</a>
+                        </li>
                     
                     </ul>
                 </li>
@@ -131,11 +113,6 @@
 
             <!-- Search, Navigation and Repo links -->
             <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
-                        <i class="fa fa-search"></i> Search
-                    </a>
-                </li>
                 <li >
                     <a rel="next" href="../../getting_started/virtual_machine/">
                         <i class="fa fa-arrow-left"></i> Previous
@@ -231,25 +208,24 @@ https://meter.truesight-staging.bmc.com/setup_meter &gt; setup_meter.sh \
 
 <h3 id="updating-the-meterconf-with-application_id">Updating the <code>meter.conf</code> with <code>application_id</code></h3>
 <ol>
-<li>Update the meter configuration <code>/etc/boundary/meter.conf</code> with the <code>application_id</code> as shown
-in this configuration snippet:</li>
-</ol>
-<pre><code>    &quot;properties&quot;:{
-      &quot;application_id&quot;: &quot;&lt;your application id here&gt;&quot;
-    },
-</code></pre>
-
-<ol>
-<li>Restart the meter to have the change take affect:</li>
-</ol>
-<pre><code>[vagrant@tsi-lab-01 ~]$ sudo service boundary-meter restart
-Restarting boundary-meter (via systemctl):                 [  OK  ]
-</code></pre>
-
-<ol>
-<li>Open your Chrome Web Browser to
+<li>
+<p>Update the meter configuration <code>/etc/boundary/meter.conf</code> with the <code>application_id</code> by editing the
+file with <code>vi</code>, <code>nano</code>, <code>emacs</code>, or your favorite <a href="https://en.wikipedia.org/wiki/List_of_text_editors">editor</a>
+as shown in this configuration snippet:</p>
+<p><code>"properties":{
+   "application_id": "&lt;your application id here&gt;"
+},</code></p>
+</li>
+<li>
+<p>Restart the meter to have the change take affect:
+    <code>[vagrant@tsi-lab-01 ~]$ sudo service boundary-meter restart
+    Restarting boundary-meter (via systemctl):                 [  OK  ]</code></p>
+</li>
+<li>
+<p>Open your Chrome Web Browser to
 <a href="https://pulse.truesight-staging.bmc.com/home">https://pulse.truesight-staging.bmc.com/home</a>
-to verify that measurements are being sent to your TrueSight Pulse dashboards.</li>
+to verify that measurements are being sent to your TrueSight Pulse dashboards.</p>
+</li>
 </ol>
 <h2 id="exercise-1-2-meter-plugins">Exercise 1-2 - Meter Plugins</h2>
 <p>This exercise will have you install 2 meter plugins:</p>
@@ -290,33 +266,6 @@ dashboard.</p>
         <script src="../../js/jquery-1.10.2.min.js"></script>
         <script src="../../js/bootstrap-3.0.3.min.js"></script>
         <script src="../../js/highlight.pack.js"></script>
-        <script>var base_url = '../..';</script>
-        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
         <script src="../../js/base.js"></script>
-
-        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>
-                            From here you can search these documents. Enter
-                            your search terms below.
-                        </p>
-                        <form role="form">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
-                            </div>
-                        </form>
-                        <div id="mkdocs-search-results"></div>
-                    </div>
-                    <div class="modal-footer">
-                    </div>
-                </div>
-            </div>
-        </div>
     </body>
 </html>
