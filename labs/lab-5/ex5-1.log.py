@@ -26,8 +26,10 @@ if __name__ == '__main__':
     if len(sys.argv) == 2:
         # Open our file for reading
         log_file = open(sys.argv[1], "r")
+
         # Create our iterable function
         log_lines = follow(log_file)
+
         # Process the lines as they are appended
         for line in log_lines:
             # Strip out the new line an print the line
