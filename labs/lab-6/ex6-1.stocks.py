@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 import ystockquote
+import os
 import sys
 import time
 from tspapi import API
@@ -58,6 +59,7 @@ class Ticker(object):
                 if volume == 'N/A' or price == 'N/A':
                     sys.stderr.write('Could not find ticker \"{0}\", skipping'.format(ticker))
                 else:
+                    print("ticker: {0}, price: {1}, volume: {2}".format(ticker, price, volume))
                     measurements.append(Measurement(metric='STOCK_PRICE', value=price, source=ticker))
                     measurements.append(Measurement(metric='STOCK_VOLUME', value=volume, source=ticker))
                     self.send_measurements(measurements)
@@ -65,14 +67,17 @@ class Ticker(object):
 
 
 if __name__ == "__main__":
-    first = True
-    tickers = []
-    for arg in sys.argv:
-        # Skip the first arguments which is the program name
-        if first:
-            first = False
-            continue
-        tickers.append(arg)
+    if len(sys.argv) > 1:
+        first = True
+        tickers = []
+        for arg in sys.argv:
+            # Skip the first arguments which is the program name
+            if first:
+                first = False
+                continue
+            tickers.append(arg)
 
-    plugin = Ticker(interval=10, tickers=tickers)
-    plugin.run()
+        plugin = Ticker(interval=10, tickers=tickers)
+        plugin.run()
+    else:
+        sys.stderr.write("usage: {0} ticker [ticker [ticker]...]\n".format(os.path.basename(sys.argv[0])))

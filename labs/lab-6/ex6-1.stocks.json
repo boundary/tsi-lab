@@ -1,7 +1,7 @@
 {
   "STOCK_PRICE": {
     "defaultAggregate": "AVG",
-    "defaultResolutionMS": 1000,
+    "defaultResolutionMS": 10000,
     "description": "Current stock price or the end of day's trading.",
     "displayName": "Stock Price",
     "displayNameShort": "Stock Price",
@@ -9,7 +9,7 @@
   },
   "STOCK_VOLUME": {
     "defaultAggregate": "AVG",
-    "defaultResolutionMS": 1000,
+    "defaultResolutionMS": 10000,
     "description": "Current stock volume or the end of day's trading.",
     "displayName": "Stock Volume",
     "displayNameShort": "Stock Volume",
