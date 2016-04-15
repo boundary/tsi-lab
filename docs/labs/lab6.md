@@ -1,10 +1,17 @@
 Lab 6 - API Integration
 =======================
 
-## Exercise 6-1 Open Weather Map
+With all you have learned regarding the Event, Metric, and Measurements APIs it is time
+put your new knowledge to some interesting examples. Hold on tight, make sure your
+parachute is packed, we are climbing to 10,000, be ready to bail out.
 
+The three exercises we have in store for are:
 
-## Exercise 6-2 Stocks
+1. Collecting your favorite stocks pricing and volume (Commission Free!)
+2. Collecting temperature from your favorite city
+3. Collecting some statistics of your Twitter feed.
+
+## Exercise 6-1 Stocks
 
 In this example we use the `ystockquote` Python package to send measurements to send stock pricing
 and volume given the stock ticker to TrueSight Intelligence.
@@ -28,7 +35,9 @@ To add the metric definitions for this exercise run the following:
     metric-import -f ex6-2.stocks.json
     ```
 
-3. To create price and volume for Google, Apple, and Twitter run
+### Sending Stock Price and Volume Measurements
+
+1. To create price and volume for Google, Apple, and Twitter run
 the following:
 
     ```
@@ -46,7 +55,52 @@ ticker: aapl, price: 111.82, volume: 12238391
 ticker: twtr, price: 17.69, volume: 8318981
 ```
 
+## Exercise 6-2 Open Weather Map
+
+
+### Obtaining Open Weather Map API Keys
+
+**To Be Completed**
+
+
+### Adding the metric definitions
+
+To add the metric definitions for this exercise run the following:
+
+1. Change directory to `labs/lab-6`:
+
+    ```
+    cd ~/labs/lab-6
+    ```
+
+2. Add the metric definitions by running the following:
+
+    ```
+    metric-import -f ex6-2.weather.json
+    ```
+
+## Running the weather collection script
+
+1. Change directory to `labs/lab-6`:
+
+    ```
+    cd ~/labs/lab-6
+    ```
+
+2. To create weather data for San Jose, CA run the following:
+
+    ```
+    ex6-2.weather.py "San Jose, CA"
+    ```
+
 ## Exercise 6-3 Twitter
+
+
+### Obtaining your Twitter API Keys
+
+**To Be Completed**
+
+### Adding the metric definitions
 
 To add the metric definitions for this exercise run the following:
 
