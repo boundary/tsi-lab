@@ -25,7 +25,7 @@ class Weather(Common):
     """
     """
 
-    def __init__(self, interval=10, words=None):
+    def __init__(self, interval=10, cities=None):
         """
         Construct a Twitter instance
 
@@ -36,7 +36,10 @@ class Weather(Common):
         super(Weather, self).__init__()
         self.usage_args = 'city [city [city]...'
         self.interval = interval
-        self.words = words
+        self.cities = cities
+        api_key = os.environ['OWM_API_KEY']
+        self.owm = pyowm.OWM(api_key)
+
 
     def send_measurements(self, measurements):
         """
@@ -53,8 +56,20 @@ class Weather(Common):
         """
         while True:
             # Loop over the tickers and lookup the stock price and volume
-            for word in self.words:
-                print("To Be Completed")
+            for city in self.cities:
+                observation = self.owm.weather_at_place(city)
+                weather = observation.get_weather()
+                measurements = []
+                temperature = float(weather.get_temperature('fahrenheit')['temp'])
+                source = city.replace(',','_').replace(' ','_')
+                properties = {"app_id": "LittleDog"}
+                print('city: {0}, temperature: {1}'.format(city.replace(',','_').replace(' ','_'), temperature))
+                measurements.append(Measurement(
+                        metric='TEMPERATURE',
+                        value=temperature,
+                        source=source,
+                        properties=properties))
+                self.send_measurements(measurements)
             time.sleep(self.interval)
 
 
@@ -68,7 +83,6 @@ if __name__ == "__main__":
                 first = False
                 continue
             cities.append(arg)
-
         weather = Weather(interval=10, cities=cities)
         weather.run()
     else:
