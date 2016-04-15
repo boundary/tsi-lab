@@ -60,17 +60,23 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Getting Started <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                     
-                        <li class="active">
-                            <a href="./">Prerequisites</a>
-                        </li>
+                        
+<li class="active">
+    <a href="./">Prerequisites</a>
+</li>
+
                     
-                        <li >
-                            <a href="../signup/">Sign-Up</a>
-                        </li>
+                        
+<li >
+    <a href="../signup/">Sign-Up</a>
+</li>
+
                     
-                        <li >
-                            <a href="../virtual_machine/">Virtual Machine</a>
-                        </li>
+                        
+<li >
+    <a href="../virtual_machine/">Virtual Machine</a>
+</li>
+
                     
                     </ul>
                 </li>
@@ -81,29 +87,41 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                     
-                        <li >
-                            <a href="../../labs/lab1/">Lab 1 - Meters and Meter Plugins</a>
-                        </li>
+                        
+<li >
+    <a href="../../labs/lab1/">Lab 1 - Meters and Meter Plugins</a>
+</li>
+
                     
-                        <li >
-                            <a href="../../labs/lab2/">Lab 2 - Introduction ReST</a>
-                        </li>
+                        
+<li >
+    <a href="../../labs/lab2/">Lab 2 - Introduction ReST</a>
+</li>
+
                     
-                        <li >
-                            <a href="../../labs/lab3/">Lab 3 - Event APIs</a>
-                        </li>
+                        
+<li >
+    <a href="../../labs/lab3/">Lab 3 - Event APIs</a>
+</li>
+
                     
-                        <li >
-                            <a href="../../labs/lab4/">Lab 4 - Metrics APIs</a>
-                        </li>
+                        
+<li >
+    <a href="../../labs/lab4/">Lab 4 - Metrics APIs</a>
+</li>
+
                     
-                        <li >
-                            <a href="../../labs/lab5/">Lab 5 - Log File to API</a>
-                        </li>
+                        
+<li >
+    <a href="../../labs/lab5/">Lab 5 - Log File to API</a>
+</li>
+
                     
-                        <li >
-                            <a href="../../labs/lab6/">Lab 6 - API Integration</a>
-                        </li>
+                        
+<li >
+    <a href="../../labs/lab6/">Lab 6 - API Integration</a>
+</li>
+
                     
                     </ul>
                 </li>
@@ -113,6 +131,11 @@
 
             <!-- Search, Navigation and Repo links -->
             <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
                 <li >
                     <a rel="next" href="../..">
                         <i class="fa fa-arrow-left"></i> Previous
@@ -135,11 +158,15 @@
     
         <li class="main active"><a href="#prerequisites">Prerequisites</a></li>
         
+            <li><a href="#network">Network</a></li>
+        
             <li><a href="#hardware">Hardware</a></li>
         
             <li><a href="#software">Software</a></li>
         
-            <li><a href="#network">Network</a></li>
+            <li><a href="#git-on-windows">Git On Windows</a></li>
+        
+            <li><a href="#next">Next</a></li>
         
     
     </ul>
@@ -149,27 +176,43 @@
 <h1 id="prerequisites">Prerequisites</h1>
 <p>This section describes the hardware, software, and network resources required to complete the accompanying
 lab exercises.</p>
-<h2 id="hardware">Hardware</h2>
-<ul>
-<li>Laptop/Desktop running Mac OS X 10.10.5 or later</li>
-<li>Laptop/Desktop must have at least 8GB ram</li>
-<li>Laptop/Desktop must have at least 2GB of free disk space</li>
-</ul>
-<h2 id="software">Software</h2>
-<p>Download each piece of software below for your OS and install each piece with the default instructions and locations</p>
-<ul>
-<li>Vagrant 1.7.2 or later. Vagrant can be downloaded <a href="https://www.vagrantup.com/downloads.html">here</a></li>
-<li>VirtualBox 4.3.2.6 or later. VirtualBox can be downloaded <a href="https://www.virtualbox.org/wiki/Downloads">here</a></li>
-<li>Chrome Browser latest version. Chrome can be downloaded from <a href="https://www.google.com/chrome/browser/desktop/">here</a></li>
-<li><strong>Optional</strong> Git 2.2 or later. If downloading the virtual machine contents via git. Git can be downloaded <a href="http://git-scm.com/download">here</a></li>
-</ul>
-<p><em>NOTE</em>: Git is optional since you can download the contents of the virtual machine from a zip file.</p>
 <h2 id="network">Network</h2>
 <ul>
 <li>Must have access to the internet so that software components required by the Virtual Machine
 can be downloaded.</li>
 </ul>
-<p>Click Next (upper right) when completed with download and installation of all components on this page.</p></div>
+<h2 id="hardware">Hardware</h2>
+<ul>
+<li>Laptop/Desktop running Mac OS X 10.10.5 or later, or Windows 7 or later.</li>
+<li>Laptop/Desktop must have at least 8GB ram.</li>
+<li>Laptop/Desktop must have at least 2GB of free disk space.</li>
+</ul>
+<h2 id="software">Software</h2>
+<p>Download each piece of software below for your OS and install each piece with the default instructions and locations</p>
+<ul>
+<li>Vagrant 1.7.2 or later. Vagrant can be downloaded
+<a href="https://www.vagrantup.com/downloads.html">here</a></li>
+<li>VirtualBox 4.3.2.6 or later. VirtualBox can be downloaded
+<a href="https://www.virtualbox.org/wiki/Downloads">here</a></li>
+<li>Chrome Browser latest version. Chrome can be downloaded from
+<a href="https://www.google.com/chrome/browser/desktop/">here</a></li>
+<li>Git 2.2 or later. If downloading the virtual machine contents via git. Git can be downloaded
+<a href="http://git-scm.com/download">here</a></li>
+</ul>
+<h2 id="git-on-windows">Git On Windows</h2>
+<p><em>NOTE</em>: If you are Mac OS X user you can skip this section and proceed to the next section, sorry Windows
+people we have some special instructions for you on how to install Git on your system. We promise
+this is the last time you will have to pay your penance for you <em>Windows</em> ways, since going forward,
+the instructions for all the platforms will be the same.</p>
+<p>When using the Git installer make sure you select the options in the installation dialogs:</p>
+<p><strong>TBD</strong> Need the exact wording and/or screen shots for this section to make it clear.</p>
+<ul>
+<li>Run Git Only from a Bash Shell</li>
+<li>Select the Unix Line feeds options</li>
+</ul>
+<h2 id="next">Next</h2>
+<p><a href="https://en.wikipedia.org/wiki/Michael_Buffer"><em>Let's get ready to rumble!</em></a></p>
+<p>Click <em>Next</em> (upper right) when completed with download and installation of all components on this page.</p></div>
         </div>
 
         <footer class="col-md-12">
@@ -181,6 +224,33 @@ can be downloaded.</li>
         <script src="../../js/jquery-1.10.2.min.js"></script>
         <script src="../../js/bootstrap-3.0.3.min.js"></script>
         <script src="../../js/highlight.pack.js"></script>
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
         <script src="../../js/base.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            From here you can search these documents. Enter
+                            your search terms below.
+                        </p>
+                        <form role="form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                            </div>
+                        </form>
+                        <div id="mkdocs-search-results"></div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

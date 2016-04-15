@@ -60,17 +60,23 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Getting Started <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                     
-                        <li >
-                            <a href="../../getting_started/prerequisites/">Prerequisites</a>
-                        </li>
+                        
+<li >
+    <a href="../../getting_started/prerequisites/">Prerequisites</a>
+</li>
+
                     
-                        <li >
-                            <a href="../../getting_started/signup/">Sign-Up</a>
-                        </li>
+                        
+<li >
+    <a href="../../getting_started/signup/">Sign-Up</a>
+</li>
+
                     
-                        <li >
-                            <a href="../../getting_started/virtual_machine/">Virtual Machine</a>
-                        </li>
+                        
+<li >
+    <a href="../../getting_started/virtual_machine/">Virtual Machine</a>
+</li>
+
                     
                     </ul>
                 </li>
@@ -81,29 +87,41 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                     
-                        <li >
-                            <a href="../lab1/">Lab 1 - Meters and Meter Plugins</a>
-                        </li>
+                        
+<li >
+    <a href="../lab1/">Lab 1 - Meters and Meter Plugins</a>
+</li>
+
                     
-                        <li class="active">
-                            <a href="./">Lab 2 - Introduction ReST</a>
-                        </li>
+                        
+<li class="active">
+    <a href="./">Lab 2 - Introduction ReST</a>
+</li>
+
                     
-                        <li >
-                            <a href="../lab3/">Lab 3 - Event APIs</a>
-                        </li>
+                        
+<li >
+    <a href="../lab3/">Lab 3 - Event APIs</a>
+</li>
+
                     
-                        <li >
-                            <a href="../lab4/">Lab 4 - Metrics APIs</a>
-                        </li>
+                        
+<li >
+    <a href="../lab4/">Lab 4 - Metrics APIs</a>
+</li>
+
                     
-                        <li >
-                            <a href="../lab5/">Lab 5 - Log File to API</a>
-                        </li>
+                        
+<li >
+    <a href="../lab5/">Lab 5 - Log File to API</a>
+</li>
+
                     
-                        <li >
-                            <a href="../lab6/">Lab 6 - API Integration</a>
-                        </li>
+                        
+<li >
+    <a href="../lab6/">Lab 6 - API Integration</a>
+</li>
+
                     
                     </ul>
                 </li>
@@ -113,6 +131,11 @@
 
             <!-- Search, Navigation and Repo links -->
             <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
                 <li >
                     <a rel="next" href="../lab1/">
                         <i class="fa fa-arrow-left"></i> Previous
@@ -316,7 +339,7 @@ command separate fields between braces (<em>{</em> and <em>}</em>).</p>
 The following are examples of its use, which later be used to call the actual APIs.</p>
 <h2 id="exercise-2-1-get-request">Exercise 2-1 <code>GET</code> request</h2>
 <p>Run the following by cutting or pasting the curl command or run the script: <code>labs/lab-2/ex2-1.rest.sh</code></p>
-<pre><code>[vagrant@tsi-lab-01 ~]$ curl -X GET -s &quot;https://httpbin.org/get&quot;
+<pre><code>curl -X GET -s &quot;https://httpbin.org/get&quot;
 </code></pre>
 
 <p>You should see output similar to this:</p>
@@ -334,7 +357,7 @@ The following are examples of its use, which later be used to call the actual AP
 
 <h2 id="exercise-2-2-get-request-with-parameters">Exercise 2-2 GET request with parameters</h2>
 <p>Run the following cutting or pasting the curl command or run the script: <code>labs/lab-2/ex2-2.rest.sh</code></p>
-<pre><code>[vagrant@tsi-lab-01 ~]$ curl -X GET -s &quot;https://httpbin.org/get?foo=bar&amp;color=red&quot;
+<pre><code>curl -X GET -s &quot;https://httpbin.org/get?foo=bar&amp;color=red&quot;
 </code></pre>
 
 <p>You should see output similar to this:</p>
@@ -356,7 +379,7 @@ The following are examples of its use, which later be used to call the actual AP
 <p>In the example above, the parameters are returned in the JSON in the field <em>args</em>.</p>
 <h3 id="exercise-2-3-post-request">Exercise 2-3 <code>POST</code> request</h3>
 <p>Run the following by cutting or pasting the curl command or run the script: <code>labs/lab-2/ex2-3.rest.sh</code></p>
-<pre><code>[vagrant@tsi-lab-01 ~]$ curl -X POST -s &quot;https://httpbin.org/post&quot;
+<pre><code>curl -X POST -s &quot;https://httpbin.org/post&quot;
 </code></pre>
 
 <p>You should see output similar to this:</p>
@@ -377,7 +400,7 @@ The following are examples of its use, which later be used to call the actual AP
 </code></pre>
 
 <h3 id="exercise-2-4-post-request-with-a-json-payload">Exercise 2-4 <code>POST</code> request with a <code>JSON</code> payload</h3>
-<pre><code>[vagrant@tsi-lab-01 ~]$ curl -X POST -s &quot;https://httpbin.org/post&quot; \
+<pre><code>curl -X POST -s &quot;https://httpbin.org/post&quot; \
 -H &quot;Content-Type: application/json&quot; \
 -d '{&quot;foo&quot;: &quot;bar&quot;, &quot;red&quot;: true, &quot;curly&quot;: 101}'
 </code></pre>
@@ -408,7 +431,7 @@ The following are examples of its use, which later be used to call the actual AP
 <p>In the example above the JSON payload sent in the request is returned in JSON document
 as the field <em>data</em>.</p>
 <h3 id="exercise-2-5-put-request">Exercise 2-5 <code>PUT</code> request</h3>
-<pre><code>[vagrant@tsi-lab-01 ~]$ curl -X PUT -s &quot;https://httpbin.org/put&quot; \
+<pre><code>curl -X PUT -s &quot;https://httpbin.org/put&quot; \
 -H &quot;Content-Type: application/json&quot; \
 -d '{&quot;foo&quot;: &quot;bar&quot;, &quot;red&quot;: true, &quot;curly&quot;: 101}'
 </code></pre>
@@ -438,7 +461,7 @@ as the field <em>data</em>.</p>
 
 <p>In the example above the JSON sent in the <code>PUT</code> request is returned in the field <em>data</em>.</p>
 <h3 id="exercise-2-6-delete-request">Exercise 2-6 <code>DELETE</code> request</h3>
-<pre><code>[vagrant@tsi-lab-01 ~]$ curl -X DELETE -s &quot;https://httpbin.org/delete&quot;
+<pre><code>curl -X DELETE -s &quot;https://httpbin.org/delete&quot;
 </code></pre>
 
 <p>You should see output similar to this:</p>
@@ -459,7 +482,7 @@ as the field <em>data</em>.</p>
 </code></pre>
 
 <h3 id="exercise-2-7-get-request-with-authentication">Exercise 2-7 <code>GET</code> request with authentication</h3>
-<pre><code>[vagrant@tsi-lab-01 ~]$ curl -X GET -s -u foo:bar &quot;https://httpbin.org/basic-auth/foo/bar&quot;
+<pre><code>curl -X GET -s -u foo:bar &quot;https://httpbin.org/basic-auth/foo/bar&quot;
 </code></pre>
 
 <p>You should see output similar to this:</p>
@@ -471,7 +494,7 @@ as the field <em>data</em>.</p>
 
 <h3 id="exercise-2-8-get-request-that-returns-a-400">Exercise 2-8 <code>GET</code> request that returns a <code>400</code></h3>
 <p>Status codes and headers are displayed by adding the <code>-i</code> argument to <code>curl</code>.</p>
-<pre><code>[vagrant@tsi-lab-01 ~]$ curl -i -X GET -s &quot;https://httpbin.org/status/400&quot;
+<pre><code>curl -i -X GET -s &quot;https://httpbin.org/status/400&quot;
 </code></pre>
 
 <p>You should see output similar to this:</p>
@@ -486,7 +509,7 @@ Access-Control-Allow-Credentials: true
 </code></pre>
 
 <h3 id="exercise-2-9-get-request-that-returns-a-401">Exercise 2-9 <code>GET</code> request that returns a <code>401</code></h3>
-<pre><code>[vagrant@tsi-lab-01 ~]$ curl -i -X GET -u foo:blue &quot;https://httpbin.org/basic-auth/foo/bar&quot;
+<pre><code>curl -i -X GET -u foo:blue &quot;https://httpbin.org/basic-auth/foo/bar&quot;
 </code></pre>
 
 <p>You should see output similar to this:</p>
@@ -501,7 +524,7 @@ Access-Control-Allow-Credentials: true
 </code></pre>
 
 <h3 id="exercise-2-10-get-request-that-returns-a-422">Exercise 2-10 <code>GET</code> request that returns a <code>422</code></h3>
-<pre><code>[vagrant@tsi-lab-01 ~]$ curl -i -X GET &quot;https://httpbin.org/status/422&quot;
+<pre><code>curl -i -X GET &quot;https://httpbin.org/status/422&quot;
 </code></pre>
 
 <p>You should see output similar to this:</p>
@@ -581,6 +604,33 @@ can be of any arbitrary string value.</li>
         <script src="../../js/jquery-1.10.2.min.js"></script>
         <script src="../../js/bootstrap-3.0.3.min.js"></script>
         <script src="../../js/highlight.pack.js"></script>
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
         <script src="../../js/base.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            From here you can search these documents. Enter
+                            your search terms below.
+                        </p>
+                        <form role="form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                            </div>
+                        </form>
+                        <div id="mkdocs-search-results"></div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

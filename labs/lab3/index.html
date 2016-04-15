@@ -60,17 +60,23 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Getting Started <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                     
-                        <li >
-                            <a href="../../getting_started/prerequisites/">Prerequisites</a>
-                        </li>
+                        
+<li >
+    <a href="../../getting_started/prerequisites/">Prerequisites</a>
+</li>
+
                     
-                        <li >
-                            <a href="../../getting_started/signup/">Sign-Up</a>
-                        </li>
+                        
+<li >
+    <a href="../../getting_started/signup/">Sign-Up</a>
+</li>
+
                     
-                        <li >
-                            <a href="../../getting_started/virtual_machine/">Virtual Machine</a>
-                        </li>
+                        
+<li >
+    <a href="../../getting_started/virtual_machine/">Virtual Machine</a>
+</li>
+
                     
                     </ul>
                 </li>
@@ -81,29 +87,41 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                     
-                        <li >
-                            <a href="../lab1/">Lab 1 - Meters and Meter Plugins</a>
-                        </li>
+                        
+<li >
+    <a href="../lab1/">Lab 1 - Meters and Meter Plugins</a>
+</li>
+
                     
-                        <li >
-                            <a href="../lab2/">Lab 2 - Introduction ReST</a>
-                        </li>
+                        
+<li >
+    <a href="../lab2/">Lab 2 - Introduction ReST</a>
+</li>
+
                     
-                        <li class="active">
-                            <a href="./">Lab 3 - Event APIs</a>
-                        </li>
+                        
+<li class="active">
+    <a href="./">Lab 3 - Event APIs</a>
+</li>
+
                     
-                        <li >
-                            <a href="../lab4/">Lab 4 - Metrics APIs</a>
-                        </li>
+                        
+<li >
+    <a href="../lab4/">Lab 4 - Metrics APIs</a>
+</li>
+
                     
-                        <li >
-                            <a href="../lab5/">Lab 5 - Log File to API</a>
-                        </li>
+                        
+<li >
+    <a href="../lab5/">Lab 5 - Log File to API</a>
+</li>
+
                     
-                        <li >
-                            <a href="../lab6/">Lab 6 - API Integration</a>
-                        </li>
+                        
+<li >
+    <a href="../lab6/">Lab 6 - API Integration</a>
+</li>
+
                     
                     </ul>
                 </li>
@@ -113,6 +131,11 @@
 
             <!-- Search, Navigation and Repo links -->
             <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
                 <li >
                     <a rel="next" href="../lab2/">
                         <i class="fa fa-arrow-left"></i> Previous
@@ -220,22 +243,39 @@ Event.</p>
 <pre><code>{
   &quot;title&quot;: &quot;test event&quot;,
   &quot;fingerprintFields&quot;: [&quot;@title&quot;, &quot;@message&quot;],
-   &quot;status&quot;: &quot;OPEN&quot;,
-   &quot;
-   &quot;source&quot;: {&quot;ref&quot;: &quot;myhost&quot;, &quot;type&quot;: &quot;host&quot;}
-}
+  &quot;message&quot;: &quot;Hello World!&quot;,
+  &quot;status&quot;: &quot;OPEN&quot;,
+  &quot;source&quot;: {&quot;ref&quot;: &quot;myhost&quot;, &quot;type&quot;: &quot;host&quot;}
+}'
 </code></pre>
 
-<p>The complete command to generate a Raw Event is listed here:</p>
+<p><em>NOTE</em>: During these labs we have made it easier to run the exercises by storing your
+credentials and api endpoint information in environment variables as follows:</p>
+<ul>
+<li><code>TSP_EMAIL</code> - TrueSight Intelligence account e-mail address</li>
+<li><code>TSP_API_TOKEN</code> - TrueSight Intelligence API token</li>
+<li><code>TSP_API_HOST</code> - TrueSight Intelligence API endpoint</li>
+</ul>
+<p>You can check the values of your credentials and endpoint at anytime by running the following
+command inside the virtual machine:</p>
+<pre><code>[vagrant@tsi-lab-01 ~]$ creds
+TSP_EMAIL=donald_trump@example.com
+TSP_API_HOST=api.truesight-staging.bmc.com
+TSP_API_TOKEN=ou812-fo-beef-4377-aed6463dbb5e
+</code></pre>
+
+<p>The complete command to generate a Raw Event including your credentials and api endpoint is
+as follows:</p>
 <pre><code>curl -i &quot;https://$TSP_API_HOST/v1/events&quot; \
 -X POST \
 -u &quot;$TSP_EMAIL:$TSP_API_TOKEN&quot; \
 -H &quot;Content-Type: application/json&quot; \
 -d '{
-       &quot;title&quot;: &quot;test event&quot;,
-       &quot;fingerprintFields&quot;: [&quot;@title&quot;, &quot;@message&quot;],
-       &quot;status&quot;: &quot;OPEN&quot;,
-       &quot;source&quot;: {&quot;ref&quot;: &quot;myhost&quot;, &quot;type&quot;: &quot;host&quot;}
+      &quot;title&quot;: &quot;test event&quot;,
+      &quot;fingerprintFields&quot;: [&quot;@title&quot;, &quot;@message&quot;],
+      &quot;message&quot;: &quot;Hello World!&quot;,
+      &quot;status&quot;: &quot;OPEN&quot;,
+      &quot;source&quot;: {&quot;ref&quot;: &quot;myhost&quot;, &quot;type&quot;: &quot;host&quot;}
     }'
 </code></pre>
 
@@ -324,6 +364,33 @@ you did in exercize 3-1.</p></div>
         <script src="../../js/jquery-1.10.2.min.js"></script>
         <script src="../../js/bootstrap-3.0.3.min.js"></script>
         <script src="../../js/highlight.pack.js"></script>
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
         <script src="../../js/base.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            From here you can search these documents. Enter
+                            your search terms below.
+                        </p>
+                        <form role="form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                            </div>
+                        </form>
+                        <div id="mkdocs-search-results"></div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

@@ -60,17 +60,23 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Getting Started <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                     
-                        <li >
-                            <a href="../../getting_started/prerequisites/">Prerequisites</a>
-                        </li>
+                        
+<li >
+    <a href="../../getting_started/prerequisites/">Prerequisites</a>
+</li>
+
                     
-                        <li >
-                            <a href="../../getting_started/signup/">Sign-Up</a>
-                        </li>
+                        
+<li >
+    <a href="../../getting_started/signup/">Sign-Up</a>
+</li>
+
                     
-                        <li >
-                            <a href="../../getting_started/virtual_machine/">Virtual Machine</a>
-                        </li>
+                        
+<li >
+    <a href="../../getting_started/virtual_machine/">Virtual Machine</a>
+</li>
+
                     
                     </ul>
                 </li>
@@ -81,29 +87,41 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                     
-                        <li >
-                            <a href="../lab1/">Lab 1 - Meters and Meter Plugins</a>
-                        </li>
+                        
+<li >
+    <a href="../lab1/">Lab 1 - Meters and Meter Plugins</a>
+</li>
+
                     
-                        <li >
-                            <a href="../lab2/">Lab 2 - Introduction ReST</a>
-                        </li>
+                        
+<li >
+    <a href="../lab2/">Lab 2 - Introduction ReST</a>
+</li>
+
                     
-                        <li >
-                            <a href="../lab3/">Lab 3 - Event APIs</a>
-                        </li>
+                        
+<li >
+    <a href="../lab3/">Lab 3 - Event APIs</a>
+</li>
+
                     
-                        <li >
-                            <a href="../lab4/">Lab 4 - Metrics APIs</a>
-                        </li>
+                        
+<li >
+    <a href="../lab4/">Lab 4 - Metrics APIs</a>
+</li>
+
                     
-                        <li >
-                            <a href="../lab5/">Lab 5 - Log File to API</a>
-                        </li>
+                        
+<li >
+    <a href="../lab5/">Lab 5 - Log File to API</a>
+</li>
+
                     
-                        <li class="active">
-                            <a href="./">Lab 6 - API Integration</a>
-                        </li>
+                        
+<li class="active">
+    <a href="./">Lab 6 - API Integration</a>
+</li>
+
                     
                     </ul>
                 </li>
@@ -113,6 +131,11 @@
 
             <!-- Search, Navigation and Repo links -->
             <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
                 <li >
                     <a rel="next" href="../lab5/">
                         <i class="fa fa-arrow-left"></i> Previous
@@ -135,9 +158,11 @@
     
         <li class="main active"><a href="#lab-6-api-integration">Lab 6 - API Integration</a></li>
         
-            <li><a href="#exercise-6-1-open-weather-map">Exercise 6-1 Open Weather Map</a></li>
+            <li><a href="#exercise-6-1-stocks">Exercise 6-1 Stocks</a></li>
         
-            <li><a href="#exercise-6-2-stocks">Exercise 6-2 Stocks</a></li>
+            <li><a href="#exercise-6-2-open-weather-map">Exercise 6-2 Open Weather Map</a></li>
+        
+            <li><a href="#running-the-weather-collection-script">Running the weather collection script</a></li>
         
             <li><a href="#exercise-6-3-twitter">Exercise 6-3 Twitter</a></li>
         
@@ -147,9 +172,90 @@
             <div class="col-md-9" role="main">
 
 <h1 id="lab-6-api-integration">Lab 6 - API Integration</h1>
-<h2 id="exercise-6-1-open-weather-map">Exercise 6-1 Open Weather Map</h2>
-<h2 id="exercise-6-2-stocks">Exercise 6-2 Stocks</h2>
-<h2 id="exercise-6-3-twitter">Exercise 6-3 Twitter</h2></div>
+<p>With all you have learned regarding the Event, Metric, and Measurements APIs it is time
+put your new knowledge to some interesting examples. Hold on tight, make sure your
+parachute is packed, we are climbing to 10,000, be ready to bail out.</p>
+<p>The three exercises we have in store for are:</p>
+<ol>
+<li>Collecting your favorite stocks pricing and volume (Commission Free!)</li>
+<li>Collecting temperature from your favorite city</li>
+<li>Collecting some statistics of your Twitter feed.</li>
+</ol>
+<h2 id="exercise-6-1-stocks">Exercise 6-1 Stocks</h2>
+<p>In this example we use the <code>ystockquote</code> Python package to send measurements to send stock pricing
+and volume given the stock ticker to TrueSight Intelligence.</p>
+<p>The stock script allows multiple tickers to be passed on the command line and their corresponding
+price and volume will be sent to TrueSight Intelligence.</p>
+<h3 id="adding-the-metric-definitions">Adding the metric definitions</h3>
+<p>To add the metric definitions for this exercise run the following:</p>
+<ol>
+<li>
+<p>Change directory to <code>labs/lab-6</code>:</p>
+<p><code>cd ~/labs/lab-6</code></p>
+</li>
+<li>
+<p>Add the metric definitions by running the following:</p>
+<p><code>metric-import -f ex6-2.stocks.json</code></p>
+</li>
+</ol>
+<h3 id="sending-stock-price-and-volume-measurements">Sending Stock Price and Volume Measurements</h3>
+<ol>
+<li>
+<p>To create price and volume for Google, Apple, and Twitter run
+the following:</p>
+<p><code>ex6-2.stock.py goog aapl twtr</code></p>
+</li>
+</ol>
+<p>The output should be similar to the following:</p>
+<pre><code>ticker: goog, price: 759.24, volume: 896107
+ticker: aapl, price: 111.83, volume: 12232507
+ticker: twtr, price: 17.695, volume: 8318681
+ticker: goog, price: 759.24, volume: 896151
+ticker: aapl, price: 111.82, volume: 12238391
+ticker: twtr, price: 17.69, volume: 8318981
+</code></pre>
+
+<h2 id="exercise-6-2-open-weather-map">Exercise 6-2 Open Weather Map</h2>
+<h3 id="obtaining-open-weather-map-api-keys">Obtaining Open Weather Map API Keys</h3>
+<p><strong>To Be Completed</strong></p>
+<h3 id="adding-the-metric-definitions_1">Adding the metric definitions</h3>
+<p>To add the metric definitions for this exercise run the following:</p>
+<ol>
+<li>
+<p>Change directory to <code>labs/lab-6</code>:</p>
+<p><code>cd ~/labs/lab-6</code></p>
+</li>
+<li>
+<p>Add the metric definitions by running the following:</p>
+<p><code>metric-import -f ex6-2.weather.json</code></p>
+</li>
+</ol>
+<h2 id="running-the-weather-collection-script">Running the weather collection script</h2>
+<ol>
+<li>
+<p>Change directory to <code>labs/lab-6</code>:</p>
+<p><code>cd ~/labs/lab-6</code></p>
+</li>
+<li>
+<p>To create weather data for San Jose, CA run the following:</p>
+<p><code>ex6-2.weather.py "San Jose, CA"</code></p>
+</li>
+</ol>
+<h2 id="exercise-6-3-twitter">Exercise 6-3 Twitter</h2>
+<h3 id="obtaining-your-twitter-api-keys">Obtaining your Twitter API Keys</h3>
+<p><strong>To Be Completed</strong></p>
+<h3 id="adding-the-metric-definitions_2">Adding the metric definitions</h3>
+<p>To add the metric definitions for this exercise run the following:</p>
+<ol>
+<li>
+<p>Change directory to <code>labs/lab-6</code>:</p>
+<p><code>cd ~/labs/lab-6</code></p>
+</li>
+<li>
+<p>Add the metric definitions by running the following:</p>
+<p><code>metric-import -f ex6-3.twitter.json</code></p>
+</li>
+</ol></div>
         </div>
 
         <footer class="col-md-12">
@@ -161,6 +267,33 @@
         <script src="../../js/jquery-1.10.2.min.js"></script>
         <script src="../../js/bootstrap-3.0.3.min.js"></script>
         <script src="../../js/highlight.pack.js"></script>
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
         <script src="../../js/base.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            From here you can search these documents. Enter
+                            your search terms below.
+                        </p>
+                        <form role="form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                            </div>
+                        </form>
+                        <div id="mkdocs-search-results"></div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

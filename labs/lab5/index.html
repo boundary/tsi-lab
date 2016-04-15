@@ -60,17 +60,23 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Getting Started <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                     
-                        <li >
-                            <a href="../../getting_started/prerequisites/">Prerequisites</a>
-                        </li>
+                        
+<li >
+    <a href="../../getting_started/prerequisites/">Prerequisites</a>
+</li>
+
                     
-                        <li >
-                            <a href="../../getting_started/signup/">Sign-Up</a>
-                        </li>
+                        
+<li >
+    <a href="../../getting_started/signup/">Sign-Up</a>
+</li>
+
                     
-                        <li >
-                            <a href="../../getting_started/virtual_machine/">Virtual Machine</a>
-                        </li>
+                        
+<li >
+    <a href="../../getting_started/virtual_machine/">Virtual Machine</a>
+</li>
+
                     
                     </ul>
                 </li>
@@ -81,29 +87,41 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                     
-                        <li >
-                            <a href="../lab1/">Lab 1 - Meters and Meter Plugins</a>
-                        </li>
+                        
+<li >
+    <a href="../lab1/">Lab 1 - Meters and Meter Plugins</a>
+</li>
+
                     
-                        <li >
-                            <a href="../lab2/">Lab 2 - Introduction ReST</a>
-                        </li>
+                        
+<li >
+    <a href="../lab2/">Lab 2 - Introduction ReST</a>
+</li>
+
                     
-                        <li >
-                            <a href="../lab3/">Lab 3 - Event APIs</a>
-                        </li>
+                        
+<li >
+    <a href="../lab3/">Lab 3 - Event APIs</a>
+</li>
+
                     
-                        <li >
-                            <a href="../lab4/">Lab 4 - Metrics APIs</a>
-                        </li>
+                        
+<li >
+    <a href="../lab4/">Lab 4 - Metrics APIs</a>
+</li>
+
                     
-                        <li class="active">
-                            <a href="./">Lab 5 - Log File to API</a>
-                        </li>
+                        
+<li class="active">
+    <a href="./">Lab 5 - Log File to API</a>
+</li>
+
                     
-                        <li >
-                            <a href="../lab6/">Lab 6 - API Integration</a>
-                        </li>
+                        
+<li >
+    <a href="../lab6/">Lab 6 - API Integration</a>
+</li>
+
                     
                     </ul>
                 </li>
@@ -113,6 +131,11 @@
 
             <!-- Search, Navigation and Repo links -->
             <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
                 <li >
                     <a rel="next" href="../lab4/">
                         <i class="fa fa-arrow-left"></i> Previous
@@ -299,14 +322,80 @@ host: ::1, time: [13/Apr/2016:05:25:25 +0000], request: GET / HTTP/1.1, status: 
 </code></pre>
 <p>Look at the script <code>~/labs/lab-5/ex5-2.log.py</code> in its entirety to understand how it works.</p>
 <h2 id="introduction-to-exercise-5-3-reading-log-files-and-sending-measurements">Introduction to <em>Exercise 5-3 - Reading Log Files and Sending Measurements</em></h2>
-<p>Okay, last stop in the logfile saga.</p>
+<p>Okay, last stop in the logfile saga. In this lab were are going to combine our collected
+knowledge on processing log files with our previous lab on sending measurements using
+the Measurement API.</p>
+<p>But first a quick segway (not this <a href="https://en.wikipedia.org/wiki/Segway_PT">segway</a>!) on
+Pythons object oriented programming.</p>
+<p>Here is a simple class definition in Python the describes an animal:</p>
+<pre><code>class Animal(object):
+
+    def __init__(self):
+        self.voice = &quot;???&quot;
+
+    def speak(self):
+        print('{0} says &quot;{1}&quot;'.format(self.__class__.__name__, self.voice))
+</code></pre>
+
+<p>We can create an instance of this class as follows:</p>
+<pre><code>from kingdom import Animal
+
+animal = Animal()
+animal.speak()
+</code></pre>
+
+<p>which when run outputs the following:</p>
+<pre><code>Animal says &quot;???&quot;
+</code></pre>
+
+<p>We can derive an new class based upon animal without having to teach it to speak:</p>
+<pre><code>from kingdom import Animal
+
+class Cat(Animal):
+
+    def __init__(self):
+        super(Cat, self).__init__()
+        self.voice = 'Meow!'
+
+cat = Cat()
+cat.speak()
+</code></pre>
+
+<p>which gives an output of:</p>
+<pre><code>Cat says &quot;Meow!&quot;
+</code></pre>
+
+<p>Our new <code>Cat</code> class <em>inherits</em> the <code>Animal</code> classes method <code>speak()</code>. Let's create one more
+example to cement this concept of
+<a href="https://en.wikipedia.org/wiki/Inheritance_(object-oriented_programming)"><em>inheritance</em></a>:</p>
+<pre><code>class Dog(Animal):
+
+    def __init__(self):
+        super(Dog, self).__init__()
+        self.voice = 'Woof!'
+
+dog = Dog()
+dog.speak()
+</code></pre>
+
+<p>which gives an output of:</p>
+<pre><code>Dog says &quot;Woof!&quot;
+</code></pre>
+
+<p>In summary, all we had to do to make our new animal say something different was to assign
+what the animal says in the new animals creation method '<strong>init</strong>()'.</p>
+<p>Neat-O. Okay, one more [OOP (Object Oriented Programming)] before we do the final exercise of
+this lab: [overloading].</p>
+<p><strong>To Be Completed</strong></p>
 <h2 id="exercise-5-3-reading-log-files-and-sending-measurements">Exercise 5-3 - Reading Log Files and Sending Measurements</h2>
 <p>For this finally exercise we will use the running Apache HTTP server in the virtual machine
 and monitor its <code>access_log</code></p>
 <ol>
 <li>
-<p>Run the following command passing the path to the Apache HTTP server <code>access_log</code>:
-    <code>$ sudo ex5-3.log.py /var/log/httpd/access_log</code></p>
+<p>Run the following command passing the path to the Apache HTTP server <code>access_log</code>
+<em>NOTE</em>: the additional argument to sudo <code>-E</code> which ensures we pass our environment variables
+which contain our credentials and api endpoint:
+    <code>$ sudo -E ex5-3.log.py /var/log/httpd/access_log</code></p>
 </li>
 <li>
 <p>Observe the measurements on TrueSight Intelligence.</p>
@@ -323,6 +412,33 @@ and monitor its <code>access_log</code></p>
         <script src="../../js/jquery-1.10.2.min.js"></script>
         <script src="../../js/bootstrap-3.0.3.min.js"></script>
         <script src="../../js/highlight.pack.js"></script>
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
         <script src="../../js/base.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            From here you can search these documents. Enter
+                            your search terms below.
+                        </p>
+                        <form role="form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                            </div>
+                        </form>
+                        <div id="mkdocs-search-results"></div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
