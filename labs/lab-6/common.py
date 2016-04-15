@@ -22,9 +22,11 @@ class Common(object):
     def __init__(self, ):
         self.api = API()
         self.usage_args = ""
+        # Set our application id from the environment variable
+        self.appl_id = os.environ['TSI_APPL_ID']
 
     @staticmethod
-    def usage(self, args):
+    def usage(args):
         sys.stderr.write("usage: {0} {1}\n".format(os.path.basename(sys.argv[0]), args))
 
     def send_measurements(self, measurements):
