@@ -2,7 +2,7 @@ TrueSight Intelligence Lab
 ==========================
 __version 0.4.0__
 
-Virtual machine lab environment for learning about TrueSight Pulse Intelligence.
+Virtual machine lab environment for learning about TrueSight Intelligence.
 
 Rather than having to worry about the numerous dependency differences between
 Windows, Mac OS X, Unix/Linux, we have developed this virtual machine that contains
