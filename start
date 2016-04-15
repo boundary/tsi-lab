@@ -1,0 +1,42 @@
+#/bin/bash
+
+echo -n "Enter your E-mail: "
+read TSP_EMAIL
+echo -n "Enter your API token: "
+read TSP_API_TOKEN
+echo -n "Enter your Application Id: "
+read TSI_APPL_ID
+
+echo -n "verifying"
+sleep 1
+echo -n "."
+sleep 1
+echo -n "."
+sleep 1
+echo -n "."
+sleep 1
+echo "ok"
+echo ""
+sleep 2
+
+
+
+export TSP_EMAIL
+export TSP_API_TOKEN
+export TSP_API_HOST="api.truesight-staging.bmc.com"
+export TSI_APPL_ID
+
+echo "Creating virtual machine with the following:"
+echo "    e-mail: $TSP_EMAIL"
+echo "    api token: $TSP_API_TOKEN"
+echo "    application id: $TSI_APPL_ID"
+
+
+for i in $(echo "1 2 3 4 5 6 7 8 9 10")
+do
+  echo -n "."
+  sleep 1
+done
+echo "done"
+
+echo "done"
