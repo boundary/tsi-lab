@@ -46,7 +46,7 @@ $ TSP_EMAIL="<email>" TSP_API_TOKEN="<api key>" TSP_API_HOST="api.truesight-stag
 
 Run the following command immediately after the command above to verify the settings took.
 ```
-$ cred
+$ creds
 
 Sample Output:
 TSP_EMAIL=rknaub@gmail.com

@@ -275,8 +275,7 @@ and monitor its `access_log`
 _NOTE_: the additional argument to sudo `-E` which ensures we pass our environment variables
 which contain our credentials and api endpoint:
     ```
-    $ sudo -E ex5-3.log.py /var/log/httpd/access_log
+    $ sudo -E ./ex5-3.log.py /var/log/httpd/access_log
     ```
 
 2. Observe the measurements on TrueSight Intelligence.
-

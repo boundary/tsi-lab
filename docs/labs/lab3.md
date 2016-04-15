@@ -133,7 +133,7 @@ curl -i "https://$TSP_API_HOST/v1/events" \
     }'
 ```
 
-Run the above command as a script located at `labs/lab-2/ex-2-1-events.sh`
+Run the above command as a script located at `labs/lab-3/ex-2-1-events.sh`
 
 ## Exercise 3-1 - Creating Additional Events Using `curl`
 
@@ -207,7 +207,7 @@ api.event_create(title="bar", fingerprint_fields=['@title'], source=source)
 
 ## Exercise 3-2 - Creating Events Using Python
 
-Run the script `labs\lab-3\ex-2-2.events.py` which contains the Python script from the previous section.
+Run the script `labs\lab-3\ex-3-2.events.py` which contains the Python script from the previous section.
 
 1. Change directory to your home directory:
 
@@ -218,11 +218,10 @@ Run the script `labs\lab-3\ex-2-2.events.py` which contains the Python script fr
 2. Run the following:
 
     ```
-    $ labs\lab-3\ex-2-2.events.py
+    $ labs\lab-3\ex-3-2.events.py
     ```
 
-## Exercise 3-2 - Creating Additional Events Using Python
+## Exercise 3-3 - Creating Additional Events Using Python
 
-Using `labs\lab-3\ex-2-2.events.py` as template create additional events similiary as
-you did in exercize 3-1.
-
+Using `labs\lab-3\ex-3-2.events.py` as template create additional events similiary as
+you did in exercise 3-2.
