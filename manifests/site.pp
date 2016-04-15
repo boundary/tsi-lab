@@ -85,6 +85,21 @@ exec { 'python-petl':
    require => Package['python-pip'],
 }
 
+exec { 'apachelog':
+   command => '/usr/bin/pip install apachelog',
+   require => Package['python-pip'],
+}
+
+exec { 'pyowm':
+   command => '/usr/bin/pip install pyowm',
+   require => Package['python-pip'],
+}
+
+exec { 'tweepy':
+   command => '/usr/bin/pip install tweepy',
+   require => Package['python-pip'],
+}
+
 exec { 'ipython':
    command => '/usr/bin/pip install ipython',
    require => Package['python-pip'],

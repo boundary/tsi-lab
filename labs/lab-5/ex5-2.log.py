@@ -15,6 +15,8 @@
 # limitations under the License.
 #
 import apachelog
+from log_utils import parse_apache_line
+import os
 import sys
 
 # %b - Size
@@ -27,13 +29,14 @@ import sys
 # %{Referer}i - Referer
 # %{User-agent}i - UserAgent
 
-log_format = r'%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}\i"'
-p = apachelog.parser(log_format)
+if len(sys.argv) == 2:
 
-for line in open('/var/log/httpd/access_log'):
-    try:
-        s = p.parse(line)
+    log_format = r'%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}\i"'
+    parser = apachelog.parser(log_format)
+
+    for line in open(sys.argv[1]):
+        p = parse_apache_line(parser, line.strip())
         print("host: {0}, time: {1}, request: {2}, status: {3}, size: {4}, referer: {5}, agent: {6}".format(
-                s['%h'], s['%t'], s['%r'], s['%>s'], s['%b'], s['%{Referer}i'], s['%{User-Agent}\\i"']))
-    except apachelog.ApacheLogParserError:
-        sys.stderr.write("Unable to parse %s" % line)
+                p['%h'], p['%t'], p['%r'], p['%>s'], p['%b'], p['%{Referer}i'], p['%{User-Agent}\\i"']))
+else:
+    sys.stderr.write("usage: {0} <path>".format(os.path.basename(sys.argv[0])))
