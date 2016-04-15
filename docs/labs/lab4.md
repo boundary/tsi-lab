@@ -3,8 +3,9 @@ Lab 4 - Metric and Measurement APIs
 
 ## Overview
 
-
-
+This lab will introduce you to the Metric and Measurement APIs by showing you how to
+extracting example business data from a MySQL database and sending the business data
+to TrueSight Intelligence.
 
 ### Metric API
 
