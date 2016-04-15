@@ -12,15 +12,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import tweepy
+import pyowm
 import os
 import sys
 import time
 from tspapi import API
 from tspapi import Measurement
+from common import Common
 
 
-class Twitter(object):
+class Weather(Common):
     """
     """
 
@@ -32,9 +33,10 @@ class Twitter(object):
         :param words: Words to look for
         :return:
         """
+        super(Weather, self).__init__()
+        self.usage_args = 'city [city [city]...'
         self.interval = interval
-        self.words = tickers
-        self.api = API()
+        self.words = words
 
     def send_measurements(self, measurements):
         """
@@ -52,22 +54,22 @@ class Twitter(object):
         while True:
             # Loop over the tickers and lookup the stock price and volume
             for word in self.words:
-		print("To Be Completed")
+                print("To Be Completed")
             time.sleep(self.interval)
 
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         first = True
-        words = []
+        cities = []
         for arg in sys.argv:
             # Skip the first arguments which is the program name
             if first:
                 first = False
                 continue
-            tickers.append(arg)
+            cities.append(arg)
 
-        twitter = Twitter(interval=10, tickers=tickers)
-        twitter.run()
+        weather = Weather(interval=10, cities=cities)
+        weather.run()
     else:
-        sys.stderr.write("usage: {0} word [word [word]...]\n".format(os.path.basename(sys.argv[0])))
+        Common.usage("city [[city][city]...]")
