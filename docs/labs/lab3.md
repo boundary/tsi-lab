@@ -93,10 +93,10 @@ The fields are used to create a JSON document that becomes the payload of the HT
 {
   "title": "test event",
   "fingerprintFields": ["@title", "@message"],
-   "status": "OPEN",
-   "message": "Hello World!",
-   "source": {"ref": "myhost", "type": "host"}
-}
+  "message": "Hello World!",
+  "status": "OPEN",
+  "source": {"ref": "myhost", "type": "host"}
+}'
 ```
 
 _NOTE_: During these labs we have made it easier to run the exercises by storing your
@@ -105,6 +105,16 @@ credentials and api endpoint information in environment variables as follows:
 - `TSP_EMAIL` - TrueSight Intelligence account e-mail address
 - `TSP_API_TOKEN` - TrueSight Intelligence API token
 - `TSP_API_HOST` - TrueSight Intelligence API endpoint
+
+You can check the values of your credentials and endpoint at anytime by running the following
+command inside the virtual machine:
+
+```
+[vagrant@tsi-lab-01 ~]$ creds
+TSP_EMAIL=donald_trump@example.com
+TSP_API_HOST=api.truesight-staging.bmc.com
+TSP_API_TOKEN=ou812-fo-beef-4377-aed6463dbb5e
+```
 
 The complete command to generate a Raw Event including your credentials and api endpoint is
 as follows:

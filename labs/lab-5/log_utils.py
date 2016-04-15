@@ -40,22 +40,14 @@ def monitor_file(f):
         # We have a line return the line
         yield log_line
 
-
-# %b - Size
-# %h - Remote IP or Host
-# %l - Remote Log Name
-# %r - Request
-# %>s - HTTP Status Code
-# %t - eventTime
-# %u - Remote User
-# %{Referer}i - Referer
-# %{User-agent}i - UserAgent
-
-# log_format = r'%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}\i"'
-# p = apachelog.parser(log_format)
-
-
 def parse_apache_line(parser, line):
+    """
+    Uses the apachelog package to parse a line
+    of a Apache HTTP server log.
+    :param parser:
+    :param line:
+    :return:
+    """
     s = None
     try:
         s = parser.parse(line)
@@ -65,22 +57,36 @@ def parse_apache_line(parser, line):
 
 
 class LogfileParser(object):
-    def __init__(self, path):
+    def __init__(self, path=None):
         """
         Constructs a Logfile parser instance given a path to a log file
         :param path:
-        :return:
+        :return: None
         """
         # Opened handle to our log file
         self.log_file = open(path, "r")
 
+        # Contains the text from each line append to the file
+        self.line = None
+
     def monitor_file(self):
+        """
+        Monitors a file for lines append to it then calls
+        a method to process the line
+        :return: None
+        """
         lines = monitor_file(self.log_file)
         for line in lines:
-            self.parse_line(line.strip())
+            self.line = line.strip()
+            self.parse_line()
 
-    def parse_line(self, line):
-        print(line)
+    def parse_line(self):
+        """
+        Default callback for processing a line which prints
+        the line to standard out.
+        :return: None
+        """
+        print(self.line)
 
 if __name__ == '__main__':
     if len(sys.argv) == 2:

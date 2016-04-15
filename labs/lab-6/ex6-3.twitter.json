@@ -1,0 +1,10 @@
+{
+  "TWITTER_WORD_COUNT": {
+    "defaultAggregate": "AVG",
+    "defaultResolutionMS": 1000,
+    "description": "Current stock price or the end of day's trading.",
+    "displayName": "Word Count",
+    "displayNameShort": "Word Count",
+    "unit": "number"
+  }
+}

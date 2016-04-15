@@ -10,6 +10,8 @@ file { 'tsirc':
   path    => '/home/vagrant/.tsi',
   ensure  => file,
   content => template('tsirc.erb'),
+  owner => 'vagrant',
+  group => 'vagrant',
 }
 
 # Run comman file for configuration specific
@@ -18,6 +20,18 @@ file { 'tsprc':
   path    => '/home/vagrant/.tsp',
   ensure  => file,
   content => template('tsprc.erb'),
+  owner => 'vagrant',
+  group => 'vagrant',
+}
+
+#
+# Bash shell configuration
+file { 'bash_profile_user':
+  path    => '/home/vagrant/.bash_profile',
+  ensure  => file,
+  source  => '/vagrant/manifests/bash_profile',
+  owner => 'vagrant',
+  group => 'vagrant',
 }
 
 # Create a bin directory to put local
@@ -29,28 +43,16 @@ file { 'bin':
    recurse => true,
 }
 
-# Directory for lab exercises
-#file { 'labs':
-#   path => '/home/vagrant/labs',
-#   source => '/vagrant/manifests/labs',
-#   recurse => true,
-#}
-
-# Bash shell configuration
-file { 'bash_profile':
-  path    => '/home/vagrant/.bash_profile',
-  ensure  => file,
-  source  => '/vagrant/manifests/bash_profile',
-}
-
 file { 'vimrc':
   path    => '/home/vagrant/.vimrc',
   source => '/vagrant/manifests/vimrc',
 }
 
-file { 'db':
+file { 'db_user':
   path    => '/home/vagrant/.db',
   source => '/vagrant/manifests/db',
+  owner => 'vagrant',
+  group => 'vagrant',
 }
 
 package { 'epel-release':

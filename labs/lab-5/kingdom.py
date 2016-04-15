@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/python
 #
 # Copyright 2016 BMC Software, Inc.
 #
@@ -14,15 +14,33 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+class Animal(object):
 
-curl -i "https://$TSP_API_HOST/v1/events" \
--X POST \
--u "$TSP_EMAIL:$TSP_API_TOKEN" \
--H "Content-Type: application/json" \
--d '{
-      "title": "test event",
-      "fingerprintFields": ["@title", "@message"],
-      "message": "Hello World!",
-      "status": "OPEN",
-      "source": {"ref": "myhost", "type": "host"}
-    }'
+    def __init__(self):
+        self.voice = "???"
+
+    def speak(self):
+        print('{0} says "{1}"'.format(self.__class__.__name__, self.voice))
+
+class Cat(Animal):
+
+    def __init__(self):
+        super(Cat, self).__init__()
+        self.voice = 'Meow!'
+
+class Dog(Animal):
+
+    def __init__(self):
+        super(Dog, self).__init__()
+        self.voice = 'Woof!'
+
+
+if __name__ == '__main__':
+    animal = Animal()
+    animal.speak()
+
+    cat = Cat()
+    cat.speak()
+
+    dog = Dog()
+    dog.speak()

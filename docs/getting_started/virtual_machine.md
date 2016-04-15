@@ -8,28 +8,17 @@ Before proceeding ensure that you have met the prerequisites listed [here](prere
 
 ### Downloading the Contents
 
-The virtual machine contents can be download by:
-
-1. Downloading and extracting a zip file; or
-2. Using git to clone the GitHub repository
-
-#### Downloading a Zip file
-
-1. Download the contents of the following url:
-[https://github.com/boundary/tsi-lab/archive/master.zip](https://github.com/boundary/tsi-lab/archive/master.zip)
-
-2. Extract the zip file to a suitable location for use when creating your virtual machine.
+The virtual machine contents are _cloned_ or downloaded by using Git to download the needed files
+from a GitHub repository.
 
 #### Cloning
 
-Use the git command line tool in a bash shell or Windows Command prompt to clone the contents of the virtual machine
-in the GitHub Repository
+Use the git command line tool in a bash shell to clone the contents of the virtual machine
+from the GitHub Repository
 
 ```
 $ git clone https://github.com/boundary/tsi-lab
 ```
-
-
 
 ### Creating and Starting the Virtual Machine
 

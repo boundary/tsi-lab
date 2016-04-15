@@ -1,6 +1,6 @@
 TrueSight Intelligence Lab
 ==========================
-__version 0.3.0__
+__version 0.4.0__
 
 Virtual machine lab environment for learning about TrueSight Pulse Intelligence.
 
@@ -11,4 +11,4 @@ all the necessary software tools to complete the lab exercises.
 __It is imperative that you install the prerequisites on your laptop/desktop BEFORE attempting to
 complete these labs! See [Prerequisites](getting_started/prerequisites.md) for details.__
 
-Click the next button in the upper right of this page or click [here](getting_started/prerequisites.md)
+Click the _Next_ ()upper right) or click [here](getting_started/prerequisites.md)
