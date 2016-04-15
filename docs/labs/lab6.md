@@ -35,9 +35,9 @@ To add the metric definitions for this exercise run the following:
     metric-import -f ex6-2.stocks.json
     ```
 
-### Sending Stock Price and Volume Measurements
+### Sending Stock Price and Volume Measurements to TrueSight Intelligence
 
-1. To create price and volume for Google, Apple, and Twitter run
+1. To create measurements of stock prices and volume for Google, Apple, and Twitter run
 the following:
 
     ```
