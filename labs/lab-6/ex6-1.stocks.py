@@ -38,7 +38,7 @@ class Ticker(object):
 
     def send_measurements(self, measurements):
         """
-        Sends measurements to standard out to be read by plugin manager
+        Sends measurements using the Measurement API
 
         :param measurements:
         :return: None
@@ -77,7 +77,7 @@ if __name__ == "__main__":
                 continue
             tickers.append(arg)
 
-        plugin = Ticker(interval=10, tickers=tickers)
-        plugin.run()
+        stocks = Ticker(interval=10, tickers=tickers)
+        stocks.run()
     else:
         sys.stderr.write("usage: {0} ticker [ticker [ticker]...]\n".format(os.path.basename(sys.argv[0])))

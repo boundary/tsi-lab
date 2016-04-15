@@ -1,4 +1,4 @@
-#/usr/bin/python
+#!/usr/bin/env python
 #
 # Copyright 2016 BMC Software, Inc.
 #
@@ -15,15 +15,53 @@
 # limitations under the License.
 #
 import apachelog
-from log_utils import LogfileParser
+import os
+import sys
+from log_utils import LogfileParser , parse_apache_line
+from tspapi import API
+from tspapi import Measurement
 
 
 class ApacheLogfileParser(LogfileParser):
+    def __init__(self, path=None):
+        super(ApacheLogfileParser, self).__init__(path)
+        log_format = r'%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}\i"'
+        self.parser = apachelog.parser(log_format)
+        self.api = API()
 
-    def __init(self):
+    def send_measurements(self, measurements):
+        """
+        Sends measurements to standard out to be read by plugin manager
+
+        :param measurements:
+        :return: None
+        """
+        self.api.measurement_create_batch(measurements)
+
+    def parse_line(self):
+        """
+        Parse each of the lines of the Apache HTTP server access log.
+        :return:
+        """
+        parsed = parse_apache_line(self.parser, self.line)
+        measurements = []
+        user_agent = parsed['%{User-Agent}\i"']
+        bytes = int(parsed['%b'])
+        status_code = parsed['%>s']
+        # Split the line by spaces and get the request in the first value
+        request = parsed['%r'].split(' ')[0]
+        print("user_agent: {0}, bytes: {1}, request: {2}, status_code: {3}".format(
+                user_agent, bytes, request, status_code))
+
+        measurements.append(Measurement(metric='HTTP_REQUESTS', value=1, source=request))
+        measurements.append(Measurement(metric='HTTP_BYTES', value=bytes, source=user_agent))
+        self.send_measurements(measurements)
 
 
 
 if __name__ == '__main__':
-    parser =LogfileParser()
-    parser.monitor_file()
+    if len(sys.argv) == 2:
+        parser = ApacheLogfileParser(path=sys.argv[1])
+        parser.monitor_file()
+    else:
+        sys.stderr.write("{0}".format(os.path.basename(sys.argv[0])))

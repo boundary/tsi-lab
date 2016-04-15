@@ -16,7 +16,7 @@ then
   source $HOME/.tsp
 fi
 
-if [ -r $HOME/.tsp ]
+if [ -r $HOME/.db ]
 then
   source $HOME/.db
 fi
