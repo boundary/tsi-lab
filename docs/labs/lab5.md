@@ -182,16 +182,100 @@ Look at the script `~/labs/lab-5/ex5-2.log.py` in its entirety to understand how
 
 ## Introduction to _Exercise 5-3 - Reading Log Files and Sending Measurements_
 
-Okay, last stop in the logfile saga.
+Okay, last stop in the logfile saga. In this lab were are going to combine our collected
+knowledge on processing log files with our previous lab on sending measurements using
+the Measurement API.
+
+But first a quick segway (not this [segway](https://en.wikipedia.org/wiki/Segway_PT)!) on
+Pythons object oriented programming.
+
+Here is a simple class definition in Python the describes an animal:
+
+```
+class Animal(object):
+
+    def __init__(self):
+        self.voice = "???"
+
+    def speak(self):
+        print('{0} says "{1}"'.format(self.__class__.__name__, self.voice))
+```
+
+We can create an instance of this class as follows:
+
+```
+from kingdom import Animal
+
+animal = Animal()
+animal.speak()
+```
+
+which when run outputs the following:
+
+```
+Animal says "???"
+```
+
+We can derive an new class based upon animal without having to teach it to speak:
+
+```
+from kingdom import Animal
+
+class Cat(Animal):
+
+    def __init__(self):
+        super(Cat, self).__init__()
+        self.voice = 'Meow!'
+
+cat = Cat()
+cat.speak()
+```
+
+which gives an output of:
+
+```
+Cat says "Meow!"
+```
+
+Our new `Cat` class _inherits_ the `Animal` classes method `speak()`. Let's create one more
+example to cement this concept of
+[_inheritance_](https://en.wikipedia.org/wiki/Inheritance_(object-oriented_programming)):
+
+```
+class Dog(Animal):
+
+    def __init__(self):
+        super(Dog, self).__init__()
+        self.voice = 'Woof!'
+
+dog = Dog()
+dog.speak()
+```
+
+which gives an output of:
+
+```
+Dog says "Woof!"
+```
+
+In summary, all we had to do to make our new animal say something different was to assign
+what the animal says in the new animals creation method '__init__()'.
+
+Neat-O. Okay, one more [OOP (Object Oriented Programming)] before we do the final exercise of
+this lab: [overloading].
+
+**To Be Completed**
 
 ## Exercise 5-3 - Reading Log Files and Sending Measurements
 
 For this finally exercise we will use the running Apache HTTP server in the virtual machine
 and monitor its `access_log`
 
-1. Run the following command passing the path to the Apache HTTP server `access_log`:
+1. Run the following command passing the path to the Apache HTTP server `access_log`
+_NOTE_: the additional argument to sudo `-E` which ensures we pass our environment variables
+which contain our credentials and api endpoint:
     ```
-    $ sudo ex5-3.log.py /var/log/httpd/access_log
+    $ sudo -E ex5-3.log.py /var/log/httpd/access_log
     ```
 
 2. Observe the measurements on TrueSight Intelligence.

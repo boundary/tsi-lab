@@ -162,7 +162,7 @@ The following are examples of its use, which later be used to call the actual AP
 Run the following by cutting or pasting the curl command or run the script: `labs/lab-2/ex2-1.rest.sh`
 
 ```
-[vagrant@tsi-lab-01 ~]$ curl -X GET -s "https://httpbin.org/get"
+curl -X GET -s "https://httpbin.org/get"
 ```
 
 You should see output similar to this:
@@ -185,7 +185,7 @@ You should see output similar to this:
 Run the following cutting or pasting the curl command or run the script: `labs/lab-2/ex2-2.rest.sh`
 
 ```
-[vagrant@tsi-lab-01 ~]$ curl -X GET -s "https://httpbin.org/get?foo=bar&color=red"
+curl -X GET -s "https://httpbin.org/get?foo=bar&color=red"
 ```
 
 You should see output similar to this:
@@ -213,7 +213,7 @@ In the example above, the parameters are returned in the JSON in the field _args
 Run the following by cutting or pasting the curl command or run the script: `labs/lab-2/ex2-3.rest.sh`
 
 ```
-[vagrant@tsi-lab-01 ~]$ curl -X POST -s "https://httpbin.org/post"
+curl -X POST -s "https://httpbin.org/post"
 ```
 
 You should see output similar to this:
@@ -239,7 +239,7 @@ You should see output similar to this:
 ### Exercise 2-4 `POST` request with a `JSON` payload
 
 ```
-[vagrant@tsi-lab-01 ~]$ curl -X POST -s "https://httpbin.org/post" \
+curl -X POST -s "https://httpbin.org/post" \
 -H "Content-Type: application/json" \
 -d '{"foo": "bar", "red": true, "curly": 101}'
 ```
@@ -274,7 +274,7 @@ as the field _data_.
 ### Exercise 2-5 `PUT` request
 
 ```
-[vagrant@tsi-lab-01 ~]$ curl -X PUT -s "https://httpbin.org/put" \
+curl -X PUT -s "https://httpbin.org/put" \
 -H "Content-Type: application/json" \
 -d '{"foo": "bar", "red": true, "curly": 101}'
 ```
@@ -309,7 +309,7 @@ In the example above the JSON sent in the `PUT` request is returned in the field
 ### Exercise 2-6 `DELETE` request
 
 ```
-[vagrant@tsi-lab-01 ~]$ curl -X DELETE -s "https://httpbin.org/delete"
+curl -X DELETE -s "https://httpbin.org/delete"
 ```
 
 You should see output similar to this:
@@ -334,7 +334,7 @@ You should see output similar to this:
 ### Exercise 2-7 `GET` request with authentication
 
 ```
-[vagrant@tsi-lab-01 ~]$ curl -X GET -s -u foo:bar "https://httpbin.org/basic-auth/foo/bar"
+curl -X GET -s -u foo:bar "https://httpbin.org/basic-auth/foo/bar"
 ```
 
 You should see output similar to this:
@@ -351,7 +351,7 @@ You should see output similar to this:
 Status codes and headers are displayed by adding the `-i` argument to `curl`.
 
 ```
-[vagrant@tsi-lab-01 ~]$ curl -i -X GET -s "https://httpbin.org/status/400"
+curl -i -X GET -s "https://httpbin.org/status/400"
 ```
 
 You should see output similar to this:
@@ -370,7 +370,7 @@ Access-Control-Allow-Credentials: true
 ### Exercise 2-9 `GET` request that returns a `401`
 
 ```
-[vagrant@tsi-lab-01 ~]$ curl -i -X GET -u foo:blue "https://httpbin.org/basic-auth/foo/bar"
+curl -i -X GET -u foo:blue "https://httpbin.org/basic-auth/foo/bar"
 ```
 
 You should see output similar to this:
@@ -388,7 +388,7 @@ Access-Control-Allow-Credentials: true
 ### Exercise 2-10 `GET` request that returns a `422`
 
 ```
-[vagrant@tsi-lab-01 ~]$ curl -i -X GET "https://httpbin.org/status/422"
+curl -i -X GET "https://httpbin.org/status/422"
 ```
 
 You should see output similar to this:

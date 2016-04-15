@@ -16,7 +16,7 @@ then
   source $HOME/.tsp
 fi
 
-if [ -r $HOME/.tsp ]
+if [ -r $HOME/.db ]
 then
   source $HOME/.db
 fi
@@ -24,7 +24,7 @@ fi
 # Provide for backward compatability for older Boundary CLI
 # python package
 export BOUNDARY_EMAIL=$TSP_EMAIL
-export BOUNDARY_API_TOKEN=$TSP_API_KEY
+export BOUNDARY_API_TOKEN=$TSP_API_TOKEN
 export BOUNDARY_API_HOST=$TSP_API_HOST
 
 export APIHOST_PRE="api.truesight-staging.bmc.com"

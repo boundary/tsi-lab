@@ -1,0 +1,18 @@
+{
+  "HTTP_REQUESTS": {
+    "defaultAggregate": "SUM",
+    "defaultResolutionMS": 5000,
+    "description": "HTTP Requests",
+    "displayName": "HTTP Requests",
+    "displayNameShort": "HTTP Requests",
+    "unit": "number"
+  },
+  "HTTP_BYTES": {
+    "defaultAggregate": "SUM",
+    "defaultResolutionMS": 5000,
+    "description": "Total number of bytes",
+    "displayName": "HTTP Bytes",
+    "displayNameShort": "HTTP Bytes",
+    "unit": "bytecount"
+  }
+}
