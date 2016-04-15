@@ -20,7 +20,7 @@ class Animal(object):
         self.voice = "???"
 
     def speak(self):
-        print('A {0} says "{1}"'.format(self.__class__.__name__, self.voice))
+        print('{0} says "{1}"'.format(self.__class__.__name__, self.voice))
 
 class Cat(Animal):
 
