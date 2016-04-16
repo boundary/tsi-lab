@@ -1,42 +1,101 @@
-#/bin/bash
+#!/usr/bin/env bash
 
-echo -n "Enter your E-mail: "
-read TSP_EMAIL
-echo -n "Enter your API token: "
-read TSP_API_TOKEN
-echo -n "Enter your Application Id: "
-read TSI_APPL_ID
+spinner()
+{
+  local pid=$1
+  local delay=0.75
+  local spinstr='|/-\'
+  while [ "$(ps a | awk '{print $1}' | grep $pid)" ]; do
+    local temp=${spinstr#?}
+    printf " [%c]  " "$spinstr"
+    local spinstr=$temp${spinstr%"$temp"}
+    sleep $delay
+    printf "\b\b\b\b\b\b"
+  done
+  printf "    \b\b\b\b"
+}
 
-echo -n "verifying"
-sleep 1
-echo -n "."
-sleep 1
-echo -n "."
-sleep 1
-echo -n "."
-sleep 1
-echo "ok"
-echo ""
-sleep 2
+# Prompt and read a value from the terminal
+GetValue() {
+  typeset -r prompt=$1
+  have_value=0
+  while [ $have_value -eq 0 ]
+  do
+    read -p "$prompt: " VALUE
+    [ ! -z "$VALUE" ] && have_value=1
+  done
+  echo "$VALUE"
+}
 
+GetEmail() {
+  TSP_EMAIL=$(GetValue "Enter your E-mail")
+}
 
+GetApiToken() {
+  TSP_API_TOKEN=$(GetValue "Enter your API token")
+}
 
-export TSP_EMAIL
-export TSP_API_TOKEN
-export TSP_API_HOST="api.truesight-staging.bmc.com"
-export TSI_APPL_ID
+GetApplicationId() {
+  TSI_APP_ID=$(GetValue "Enter your Application Id")
+}
 
-echo "Creating virtual machine with the following:"
-echo "    e-mail: $TSP_EMAIL"
-echo "    api token: $TSP_API_TOKEN"
-echo "    application id: $TSI_APPL_ID"
+#
+# Get the required configuration
+# from the user
+GetConfiguration() {
+  GetEmail
+  GetApiToken
+  GetApplicationId
+}
 
+VerifyConfiguration() {
+  COLUMNS_SAVED=$COLUMNS
+  COLUMNS=1
+  active=1
+  while [ $active -eq 1 ]
+  do
+    clear
+    echo "Enter 4 to provision the virtual machine or "
+    echo "enter the number of value to edit"
+    select option in "E-mail: $TSP_EMAIL" "API Token: $TSP_API_TOKEN" "Application Id: $TSI_APP_ID" "Provision virtual machine"
+    do
+      case $REPLY in
+        1) GetEmail ; break ;;
+        2) GetApiToken ; break ;;
+        3) GetApplicationId ; break ;;
+        4) active=0 ; break ;;
+      esac
+    done
+  done
+  COLUMNS=$COLUMNS_SAVED
+}
 
-for i in $(echo "1 2 3 4 5 6 7 8 9 10")
-do
-  echo -n "."
-  sleep 1
-done
-echo "done"
+ExportConfiguration() {
+  export TSP_EMAIL
+  export TSP_API_TOKEN
+  export TSP_API_HOST="api.truesight-staging.bmc.com"
+  export TSI_APP_ID
+}
 
-echo "done"
+ShowConfiguration()  {
+  echo "E-mail: $TSP_EMAIL"
+  echo "API token: $TSP_API_TOKEN"
+  echo "Application Id: $TSI_APP_ID"
+}
+
+CreateVirtualMachine() {
+  clear
+  echo "Using the following configuration:"
+  ShowConfiguration
+  echo -n "Provisioning virtual machine " 
+  (vagrant up 2>&1 > /dev/null) &
+  spinner $!
+  echo
+  echo "Done!"
+}
+
+GetConfiguration
+VerifyConfiguration
+ExportConfiguration
+CreateVirtualMachine
+
