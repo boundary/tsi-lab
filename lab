@@ -1,28 +1,63 @@
 #!/usr/bin/env bash
-typeset -r CUR_DIR=$PWD
-typeset -r COMMAND=$1
-COLUMNS=1
+# Get the absolute path to our script
+ABSOLUTE_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]}")"
 
-if [ -z $COMMAND ]
-then
+AbsolutePath() {
+  echo "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]}")"
+}
+
+DisplayCommandMenu() {
+  # Preserve the current state of the COLUMNS
+  # variable and set to 1 so that our menu shows
+  # all options vertically
+  save_columns=$COLUMNS
+  COLUMNS=1
+
+  local command
   select option in "login" "provision" "remove" "restart" "start" "stop"
   do
     case $REPLY in
-      1) exec "$CUR_DIR/login" ;;
-      2) exec "$CUR_DIR/start provision" ;;
-      3) exec "$CUR_DIR/remove" ;;
-      4) exec "$CUR_DIR/restart" ;;
-      5) exec "$CUR_DIR/start start" ;;
-      6) exec "$CUR_DIR/stop" ;;
+      1) command=login ;;
+      2) command=provision ;;
+      3) command=remove ;;
+      4) command=restart ;;
+      5) command=start ;;
+      6) command=stop ;;
     esac
+    break
   done
-else
-  case $COMMAND in
-    login) exec "$CUR_DIR/login" ;;
-    provision) exec "$CUR_DIR/start provision" ;;
-    remove) exec "$CUR_DIR/remove" ;;
-    restart) exec "$CUR_DIR/restart" ;;
-    stop) exec "$CUR_DIR/stop" ;;
-    start) exec "$CUR_DIR/start start" ;;
+
+  # Restore the COLUMNS
+  COLUMNS=$save_columns
+
+  # return the selected command
+  echo $command
+}
+
+ExecuteCommand() {
+  local -r command=$1
+  case $command in
+        login) exec "$ABS_DIR/login" ;;
+    provision) exec "$ABS_DIR/provision" ;;
+       remove) exec "$ABS_DIR/remove" ;;
+      restart) exec "$ABS_DIR/restart" ;;
+         stop) exec "$ABS_DIR/stop" ;;
+        start) exec "$ABS_DIR/start" ;;
   esac
+}
+
+# Set a variable to absolute path to this script
+typeset -r ABS_DIR=$(dirname $(AbsolutePath))
+
+# Sub-command passed on the command line if any
+typeset -r command=$1
+
+# If not passed the sub-command then display a menu
+# to the user and let them select the sub-command
+if [ -z $command ]
+then
+  command=$(DisplayCommandMenu)
 fi
+
+exec "$ABS_DIR/$command"
+
