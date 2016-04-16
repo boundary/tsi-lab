@@ -32,7 +32,7 @@ GetEmail() {
 }
 
 GetApiToken() {
-  TSP_API_TOKEN=$(GetValue "Enter your API token")
+  TSP_API_TOKEN=$(GetValue "Enter your API Token")
 }
 
 GetApplicationId() {
@@ -55,15 +55,21 @@ VerifyConfiguration() {
   while [ $active -eq 1 ]
   do
     clear
-    echo "Enter 4 to provision the virtual machine or "
-    echo "enter the number of value to edit"
-    select option in "E-mail: $TSP_EMAIL" "API Token: $TSP_API_TOKEN" "Application Id: $TSI_APP_ID" "Provision virtual machine"
+#    echo "Enter 5 to provision the virtual machine; "
+#    echo "Enter the number of configuration varible to edit; "
+    echo "Make a selection:"
+    select option in "Edit E-mail: $TSP_EMAIL" \
+	    "Edit API Token: $TSP_API_TOKEN" \
+	    "Edit Application Id: $TSI_APP_ID" \
+	    "Quit and exit provisioning script" \
+	    "Provision virtual machine"
     do
       case $REPLY in
         1) GetEmail ; break ;;
         2) GetApiToken ; break ;;
         3) GetApplicationId ; break ;;
-        4) active=0 ; break ;;
+        4) exit 0 ;;
+        5) active=0 ; break ;;
       esac
     done
   done
@@ -78,20 +84,49 @@ ExportConfiguration() {
 }
 
 ShowConfiguration()  {
-  echo "E-mail: $TSP_EMAIL"
-  echo "API token: $TSP_API_TOKEN"
-  echo "Application Id: $TSI_APP_ID"
+  local prefix=$1
+  echo "$prefix E-mail: $TSP_EMAIL"
+  echo "$prefix API Token: $TSP_API_TOKEN"
+  echo "$prefix Application Id: $TSI_APP_ID"
+}
+
+ConfirmConfiguration() {
+:
 }
 
 CreateVirtualMachine() {
+  # Clear the screen to remove clutter
   clear
+
   echo "Using the following configuration:"
-  ShowConfiguration
-  echo -n "Provisioning virtual machine " 
-  (vagrant up 2>&1 > /dev/null) &
-  spinner $!
+  ShowConfiguration "  "
+  echo -n "to provision virtual machine " 
+
+  log_file="$PWD/vm_provisioning.log"
+  echo "Virtual machine provisioning began at $(date)" >> $log_file
+  ShowConfiguration >> $log_file
+
+  (vagrant up 2>&1 >> "$log_file") &
+  provisioning_pid=$1
+  spinner $provisioning_pid
+
+  echo "Virtual machine provisioning ended at $(date)" >> $log_file
+
   echo
-  echo "Done!"
+
+  # Get the background process exit code
+  wait $provisioning_pid
+  result=$?
+
+  # Indicate to the user the status of the provisioning
+  if [ $result -eq 0 ]
+  then
+    echo "Virtual machine successfully provisioned"
+    echo "Run 'vagrant ssh to login'"
+  else
+    echo "Virtual machine provisioning failed"
+    echo "See $log_file for details"
+  fi
 }
 
 GetConfiguration
