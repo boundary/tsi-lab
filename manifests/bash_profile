@@ -30,5 +30,6 @@ export BOUNDARY_API_HOST=$TSP_API_HOST
 export APIHOST_PRE="api.truesight-staging.bmc.com"
 
 alias creds='env | grep TSP'
+alias appid='env | grep TSI_APP_ID'
 
 export PATH=$HOME/bin:$PATH

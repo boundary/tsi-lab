@@ -100,29 +100,30 @@ CreateVirtualMachine() {
 
   echo "Using the following configuration:"
   ShowConfiguration "  "
-  echo -n "to provision virtual machine " 
+  echo -n "to provision virtual machine" 
 
   log_file="$PWD/vm_provisioning.log"
   echo "Virtual machine provisioning began at $(date)" >> $log_file
   ShowConfiguration >> $log_file
 
   (vagrant up 2>&1 >> "$log_file") &
-  provisioning_pid=$1
-  spinner $provisioning_pid
+  pid=$!
+  spinner $pid
 
   echo "Virtual machine provisioning ended at $(date)" >> $log_file
 
+  # Complete line from spinner
   echo
 
   # Get the background process exit code
-  wait $provisioning_pid
+  wait $pid
   result=$?
 
   # Indicate to the user the status of the provisioning
   if [ $result -eq 0 ]
   then
     echo "Virtual machine successfully provisioned"
-    echo "Run 'vagrant ssh to login'"
+    echo "Run 'vagrant ssh' to login"
   else
     echo "Virtual machine provisioning failed"
     echo "See $log_file for details"
