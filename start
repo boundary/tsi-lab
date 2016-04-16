@@ -2,6 +2,12 @@
 
 LOG_FILE="$PWD/vm_provisioning.log"
 
+AlreadyProvisioned() {
+  # Check to see if running
+:
+  # Okay not running, check to see if provisioned
+}
+
 spinner()
 {
   local pid=$1
@@ -17,23 +23,36 @@ spinner()
   printf "    \b\b\b\b"
 }
 
+StopAndDestroy() {
+  if [ $RUNNING -eq 1 ]
+  then
+    (kill -9 $PID 2>&1 >> $LOG_FILE)
+    (vagrant destroy -f 2>&1 >> $LOG_FILE)
+  fi
+  echo
+}
+
 SigHandler() {
    local signal=$1
-   if [ $RUNNING -eq 1 ]
-   then
-     INTERUPTED=1
-     (kill -9 $PID 2>&1 >> $LOG_FILE)
-     (vagrant destroy -f 2>&1 >> $LOG_FILE)
-   fi
+
+   case $signal in
+     ABRT) ;;
+     INT) ;;
+     QUIT) ;;
+     TERM) ;;
+   esac
+
+   StopAndDestroy
+
+   exit 1
 }
 
 EnableSignalHandlers() {
-   INTERUPTED=0
    RUNNING=0
-   trap "SigHandler ABRT" ABRT
-   trap "SigHandler INT" INT
-   trap "SigHandler QUIT" QUIT
-   trap "SigHandler TERM" TERM
+   for signal in "INT QUIT TERM"
+   do
+     trap "SigHandler $signal" $signal
+   done
 }
 
 # Prompt and read a value from the terminal
@@ -70,7 +89,6 @@ GetConfiguration() {
 }
 
 VerifyConfiguration() {
-  COLUMNS_SAVED=$COLUMNS
   COLUMNS=1
   active=1
   while [ $active -eq 1 ]
@@ -82,7 +100,7 @@ VerifyConfiguration() {
     select option in "Edit E-mail: $TSP_EMAIL" \
 	    "Edit API Token: $TSP_API_TOKEN" \
 	    "Edit Application Id: $TSI_APP_ID" \
-	    "Quit and exit provisioning script" \
+	    "Exit" \
 	    "Provision virtual machine"
     do
       case $REPLY in
@@ -94,7 +112,6 @@ VerifyConfiguration() {
       esac
     done
   done
-  COLUMNS=$COLUMNS_SAVED
 }
 
 ExportConfiguration() {
@@ -149,21 +166,17 @@ CreateVirtualMachine() {
   vagrant status | grep "running" 2>&1 > /dev/null
   result=$?
 
-  # Indicate to the user the status of the provisioning
-  # only if the script was not interupted
-    if [ $INTERUPTED -eq 0 ]
-    then
-      if [ $result -eq 0 ]
-      then
-        echo "Virtual machine successfully provisioned"
-        echo "Run 'vagrant ssh' to login"
-      else
-        echo "Virtual machine provisioning failed"
-        echo "See $LOG_FILE for details"
-    fi
+  if [ $result -eq 0 ]
+  then
+    echo "Virtual machine successfully provisioned"
+#    echo "Run 'vagrant ssh' to login"
+  else
+    echo "Virtual machine provisioning failed"
+      echo "See $LOG_FILE for details"
   fi
 }
 
+AlreadyProvisioned
 EnableSignalHandlers
 GetConfiguration
 VerifyConfiguration
