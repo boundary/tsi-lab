@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+typeset -r CUR_DIR=$PWD
+typeset -r COMMAND=$1
+COLUMNS=1
+
+if [ -z $COMMAND ]
+then
+  select option in "login" "provision" "remove" "restart" "start" "stop"
+  do
+    case $REPLY in
+      1) exec "$CUR_DIR/login" ;;
+      2) exec "$CUR_DIR/start provision" ;;
+      3) exec "$CUR_DIR/remove" ;;
+      4) exec "$CUR_DIR/restart" ;;
+      5) exec "$CUR_DIR/start start" ;;
+      6) exec "$CUR_DIR/stop" ;;
+    esac
+  done
+else
+  case $COMMAND in
+    login) exec "$CUR_DIR/login" ;;
+    provision) exec "$CUR_DIR/start provision" ;;
+    remove) exec "$CUR_DIR/remove" ;;
+    restart) exec "$CUR_DIR/restart" ;;
+    stop) exec "$CUR_DIR/stop" ;;
+    start) exec "$CUR_DIR/start start" ;;
+  esac
+fi
