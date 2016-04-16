@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+LOG_FILE="$PWD/vm_provisioning.log"
+
 spinner()
 {
   local pid=$1
@@ -13,6 +15,25 @@ spinner()
     printf "\b\b\b\b\b\b"
   done
   printf "    \b\b\b\b"
+}
+
+SigHandler() {
+   local signal=$1
+   if [ $RUNNING -eq 1 ]
+   then
+     INTERUPTED=1
+     (kill -9 $PID 2>&1 >> $LOG_FILE)
+     (vagrant destroy -f 2>&1 >> $LOG_FILE)
+   fi
+}
+
+EnableSignalHandlers() {
+   INTERUPTED=0
+   RUNNING=0
+   trap "SigHandler ABRT" ABRT
+   trap "SigHandler INT" INT
+   trap "SigHandler QUIT" QUIT
+   trap "SigHandler TERM" TERM
 }
 
 # Prompt and read a value from the terminal
@@ -102,34 +123,48 @@ CreateVirtualMachine() {
   ShowConfiguration "  "
   echo -n "to provision virtual machine" 
 
-  log_file="$PWD/vm_provisioning.log"
-  echo "Virtual machine provisioning began at $(date)" >> $log_file
-  ShowConfiguration >> $log_file
+  echo "Virtual machine provisioning began at $(date)" >> $LOG_FILE
+  ShowConfiguration >> $LOG_FILE
 
-  (vagrant up 2>&1 >> "$log_file") &
-  pid=$!
-  spinner $pid
+  # Set flag indicating the provisioning background
+  # proess is running
+  RUNNING=1
 
-  echo "Virtual machine provisioning ended at $(date)" >> $log_file
+  # Run the virtual machine provisioning as background process
+  (vagrant up 2>&1 >> "$LOG_FILE") &
+
+  # Save a copy of the process id for later use
+  PID=$!
+
+  # Provide visual feedback that the provisioning process is running
+  spinner $PID
+
+  echo "Virtual machine provisioning ended at $(date)" >> $LOG_FILE
 
   # Complete line from spinner
   echo
 
   # Get the background process exit code
-  wait $pid
+  wait $PID
+  vagrant status | grep "running" 2>&1 > /dev/null
   result=$?
 
   # Indicate to the user the status of the provisioning
-  if [ $result -eq 0 ]
-  then
-    echo "Virtual machine successfully provisioned"
-    echo "Run 'vagrant ssh' to login"
-  else
-    echo "Virtual machine provisioning failed"
-    echo "See $log_file for details"
+  # only if the script was not interupted
+    if [ $INTERUPTED -eq 0 ]
+    then
+      if [ $result -eq 0 ]
+      then
+        echo "Virtual machine successfully provisioned"
+        echo "Run 'vagrant ssh' to login"
+      else
+        echo "Virtual machine provisioning failed"
+        echo "See $LOG_FILE for details"
+    fi
   fi
 }
 
+EnableSignalHandlers
 GetConfiguration
 VerifyConfiguration
 ExportConfiguration
