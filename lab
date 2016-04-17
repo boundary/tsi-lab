@@ -253,8 +253,9 @@ Login() {
 
 Create() {
   case $(VirtualMachineStatus) in
-            NOT_CREATED) BuildVirtualMachine                                         ;;
-    ABORTED|POWERED_OFF|RUNNING) echo "Virtual machine already created, run 'start'" ;;
+            NOT_CREATED) BuildVirtualMachine                                      ;;
+                RUNNING) echo "Virtual machine is running, run 'login' to access" ;;
+    ABORTED|POWERED_OFF) echo "Virtual machine already created, run 'start'"      ;;
   esac
 }
 
