@@ -42,21 +42,22 @@ DisplayCommandMenu() {
   # variable and set to 1 so that our menu shows
   # all options vertically
   save_columns=$COLUMNS
-  COLUMNS=1
 
+  COLUMNS=1
   select option in "create" "help" "login" "remove" "restart" "start" "status" "stop" "quit"
   do
     case $REPLY in
-      1) command=create  ;;
-      2) command=help    ;;
-      3) command=login   ;;
-      4) command=remove  ;;
-      5) command=restart ;;
-      6) command=start   ;;
-      7) command=stop    ;;
-      8) command=quit    ;;
+      1) command="create"  ; break ;;
+      2) command="help"    ; break ;;
+      3) command="login"   ; break ;;
+      4) command="remove"  ; break ;;
+      5) command="restart" ; break ;;
+      6) command="start"   ; break ;;
+      7) command="start"   ; break ;;
+      8) command="stop"    ; break ;;
+      9) command="quit"    ; break ;;
+      *)                         ;;
     esac
-    break
   done
 
   # Restore the COLUMNS
@@ -393,6 +394,7 @@ command=$1
 # let them select a command from the menu
 if [ -z ${command} ]
 then
+  echo "Virtual Machine Management Tool"
   command=$(DisplayCommandMenu)
 fi
 
