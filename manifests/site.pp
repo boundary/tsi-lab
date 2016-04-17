@@ -66,17 +66,9 @@ package { 'git':
   require => Package['epel-release'],
 }
 
-package { 'mailx':
-  ensure => 'installed',
-  require => Package['epel-release'],
-}
-
-package { 'python-pycurl':
-  ensure => 'installed',
-}
-
 package { 'python-requests':
   ensure => 'installed',
+  require => Package['epel-release'],
 }
 
 package { 'python-pip':
@@ -87,6 +79,12 @@ package { 'python-pip':
 package { 'vim-enhanced':
   ensure => 'installed',
   require => Package['epel-release'],
+}
+
+exec { 'jsonlint':
+   command => '/usr/bin/pip install demjson',
+   require => Package['python-pip'],
+   unless => '/usr/bin/pip show demjson',
 }
 
 exec { 'python-petl':
@@ -131,7 +129,7 @@ exec { 'python-tspapi':
    unless => '/usr/bin/pip show tspapi',
 }
 
-exec { 'python-boundary-cli':
+exec { 'python-tsp-cli':
    command => '/usr/bin/pip install boundary',
    require => Package['python-pip'],
    unless => '/usr/bin/pip show boundary',
@@ -142,13 +140,6 @@ exec { 'ystockquote':
    require => Package['python-pip'],
    unless => '/usr/bin/pip show ystockquote',
 }
-
-# When installed indicates does not provide any more security
-#exec { 'python-security':
-#   command => '/usr/bin/pip install requests[security]',
-#   require => Package['python-pip'],
-#   unless => '/usr/bin/pip show requests[security]',
-#}
 
 # Utility for pretty printing and querying JSON documents
 package { 'jq':
