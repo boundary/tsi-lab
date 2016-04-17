@@ -44,7 +44,7 @@ DisplayCommandMenu() {
   save_columns=$COLUMNS
 
   COLUMNS=1
-  select option in "create" "help" "login" "remove" "restart" "start" "status" "stop" "quit"
+  select option in "Create" "Help" "Login" "Remove" "Restart" "Start" "Status" "Stop" "Quit"
   do
     case $REPLY in
       1) command="create"  ; break ;;
@@ -151,10 +151,10 @@ VerifyConfiguration() {
     clear
     echo "Create Virtual Machine:"
     select option in "Create Virtual Machine" \
-        "Change E-mail: $TSP_EMAIL" \
-	    "Change API Token: $TSP_API_TOKEN" \
-	    "Change Application Id: $TSI_APP_ID" \
-	    "Quit"
+              "Change E-mail: \"$TSP_EMAIL\"" \
+              "Change API Token: \"$TSP_API_TOKEN\"" \
+	      "Change Application Id: \"$TSI_APP_ID\"" \
+	      "Quit"
     do
       case $REPLY in
         1) active=0         ; break ;;
@@ -176,9 +176,9 @@ ExportConfiguration() {
 
 ShowConfiguration()  {
   local prefix=$1
-  echo "$prefix E-mail: $TSP_EMAIL"
-  echo "$prefix API Token: $TSP_API_TOKEN"
-  echo "$prefix Application Id: $TSI_APP_ID"
+  echo "$prefix E-mail: \"$TSP_EMAIL\""
+  echo "$prefix API Token: \"$TSP_API_TOKEN\""
+  echo "$prefix Application Id: \"$TSI_APP_ID\""
 }
 
 CreateVirtualMachine() {
