@@ -44,7 +44,7 @@ DisplayCommandMenu() {
   save_columns=$COLUMNS
   COLUMNS=1
 
-  select option in "create" "help" "login" "remove" "restart" "start" "stop" "quit"
+  select option in "create" "help" "login" "remove" "restart" "start" "status" "stop" "quit"
   do
     case $REPLY in
       1) command=create  ;;
@@ -148,7 +148,7 @@ VerifyConfiguration() {
   while [ ${active} -eq 1 ]
   do
     clear
-    echo "Create Virtual Machine Configuration:"
+    echo "Create Virtual Machine:"
     select option in "Create Virtual Machine" \
         "Change E-mail: $TSP_EMAIL" \
 	    "Change API Token: $TSP_API_TOKEN" \
@@ -244,34 +244,43 @@ BuildVirtualMachine() {
 
 Login() {
   case $(VirtualMachineStatus) in
-            NOT_CREATED) echo "Virtual machine not provisioned run 'provision'" ; exit 0 ;;
-    POWERED_OFF|ABORTED) echo "Virtual machine not running run 'start'" ; exit 1 ;;
-                RUNNING) exec vagrant ssh ;;
-                      *) echo "Error logging into virtual machine run 'restart' ; exit" ;;
+            NOT_CREATED) echo "Virtual machine not created, run 'create'"         ;;
+    POWERED_OFF|ABORTED) echo "Virtual machine not running, run 'start' first"    ;;
+                RUNNING) exec vagrant ssh                                         ;;
+                      *) echo "Error logging into virtual machine run 'restart' " ;;
   esac
 }
 
 Create() {
   case $(VirtualMachineStatus) in
-            NOT_CREATED) BuildVirtualMachine                                    ;;
-    ABORTED|POWERED_OFF) echo "Virtual machine already provisioned run 'start'" ;;
+            NOT_CREATED) BuildVirtualMachine                                         ;;
+    ABORTED|POWERED_OFF|RUNNING) echo "Virtual machine already created, run 'start'" ;;
   esac
 }
 
 Remove() {
   case $(VirtualMachineStatus) in
-                    NOT_CREATED) echo "Virtual machine is not provisioned" ;;
+                    NOT_CREATED) echo "Virtual machine is not created" ;;
     ABORTED|POWERED_OFF|RUNNING) vagrant destroy -f 2>&1 > /dev/null ;;
   esac
 }
 
 Start() {
   case $(VirtualMachineStatus) in
-            NOT_CREATED) echo "Virtual machine not provisioned run 'provision'" ;;
-                RUNNING) echo "Virtual machine is already running'"             ;;
-    ABORTED|POWERED_OFF) vagrant up 2>&1 > /dev/null                            ;;
+            NOT_CREATED) echo "Virtual machine not created, run 'create'"                  ;;
+                RUNNING) echo "Virtual machine is already running, run 'login' to access'" ;;
+    ABORTED|POWERED_OFF) vagrant up 2>&1 > /dev/null                                       ;;
   esac
 }
+
+Status() {
+  case $(VirtualMachineStatus) in
+                RUNNING) echo "Virtual machine is running"     ;;
+            NOT_CREATED) echo "Virtual machine is not created" ;;
+    ABORTED|POWERED_OFF) echo "Virtual machine is stopped"     ;;
+  esac
+}
+
 
 Stop() {
   case $(VirtualMachineStatus) in
@@ -281,6 +290,7 @@ Stop() {
 }
 
 Restart() {
+
    Stop
    Start
 }
@@ -289,6 +299,11 @@ Quit() {
   exit 0
 }
 
+BadCommand() {
+  echo "${1} is not a valid command"
+  Help
+  exit 1
+}
 HelpCreate() {
   echo "CREATE"
   echo "======"
@@ -314,6 +329,11 @@ HelpStart() {
   echo "====="
 }
 
+HelpStatus() {
+  echo "Status"
+  echo "====="
+}
+
 HelpStop() {
   echo "Stop"
   echo "====="
@@ -334,30 +354,34 @@ Help() {
     echo "  remove - Deletes the virtual machine"
     echo " restart - Starts and then stops the virtual machine"
     echo "   start - Turns off the virtual machine"
+    echo "  status - Current status of the virtual machine"
     echo "   stops - Turns on the virtual machine"
     echo ""
   else
     case ${topic} in
-      create) HelpCreate ;;
-      login) HelpLogin ;;
-      remove) HelpRemove ;;
+      create) HelpCreate   ;;
+      login) HelpLogin     ;;
+      remove) HelpRemove   ;;
       restart) HelpRestart ;;
-      start) HelpStart ;;
-      stop) HelpStop ;;
+      start) HelpStart     ;;
+      start) HelpStatus    ;;
+      stop) HelpStop       ;;
     esac
   fi
 }
 
 ExecuteCommand() {
   case $1 in
-       create) Create     ;;
-         help) Help "${2}" ;;
-        login) Login      ;;
-       remove) Remove     ;;
-      restart) Restart    ;;
-        start) Start      ;;
-         stop) Stop       ;;
-         quit) Quit       ;;
+       create) Create             ;;
+         help) Help "${2}"        ;;
+        login) Login              ;;
+       remove) Remove             ;;
+      restart) Restart            ;;
+        start) Start              ;;
+       status) Status             ;;
+         stop) Stop               ;;
+         quit) Quit               ;;
+            *) BadCommand  "${1}" ;;
   esac
 }
 
