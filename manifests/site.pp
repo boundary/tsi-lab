@@ -10,6 +10,7 @@ file { 'tsirc':
   path    => '/home/vagrant/.tsi',
   ensure  => file,
   content => template('tsirc.erb'),
+  replace => 'no',
   owner => 'vagrant',
   group => 'vagrant',
 }
@@ -20,6 +21,7 @@ file { 'tsprc':
   path    => '/home/vagrant/.tsp',
   ensure  => file,
   content => template('tsprc.erb'),
+  replace => 'no',
   owner => 'vagrant',
   group => 'vagrant',
 }
@@ -48,7 +50,7 @@ file { 'vimrc':
   source => '/vagrant/manifests/vimrc',
 }
 
-file { 'db_user':
+file { 'db':
   path    => '/home/vagrant/.db',
   source => '/vagrant/manifests/db',
   owner => 'vagrant',
@@ -60,6 +62,11 @@ package { 'epel-release':
 }
 
 package { 'git':
+  ensure => 'installed',
+  require => Package['epel-release'],
+}
+
+package { 'mailx':
   ensure => 'installed',
   require => Package['epel-release'],
 }
@@ -85,52 +92,63 @@ package { 'vim-enhanced':
 exec { 'python-petl':
    command => '/usr/bin/pip install petl',
    require => Package['python-pip'],
+   unless => '/usr/bin/pip show petl',
 }
 
 exec { 'apachelog':
    command => '/usr/bin/pip install apachelog',
    require => Package['python-pip'],
+   unless => '/usr/bin/pip show apachelog',
 }
 
 exec { 'pyowm':
    command => '/usr/bin/pip install pyowm',
    require => Package['python-pip'],
+   unless => '/usr/bin/pip show pyowm',
 }
 
 exec { 'tweepy':
    command => '/usr/bin/pip install tweepy',
    require => Package['python-pip'],
+   unless => '/usr/bin/pip show tweepy',
 }
 
 exec { 'ipython':
    command => '/usr/bin/pip install ipython',
    require => Package['python-pip'],
+   unless => '/usr/bin/pip show ipython',
 }
 
 exec { 'python-pmysql':
    command => '/usr/bin/pip install pymysql',
    require => Package['python-pip'],
+   unless => '/usr/bin/pip show pymysql',
 }
 
 exec { 'python-tspapi':
    command => '/usr/bin/pip install tspapi',
    require => Package['python-pip'],
+   unless => '/usr/bin/pip show tspapi',
 }
 
 exec { 'python-boundary-cli':
    command => '/usr/bin/pip install boundary',
    require => Package['python-pip'],
+   unless => '/usr/bin/pip show boundary',
 }
 
 exec { 'ystockquote':
    command => '/usr/bin/pip install ystockquote',
    require => Package['python-pip'],
+   unless => '/usr/bin/pip show ystockquote',
 }
 
-exec { 'python-security':
-   command => '/usr/bin/pip install requests[security]',
-   require => Package['python-pip'],
-}
+# When installed indicates does not provide any more security
+#exec { 'python-security':
+#   command => '/usr/bin/pip install requests[security]',
+#   require => Package['python-pip'],
+#   unless => '/usr/bin/pip show requests[security]',
+#}
 
 # Utility for pretty printing and querying JSON documents
 package { 'jq':
