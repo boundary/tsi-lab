@@ -1,5 +1,12 @@
 #!/bin/bash
 
-API_URL="https://$TSI_API_HOST/api/v1/meta"
+API_URL="https://$TSP_API_HOST/v1/metrics"
 
-curl -1 -k -s -X GET -H "X-API-KEY: $TSI_API_KEY" "$API_URL" | jq .
+curl -i -s -X GET -u "$TSP_EMAIL:$TSP_API_TOKEN" "$API_URL" | grep "HTTP/1.1 200 OK"  2>&1 > /dev/null
+
+if [ $? -eq 0 ]
+then
+  echo "Credentials valid"
+else
+  echo "Credentials failed"
+fi
