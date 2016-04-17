@@ -1,29 +1,4 @@
 #!/usr/bin/env bash
-
-VirtualMachineRunning() {
-  typeset -i rc
-  vagrant status | grep running 2>&1 > /dev/null
-  if [ $? -eq 1 ]
-  then
-     rc=0
-  else
-     rc=1 
-  fi
-  return $rc
-}
-
-VirtualMachineRunning
-if [ $? -eq 1 ]
-then
-  vagrant halt 2>&1 > /dev/null
-  VirtualMachineRunning
-  if [ $? -eq 0 ]
-  then
-    echo "Virtual machine stopped"
-  else
-	  echo "Error stopping virtual machine"
-  fi 
-else
-  echo "Virtual machine not running"
-fi
+DIR=$(dirname "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]}")")
+exec "${DIR}/lab" stop
 

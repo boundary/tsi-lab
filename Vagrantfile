@@ -18,7 +18,7 @@ Vagrant.configure(2) do |config|
                       puppet module install puppetlabs-stdlib;
                       puppet module install puppetlabs-concat;
                       puppet module install torrancew-cron;
-                      puppet module install puppetlabs-mysql;
+                     puppet module install puppetlabs-mysql;
                       puppet module install puppetlabs-apache;
                       touch /etc/puppet/hiera.yaml;
                       exit 0"

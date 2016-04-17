@@ -1,9 +1,40 @@
 #!/usr/bin/env bash
-# Get the absolute path to our script
-ABSOLUTE_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]}")"
+
+# If LOG_FILE variable is not set then set to default
+LOG_FILE="${LOG_FILE:="$PWD/vm.log"}"
+
+# Global variables
+PID=""
+RUNNING=""
 
 AbsolutePath() {
   echo "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]}")"
+}
+
+AbsoluteDir() {
+  echo $(dirname AbsolutePath)
+}
+
+VirtualMachineStatus() {
+  vm_status=$(vagrant status)
+  case ${vm_status} in
+  *"aborted"*) echo "ABORTED" ;;
+  *"not created"*) echo "NOT_CREATED" ;;
+  *"running"*) echo "RUNNING" ;;
+  *"poweroff"*) echo "POWERED_OFF";;
+  esac
+}
+
+VirtualMachineRunning() {
+  typeset -i rc
+  vm_status=$(VirtualMachineStatus)
+  if [ "$vm_status" == "RUNNING" ]
+  then
+     rc=1
+  else
+     rc=0
+  fi
+  return ${rc}
 }
 
 DisplayCommandMenu() {
@@ -13,51 +44,333 @@ DisplayCommandMenu() {
   save_columns=$COLUMNS
   COLUMNS=1
 
-  local command
-  select option in "login" "provision" "remove" "restart" "start" "stop"
+  select option in "create" "help" "login" "remove" "restart" "start" "stop" "quit"
   do
     case $REPLY in
-      1) command=login ;;
-      2) command=provision ;;
-      3) command=remove ;;
-      4) command=restart ;;
-      5) command=start ;;
-      6) command=stop ;;
+      1) command=create  ;;
+      2) command=help    ;;
+      3) command=login   ;;
+      4) command=remove  ;;
+      5) command=restart ;;
+      6) command=start   ;;
+      7) command=stop    ;;
+      8) command=quit    ;;
     esac
     break
   done
 
   # Restore the COLUMNS
-  COLUMNS=$save_columns
+  COLUMNS=${save_columns}
 
   # return the selected command
-  echo $command
+  echo ${command}
 }
 
-ExecuteCommand() {
-  local -r command=$1
-  case $command in
-        login) exec "$ABS_DIR/login" ;;
-    provision) exec "$ABS_DIR/provision" ;;
-       remove) exec "$ABS_DIR/remove" ;;
-      restart) exec "$ABS_DIR/restart" ;;
-         stop) exec "$ABS_DIR/stop" ;;
-        start) exec "$ABS_DIR/start" ;;
+
+AlreadyProvisioned() {
+  # Check to see if running
+:
+  # Okay not running, check to see if provisioned
+}
+
+spinner()
+{
+  local pid=$1
+  local delay=0.75
+  local spinstr='|/-\'
+  while [ "$(ps a | awk '{print $1}' | grep ${pid})" ]; do
+    local temp=${spinstr#?}
+    printf " [%c]  " "$spinstr"
+    local spinstr=${temp}${spinstr%"$temp"}
+    sleep ${delay}
+    printf "\b\b\b\b\b\b"
+  done
+  printf "    \b\b\b\b"
+}
+
+
+StopAndDestroy() {
+  if [ ${RUNNING} -eq 1 ]
+  then
+    (kill -9 ${PID} 2>&1 >> "${LOG_FILE}")
+    (vagrant destroy -f 2>&1 >> "${LOG_FILE}")
+  fi
+  echo
+}
+
+SigHandler() {
+   StopAndDestroy
+   exit 1
+}
+
+EnableSignalHandlers() {
+   RUNNING=0
+   for signal in "INT QUIT TERM"
+   do
+     trap "SigHandler ${signal}" ${signal}
+   done
+}
+
+# Prompt and read a value from the terminal
+GetValue() {
+  typeset -r prompt=$1
+  have_value=0
+  while [ ${have_value} -eq 0 ]
+  do
+    read -p "$prompt: " VALUE
+    [ ! -z "${VALUE}" ] && have_value=1
+  done
+  echo "${VALUE}"
+}
+
+GetEmail() {
+  TSP_EMAIL=$(GetValue "Enter your E-mail")
+}
+
+GetApiToken() {
+  TSP_API_TOKEN=$(GetValue "Enter your API Token")
+}
+
+GetApplicationId() {
+  TSI_APP_ID=$(GetValue "Enter your Application Id")
+}
+
+# Get the required configuration from the user
+GetConfiguration() {
+  GetEmail
+  GetApiToken
+  GetApplicationId
+}
+
+VerifyConfiguration() {
+  COLUMNS=1
+  active=1
+  while [ ${active} -eq 1 ]
+  do
+    clear
+    echo "Create Virtual Machine Configuration:"
+    select option in "Create Virtual Machine" \
+        "Change E-mail: $TSP_EMAIL" \
+	    "Change API Token: $TSP_API_TOKEN" \
+	    "Change Application Id: $TSI_APP_ID" \
+	    "Quit"
+    do
+      case $REPLY in
+        1) active=0         ; break ;;
+        2) GetEmail         ; break ;;
+        3) GetApiToken      ; break ;;
+        4) GetApplicationId ; break ;;
+        5) Quit                     ;;
+      esac
+    done
+  done
+}
+
+ExportConfiguration() {
+  export TSP_EMAIL
+  export TSP_API_TOKEN
+  export TSP_API_HOST="api.truesight-staging.bmc.com"
+  export TSI_APP_ID
+}
+
+ShowConfiguration()  {
+  local prefix=$1
+  echo "$prefix E-mail: $TSP_EMAIL"
+  echo "$prefix API Token: $TSP_API_TOKEN"
+  echo "$prefix Application Id: $TSI_APP_ID"
+}
+
+CreateVirtualMachine() {
+  # Clear the screen to remove clutter
+  clear
+
+  echo "Using the following configuration:"
+  ShowConfiguration "  "
+  echo -n "to create virtual machine"
+
+  echo "Virtual machine provisioning began at $(date)" >> "${LOG_FILE}"
+  ShowConfiguration >> "${LOG_FILE}"
+
+  # Set flag indicating the provisioning background
+  # process is running
+  RUNNING=1
+
+  # Run the virtual machine provisioning as background process
+  (vagrant up 2>&1 >> "${LOG_FILE}") &
+
+  # Save a copy of the process id for later use
+  PID=$!
+
+  # Provide visual feedback that the provisioning process is running
+  spinner ${PID}
+
+  echo "Virtual machine provisioning ended at $(date)" >> "${LOG_FILE}"
+
+  # Complete line from spinner
+  echo
+
+  # Get the background process exit code
+  wait ${PID}
+  vagrant status | grep "running" 2>&1 > /dev/null
+  result=$?
+
+  if [ ${result} -eq 0 ]
+  then
+    echo "Virtual machine successfully created"
+#    echo "Run 'vagrant ssh' to login"
+  else
+    echo "Virtual machine provisioning failed"
+      echo "See ${LOG_FILE} for details"
+  fi
+}
+
+BuildVirtualMachine() {
+
+  # Enable signal handlers in case script is interrupted during creation
+  EnableSignalHandlers
+
+  # Prompt the user for required configuration
+  GetConfiguration
+
+  # Allow the user to view configuration and change if necessary
+  VerifyConfiguration
+
+  # Export the configuration through environment variables so they can be passed to vagrant
+  ExportConfiguration
+
+  # Call vagrant to create and provision the virtual machine
+  CreateVirtualMachine
+}
+
+Login() {
+  case $(VirtualMachineStatus) in
+            NOT_CREATED) echo "Virtual machine not provisioned run 'provision'" ; exit 0 ;;
+    POWERED_OFF|ABORTED) echo "Virtual machine not running run 'start'" ; exit 1 ;;
+                RUNNING) exec vagrant ssh ;;
+                      *) echo "Error logging into virtual machine run 'restart' ; exit" ;;
   esac
 }
 
-# Set a variable to absolute path to this script
-typeset -r ABS_DIR=$(dirname $(AbsolutePath))
+Create() {
+  case $(VirtualMachineStatus) in
+            NOT_CREATED) BuildVirtualMachine                                    ;;
+    ABORTED|POWERED_OFF) echo "Virtual machine already provisioned run 'start'" ;;
+  esac
+}
 
-# Sub-command passed on the command line if any
-typeset -r command=$1
+Remove() {
+  case $(VirtualMachineStatus) in
+                    NOT_CREATED) echo "Virtual machine is not provisioned" ;;
+    ABORTED|POWERED_OFF|RUNNING) vagrant destroy -f 2>&1 > /dev/null ;;
+  esac
+}
 
-# If not passed the sub-command then display a menu
-# to the user and let them select the sub-command
-if [ -z $command ]
+Start() {
+  case $(VirtualMachineStatus) in
+            NOT_CREATED) echo "Virtual machine not provisioned run 'provision'" ;;
+                RUNNING) echo "Virtual machine is already running'"             ;;
+    ABORTED|POWERED_OFF) vagrant up 2>&1 > /dev/null                            ;;
+  esac
+}
+
+Stop() {
+  case $(VirtualMachineStatus) in
+                             RUNNING) vagrant halt 2>&1 > /dev/null || echo "Error stopping virtual machine" ;;
+    ABORTED| NOT_CREATED|POWERED_OFF) echo "Virtual machine not running"                                     ;;
+  esac
+}
+
+Restart() {
+   Stop
+   Start
+}
+
+Quit() {
+  exit 0
+}
+
+HelpCreate() {
+  echo "CREATE"
+  echo "======"
+}
+
+HelpLogin() {
+  echo "Login"
+  echo "====="
+}
+
+HelpRemove() {
+  echo "Remove"
+  echo "======"
+}
+
+HelpRestart() {
+  echo "Restart"
+  echo "======="
+}
+
+HelpStart() {
+  echo "Start"
+  echo "====="
+}
+
+HelpStop() {
+  echo "Stop"
+  echo "====="
+}
+
+Help() {
+  topic="${1}"
+
+  if [ -z "${topic}" ]
+    then
+    echo "Virtual Machine Management Tool"
+    echo ""
+    echo "Runs the following commands:"
+    echo
+    echo "  create - Builds a virtual machine"
+    echo "    help - Displays this help"
+    echo "   login - Opens a command line to the virtual machine"
+    echo "  remove - Deletes the virtual machine"
+    echo " restart - Starts and then stops the virtual machine"
+    echo "   start - Turns off the virtual machine"
+    echo "   stops - Turns on the virtual machine"
+    echo ""
+  else
+    case ${topic} in
+      create) HelpCreate ;;
+      login) HelpLogin ;;
+      remove) HelpRemove ;;
+      restart) HelpRestart ;;
+      start) HelpStart ;;
+      stop) HelpStop ;;
+    esac
+  fi
+}
+
+ExecuteCommand() {
+  case $1 in
+       create) Create     ;;
+         help) Help "${2}" ;;
+        login) Login      ;;
+       remove) Remove     ;;
+      restart) Restart    ;;
+        start) Start      ;;
+         stop) Stop       ;;
+         quit) Quit       ;;
+  esac
+}
+
+# Assign the command passed on the command line if any
+command=$1
+
+# If not passed command then display a menu to the user and
+# let them select a command from the menu
+if [ -z ${command} ]
 then
   command=$(DisplayCommandMenu)
 fi
 
-exec "$ABS_DIR/$command"
+ExecuteCommand ${command} ${2}
+
 
