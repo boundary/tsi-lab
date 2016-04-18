@@ -2,12 +2,12 @@
     "docs": [
         {
             "location": "/", 
-            "text": "TrueSight Intelligence Lab\n\n\nversion 0.4.0\n\n\nVirtual machine lab environment for learning about TrueSight Pulse Intelligence.\n\n\nRather than having to worry about the numerous dependency differences between\nWindows, Mac OS X, Unix/Linux, we have developed this virtual machine that contains\nall the necessary software tools to complete the lab exercises.\n\n\nIt is imperative that you install the prerequisites on your laptop/desktop BEFORE attempting to\ncomplete these labs! See \nPrerequisites\n for details.\n\n\nClick the \nNext\n ()upper right) or click \nhere", 
+            "text": "TrueSight Intelligence Lab\n\n\nversion 0.5.0\n\n\nVirtual machine lab environment for learning about TrueSight Pulse Intelligence.\n\n\nRather than having to worry about the numerous dependency differences between\nWindows, Mac OS X, Unix/Linux, we have developed this virtual machine that contains\nall the necessary software tools to complete the lab exercises.\n\n\nIt is imperative that you install the prerequisites on your laptop/desktop BEFORE attempting to\ncomplete these labs! See \nPrerequisites\n for details.\n\n\nClick the \nNext\n (upper right) or click \nhere", 
             "title": "Home"
         }, 
         {
             "location": "/#truesight-intelligence-lab", 
-            "text": "version 0.4.0  Virtual machine lab environment for learning about TrueSight Pulse Intelligence.  Rather than having to worry about the numerous dependency differences between\nWindows, Mac OS X, Unix/Linux, we have developed this virtual machine that contains\nall the necessary software tools to complete the lab exercises.  It is imperative that you install the prerequisites on your laptop/desktop BEFORE attempting to\ncomplete these labs! See  Prerequisites  for details.  Click the  Next  ()upper right) or click  here", 
+            "text": "version 0.5.0  Virtual machine lab environment for learning about TrueSight Pulse Intelligence.  Rather than having to worry about the numerous dependency differences between\nWindows, Mac OS X, Unix/Linux, we have developed this virtual machine that contains\nall the necessary software tools to complete the lab exercises.  It is imperative that you install the prerequisites on your laptop/desktop BEFORE attempting to\ncomplete these labs! See  Prerequisites  for details.  Click the  Next  (upper right) or click  here", 
             "title": "TrueSight Intelligence Lab"
         }, 
         {
@@ -427,7 +427,7 @@
         }, 
         {
             "location": "/labs/lab4/", 
-            "text": "Lab 4 - Metric and Measurement APIs\n\n\nOverview\n\n\nMetric API\n\n\nMeasurement API\n\n\nExample Background\n\n\nMySQL Database\n\n\nDatabase Schema\n\n\nExercise 4-1 Defining Your Metrics\n\n\nExercise 4-2 Extracting Data From The Database Using SQL\n\n\nExercise 4-3 Sending Extracted Data Using Measurement API", 
+            "text": "Lab 4 - Metric and Measurement APIs\n\n\nOverview\n\n\nThis lab will introduce you to the Metric and Measurement APIs by showing you how to\nextracting example business data from a MySQL database and sending the business data\nto TrueSight Intelligence.\n\n\nMetrics versus Measurements\n\n\nMetrics\n and \nMeasurements\n are often used interchangeable by in the context of the TrueSight Intelligence APIs\nwe need to make a distinction as follows:\n\n\n\n\nMetrics\n are the \ndefinition\n of what the time series represents\n\n\nMeasurements\n are the \nactual\n time series values that are collected\n\n\n\n\nMetric\n\n\nA metric definitions consists of the following:\n\n\n\n\nName\n\n\nDisplay Name\n\n\nDisplay Name Short\n\n\nDescription\n\n\nDefault Aggregate\n\n\nDefault Resolution\n\n\nType\n\n\nUnits\n\n\n\n\nName\n\n\nThis is the primary key and is used to uniquely identify each metric in an account. The name is all\nuppercase with addition of underscores(\n_\n) and periods('.'). Some of the built-in metrics include:\nCPU, Network In, or Data Disk Out.\n\n\nDisplay Name\n\n\nLabel to identify the metric in the user interface or other place where user readable text is needed.\n\n\nDisplay Name Short\n\n\nSame use as \nDisplay Name\n but in those cases where shortened text is required (limit to 20 characters).\n\n\nDescription\n\n\nProvides textual information or other information relevant in describing the metric.\n\n\nDefault Aggregate\n\n\nWhen graphing the metric that makes the most sense, which is one of:\n\n\n\n\nAverage\n\n\nMinimum\n\n\nMaximum\n\n\nSum\n\n\n\n\nType\n\n\nTODO\n What is the type user for in TrueSight Intelligence?\n\n\nUnit\n\n\nThis field consists of an enumerated type the describes the unit of meaurement of the metric. The types\nconsist of the following;\n\n\n\n\nByteCount\n\n\nDuration\n\n\nNumber\n\n\nPercent\n\n\n\n\nNOTE\n: \nDuration\n is milliseconds and is not current configurable. Percent is given in decimal form, for\nexample %63.2 would be given as 0.632.\n\n\nMeasurements\n\n\nAre the time series data collected for a particular \nmetric\n which are made of the following:\n\n\n\n\nMetric\n\n\nValue\n\n\nSource\n\n\nTimestamp\n\n\n\n\nMetric\n\n\nRefers to the specific \nMetric\n of the Measurement\n\n\nValue\n\n\nValue of the metric at the given timestamp. If the Metric unit is \npercent\n then this is value in its\ndecimal equivalent.\n\n\nSource\n\n\nMost often the system hostname but it is used to indicate the specific instance of the thing being measured. For\nexample if were measuring individual utilization for CPU cores the source would refer to the specific core.\n\n\nTimestamp\n\n\nWhen the measurement occurred in \nUNIX epoch time\n which is either\nin seconds or milliseconds.\n\n\nMeasurement Properties\n\n\nIn addition to the previously discussed Measurement fields, there are optional fields for further\nclassification of a measurement.\n\n\nTO BE DISCUSSED\n\n\nMetric API\n\n\nMeasurement API\n\n\nExample Background\n\n\nMySQL Database\n\n\nDatabase Schema\n\n\nExercise 4-1 Defining Your Metrics\n\n\nExercise 4-2 Extracting Data From The Database Using SQL\n\n\nExercise 4-3 Sending Extracted Data Using Measurement API", 
             "title": "Lab 4 - Metrics APIs"
         }, 
         {
@@ -437,8 +437,83 @@
         }, 
         {
             "location": "/labs/lab4/#overview", 
-            "text": "", 
+            "text": "This lab will introduce you to the Metric and Measurement APIs by showing you how to\nextracting example business data from a MySQL database and sending the business data\nto TrueSight Intelligence.", 
             "title": "Overview"
+        }, 
+        {
+            "location": "/labs/lab4/#metrics-versus-measurements", 
+            "text": "Metrics  and  Measurements  are often used interchangeable by in the context of the TrueSight Intelligence APIs\nwe need to make a distinction as follows:   Metrics  are the  definition  of what the time series represents  Measurements  are the  actual  time series values that are collected", 
+            "title": "Metrics versus Measurements"
+        }, 
+        {
+            "location": "/labs/lab4/#metric", 
+            "text": "A metric definitions consists of the following:   Name  Display Name  Display Name Short  Description  Default Aggregate  Default Resolution  Type  Units", 
+            "title": "Metric"
+        }, 
+        {
+            "location": "/labs/lab4/#name", 
+            "text": "This is the primary key and is used to uniquely identify each metric in an account. The name is all\nuppercase with addition of underscores( _ ) and periods('.'). Some of the built-in metrics include:\nCPU, Network In, or Data Disk Out.", 
+            "title": "Name"
+        }, 
+        {
+            "location": "/labs/lab4/#display-name", 
+            "text": "Label to identify the metric in the user interface or other place where user readable text is needed.", 
+            "title": "Display Name"
+        }, 
+        {
+            "location": "/labs/lab4/#display-name-short", 
+            "text": "Same use as  Display Name  but in those cases where shortened text is required (limit to 20 characters).", 
+            "title": "Display Name Short"
+        }, 
+        {
+            "location": "/labs/lab4/#description", 
+            "text": "Provides textual information or other information relevant in describing the metric.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/labs/lab4/#default-aggregate", 
+            "text": "When graphing the metric that makes the most sense, which is one of:   Average  Minimum  Maximum  Sum", 
+            "title": "Default Aggregate"
+        }, 
+        {
+            "location": "/labs/lab4/#type", 
+            "text": "TODO  What is the type user for in TrueSight Intelligence?", 
+            "title": "Type"
+        }, 
+        {
+            "location": "/labs/lab4/#unit", 
+            "text": "This field consists of an enumerated type the describes the unit of meaurement of the metric. The types\nconsist of the following;   ByteCount  Duration  Number  Percent   NOTE :  Duration  is milliseconds and is not current configurable. Percent is given in decimal form, for\nexample %63.2 would be given as 0.632.", 
+            "title": "Unit"
+        }, 
+        {
+            "location": "/labs/lab4/#measurements", 
+            "text": "Are the time series data collected for a particular  metric  which are made of the following:   Metric  Value  Source  Timestamp", 
+            "title": "Measurements"
+        }, 
+        {
+            "location": "/labs/lab4/#metric_1", 
+            "text": "Refers to the specific  Metric  of the Measurement", 
+            "title": "Metric"
+        }, 
+        {
+            "location": "/labs/lab4/#value", 
+            "text": "Value of the metric at the given timestamp. If the Metric unit is  percent  then this is value in its\ndecimal equivalent.", 
+            "title": "Value"
+        }, 
+        {
+            "location": "/labs/lab4/#source", 
+            "text": "Most often the system hostname but it is used to indicate the specific instance of the thing being measured. For\nexample if were measuring individual utilization for CPU cores the source would refer to the specific core.", 
+            "title": "Source"
+        }, 
+        {
+            "location": "/labs/lab4/#timestamp", 
+            "text": "When the measurement occurred in  UNIX epoch time  which is either\nin seconds or milliseconds.", 
+            "title": "Timestamp"
+        }, 
+        {
+            "location": "/labs/lab4/#measurement-properties", 
+            "text": "In addition to the previously discussed Measurement fields, there are optional fields for further\nclassification of a measurement.  TO BE DISCUSSED", 
+            "title": "Measurement Properties"
         }, 
         {
             "location": "/labs/lab4/#metric-api", 
@@ -532,7 +607,7 @@
         }, 
         {
             "location": "/labs/lab6/", 
-            "text": "Lab 6 - API Integration\n\n\nWith all you have learned regarding the Event, Metric, and Measurements APIs it is time\nput your new knowledge to some interesting examples. Hold on tight, make sure your\nparachute is packed, we are climbing to 10,000, be ready to bail out.\n\n\nThe three exercises we have in store for are:\n\n\n\n\nCollecting your favorite stocks pricing and volume (Commission Free!)\n\n\nCollecting temperature from your favorite city\n\n\nCollecting some statistics of your Twitter feed.\n\n\n\n\nExercise 6-1 Stocks\n\n\nIn this example we use the \nystockquote\n Python package to send measurements to send stock pricing\nand volume given the stock ticker to TrueSight Intelligence.\n\n\nThe stock script allows multiple tickers to be passed on the command line and their corresponding\nprice and volume will be sent to TrueSight Intelligence.\n\n\nAdding the metric definitions\n\n\nTo add the metric definitions for this exercise run the following:\n\n\n\n\n\n\nChange directory to \nlabs/lab-6\n:\n\n\ncd ~/labs/lab-6\n\n\n\n\n\n\nAdd the metric definitions by running the following:\n\n\nmetric-import -f ex6-2.stocks.json\n\n\n\n\n\n\nSending Stock Price and Volume Measurements\n\n\n\n\n\n\nTo create price and volume for Google, Apple, and Twitter run\nthe following:\n\n\nex6-2.stock.py goog aapl twtr\n\n\n\n\n\n\nThe output should be similar to the following:\n\n\nticker: goog, price: 759.24, volume: 896107\nticker: aapl, price: 111.83, volume: 12232507\nticker: twtr, price: 17.695, volume: 8318681\nticker: goog, price: 759.24, volume: 896151\nticker: aapl, price: 111.82, volume: 12238391\nticker: twtr, price: 17.69, volume: 8318981\n\n\n\n\nExercise 6-2 Open Weather Map\n\n\nObtaining Open Weather Map API Keys\n\n\nTo Be Completed\n\n\nAdding the metric definitions\n\n\nTo add the metric definitions for this exercise run the following:\n\n\n\n\n\n\nChange directory to \nlabs/lab-6\n:\n\n\ncd ~/labs/lab-6\n\n\n\n\n\n\nAdd the metric definitions by running the following:\n\n\nmetric-import -f ex6-2.weather.json\n\n\n\n\n\n\nRunning the weather collection script\n\n\n\n\n\n\nChange directory to \nlabs/lab-6\n:\n\n\ncd ~/labs/lab-6\n\n\n\n\n\n\nTo create weather data for San Jose, CA run the following:\n\n\nex6-2.weather.py \"San Jose, CA\"\n\n\n\n\n\n\nExercise 6-3 Twitter\n\n\nObtaining your Twitter API Keys\n\n\nTo Be Completed\n\n\nAdding the metric definitions\n\n\nTo add the metric definitions for this exercise run the following:\n\n\n\n\n\n\nChange directory to \nlabs/lab-6\n:\n\n\ncd ~/labs/lab-6\n\n\n\n\n\n\nAdd the metric definitions by running the following:\n\n\nmetric-import -f ex6-3.twitter.json", 
+            "text": "Lab 6 - API Integration\n\n\nWith all you have learned regarding the Event, Metric, and Measurements APIs it is time\nput your new knowledge to some interesting examples. Hold on tight, make sure your\nparachute is packed, we are climbing to 10,000, be ready to bail out.\n\n\nThe three exercises we have in store for are:\n\n\n\n\nCollecting your favorite stocks pricing and volume (Commission Free!)\n\n\nCollecting temperature from your favorite city\n\n\nCollecting some statistics of your Twitter feed.\n\n\n\n\nExercise 6-1 Stocks\n\n\nIn this example we use the \nystockquote\n Python package to send measurements to send stock pricing\nand volume given the stock ticker to TrueSight Intelligence.\n\n\nThe stock script allows multiple tickers to be passed on the command line and their corresponding\nprice and volume will be sent to TrueSight Intelligence.\n\n\nAdding the metric definitions\n\n\nTo add the metric definitions for this exercise run the following:\n\n\n\n\n\n\nChange directory to \nlabs/lab-6\n:\n\n\ncd ~/labs/lab-6\n\n\n\n\n\n\nAdd the metric definitions by running the following:\n\n\nmetric-import -f ex6-2.stocks.json\n\n\n\n\n\n\nSending Stock Price and Volume Measurements\n\n\n\n\n\n\nTo create price and volume for Google, Apple, and Twitter run\nthe following:\n\n\nex6-2.stock.py goog aapl twtr\n\n\n\n\n\n\nThe output should be similar to the following:\n\n\nticker: goog, price: 759.24, volume: 896107\nticker: aapl, price: 111.83, volume: 12232507\nticker: twtr, price: 17.695, volume: 8318681\nticker: goog, price: 759.24, volume: 896151\nticker: aapl, price: 111.82, volume: 12238391\nticker: twtr, price: 17.69, volume: 8318981\n\n\n\n\nExercise 6-2 Open Weather Map\n\n\n\n\nClimate is what we expect,\nweather is what we get.\n\n\n\n\nMark Twain\n\n\nLet's talk about the weather. For this exercise we are heating up and will create a\nscript that collects data from you favorite city or cities.\n\n\nWe are going to the exploit the services of the \nOpen Weather Map API\n\n\nObtaining Open Weather Map API Keys\n\n\nTo Be Completed\n\n\nAdding the metric definitions\n\n\nTo add the metric definitions for this exercise run the following:\n\n\n\n\n\n\nChange directory to \nlabs/lab-6\n:\n\n\ncd ~/labs/lab-6\n\n\n\n\n\n\nAdd the metric definitions by running the following:\n\n\nmetric-import -f ex6-2.weather.json\n\n\n\n\n\n\nRunning the weather collection script\n\n\n\n\n\n\nChange directory to \nlabs/lab-6\n:\n\n\ncd ~/labs/lab-6\n\n\n\n\n\n\nTo create weather data for San Jose, CA run the following:\n\n\nex6-2.weather.py \"San Jose, CA\"\n\n\n\n\n\n\nExercise 6-3 Twitter\n\n\nObtaining your Twitter API Keys\n\n\nTo Be Completed\n\n\nAdding the metric definitions\n\n\nTo add the metric definitions for this exercise run the following:\n\n\n\n\n\n\nChange directory to \nlabs/lab-6\n:\n\n\ncd ~/labs/lab-6\n\n\n\n\n\n\nAdd the metric definitions by running the following:\n\n\nmetric-import -f ex6-3.twitter.json", 
             "title": "Lab 6 - API Integration"
         }, 
         {
@@ -557,7 +632,7 @@
         }, 
         {
             "location": "/labs/lab6/#exercise-6-2-open-weather-map", 
-            "text": "", 
+            "text": "Climate is what we expect,\nweather is what we get.   Mark Twain  Let's talk about the weather. For this exercise we are heating up and will create a\nscript that collects data from you favorite city or cities.  We are going to the exploit the services of the  Open Weather Map API", 
             "title": "Exercise 6-2 Open Weather Map"
         }, 
         {
