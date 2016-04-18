@@ -24,6 +24,10 @@ Download each piece of software below for your OS and install each piece with th
 - Chrome Browser latest version. Chrome can be downloaded from [here](https://www.google.com/chrome/browser/desktop/)
 - Git 2.2 or later. Git can be downloaded [here](http://git-scm.com/download)
 
+## API Keys
+
+- Open Weather Map visit [here](http://openweathermap.org/appid)
+- Twitter visit [here](https://apps.twitter.com/)
 
 ## Git On Windows
 
