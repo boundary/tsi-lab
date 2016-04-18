@@ -49,7 +49,3 @@ When using the Git installer make sure you select the options in the installatio
 
 
 Click _Next_ (upper right) when completed with download and installation of all components on this page.
-
-
-
-
