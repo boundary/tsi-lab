@@ -41,7 +41,7 @@
     "description": "Total number of bytes",
     "displayName": "HTTP Bytes",
     "displayNameShort": "HTTP Bytes",
-    "unit": "bytecount"
+    "unit": "number"
   },
 
   "ONLINE_CUSTOMER_TRANSACTION_COUNT": {
