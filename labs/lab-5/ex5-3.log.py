@@ -28,8 +28,6 @@ class ApacheLogfileParser(LogfileParser):
         log_format = r'%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}\i"'
         self.parser = apachelog.parser(log_format)
         self.api = API()
-        # Set our application id from the environment variable
-        self.appl_id = os.environ['TSI_APPL_ID']
 
     def send_measurements(self, measurements):
         """
@@ -59,18 +57,17 @@ class ApacheLogfileParser(LogfileParser):
         measurements.append(Measurement(
                 metric='HTTP_REQUESTS',
                 value=1, source=request,
-                properities=properties))
+                properties=properties))
         measurements.append(Measurement(
                 metric='HTTP_BYTES',
                 value=bytes,
                 source=user_agent,
-                properities=properties))
+                properties=properties))
         self.send_measurements(measurements)
 
         if __name__ == '__main__':
-            if
-        len(sys.argv) == 2:
-        parser = ApacheLogfileParser(path=sys.argv[1])
-        parser.monitor_file()
-        else:
-        sys.stderr.write("{0}".format(os.path.basename(sys.argv[0])))
+            if len(sys.argv) == 2:
+                parser = ApacheLogfileParser(path=sys.argv[1])
+                parser.monitor_file()
+            else:
+                sys.stderr.write("{0}".format(os.path.basename(sys.argv[0])))
