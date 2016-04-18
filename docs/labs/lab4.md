@@ -114,15 +114,129 @@ classification of a measurement.
 
 ## Example Background
 
-### MySQL Database
+### MariaDB Database
+
+The MariaDB is a equivalent database of MySQL
 
 ### Database Schema
+
+```
+MariaDB [app]> show tables;
++------------------+
+| Tables_in_app    |
++------------------+
+| business_metrics |
+| ol_activity      |
+| ol_cart          |
+| ol_sales         |
+| ol_transactions  |
++------------------+
+5 rows in set (0.00 sec)
+
+MariaDB [app]>
+```
+
+```
+CREATE TABLE ol_activity
+(
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  dt DATETIME NOT NULL,
+  online BIGINT NOT NULL
+);
+```
+
+### Running MariaDB Queries
+
+
+1. At the command line run the following:
+
+     ```
+     mysqldb
+     ```
+
+2. This will display the following prompt:
+
+     ```
+     [vagrant@tsi-lab-01 ~]$ mysqldb
+     Reading table information for completion of table and column names
+     You can turn off this feature to get a quicker startup with -A
+
+     Welcome to the MariaDB monitor.  Commands end with ; or \g.
+     Your MariaDB connection id is 129
+     Server version: 5.5.47-MariaDB MariaDB Server
+
+     Copyright (c) 2000, 2015, Oracle, MariaDB Corporation Ab and others.
+
+     Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+     MariaDB [app]>
+
+     ```
+
+3. Run the following:
+
+     ```
+     MariaDB [app]> select now();
+     ```
+
+4. Which will display output similiar to below:
+
+```
+MariaDB [app]> select now();
++---------------------+
+| now()               |
++---------------------+
+| 2016-04-18 14:27:47 |
++---------------------+
+1 row in set (0.00 sec)
+```
 
 
 ## Exercise 4-1 Defining Your Metrics
 
+Run the script `labs\lab-4\ex-4-1.metrics.py`.
+
+1. Change directory to your home directory:
+
+    ```
+    $ cd
+    ```
+
+2. Run the following:
+
+    ```
+    $ labs\lab-3\ex-4-1.metrics.py
+    ```
 
 ## Exercise 4-2 Extracting Data From The Database Using SQL
 
+Run the script `labs\lab-4\ex-4-2.metrics.py`.
+
+1. Change directory to your home directory:
+
+    ```
+    $ cd
+    ```
+
+2. Run the following:
+
+    ```
+    $ labs\lab-3\ex-4-2.metrics.py
+    ```
+
 
 ## Exercise 4-3 Sending Extracted Data Using Measurement API
+
+Run the script `labs\lab-4\ex-4-3.metrics.py`.
+
+1. Change directory to your home directory:
+
+    ```
+    $ cd
+    ```
+
+2. Run the following:
+
+    ```
+    $ labs\lab-3\ex-4-3.metrics.py
+    ```
