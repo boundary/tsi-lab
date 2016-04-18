@@ -27,8 +27,10 @@ Download each piece of software below for your OS and install each piece with th
 [here](https://www.google.com/chrome/browser/desktop/)
 - Git 2.2 or later. If downloading the virtual machine contents via git. Git can be downloaded
 [here](http://git-scm.com/download)
-
-
+- Get API key for the openweathermap lab
+[here](http://openweathermap.org/appid)
+- Get API key for the Twitter Lab
+[here]()
 ## Git On Windows
 
 _NOTE_: If you are Mac OS X user you can skip this section and proceed to the next section, sorry Windows
