@@ -12,7 +12,7 @@
         }, 
         {
             "location": "/getting_started/prerequisites/", 
-            "text": "Prerequisites\n\n\nThis section describes the hardware, software, and network resources required to complete the accompanying\nlab exercises.\n\n\nNetwork\n\n\n\n\nMust have access to the internet so that software components required by the Virtual Machine\ncan be downloaded.\n\n\n\n\nHardware\n\n\n\n\nLaptop/Desktop running Mac OS X 10.10.5 or later, or Windows 7 or later.\n\n\nLaptop/Desktop must have at least 8GB ram.\n\n\nLaptop/Desktop must have at least 2GB of free disk space.\n\n\n\n\nSoftware\n\n\nDownload each piece of software below for your OS and install each piece with the default instructions and locations\n\n\n\n\nVagrant 1.7.2 or later. Vagrant can be downloaded\n\nhere\n\n\nVirtualBox 4.3.2.6 or later. VirtualBox can be downloaded\n\nhere\n\n\nChrome Browser latest version. Chrome can be downloaded from\n\nhere\n\n\nGit 2.2 or later. If downloading the virtual machine contents via git. Git can be downloaded\n\nhere\n\n\n\n\nGit On Windows\n\n\nNOTE\n: If you are Mac OS X user you can skip this section and proceed to the next section, sorry Windows\npeople we have some special instructions for you on how to install Git on your system. We promise\nthis is the last time you will have to pay your penance for you \nWindows\n ways, since going forward,\nthe instructions for all the platforms will be the same.\n\n\nWhen using the Git installer make sure you select the options in the installation dialogs:\n\n\nTBD\n Need the exact wording and/or screen shots for this section to make it clear.\n\n\n\n\nRun Git Only from a Bash Shell\n\n\nSelect the Unix Line feeds options\n\n\n\n\nNext\n\n\nLet's get ready to rumble!\n\n\nClick \nNext\n (upper right) when completed with download and installation of all components on this page.", 
+            "text": "Prerequisites\n\n\nThis section describes the hardware, software, and network resources required to complete the accompanying\nlab exercises.\n\n\nNetwork\n\n\n\n\nMust have access to the internet so that software components required by the Virtual Machine\ncan be downloaded.\n\n\n\n\nHardware\n\n\n\n\nLaptop/Desktop running Mac OS X 10.10.5 or later, or Windows 7 or later.\n\n\nLaptop/Desktop must have at least 8GB ram.\n\n\nLaptop/Desktop must have at least 2GB of free disk space.\n\n\n\n\nSoftware\n\n\nDownload each piece of software below for your OS and install each piece with the default instructions and locations\n\n\n\n\nVagrant 1.7.2 or later. Vagrant can be downloaded \nhere\n\n\nVirtualBox 4.3.2.6 or later. VirtualBox can be downloaded \nhere\n\n\nChrome Browser latest version. Chrome can be downloaded from \nhere\n\n\nGit 2.2 or later. Git can be downloaded \nhere\n\n\n\n\nGit On Windows\n\n\nNOTE\n: If you are Mac OS X user you can skip this and proceed to the \nNext\n section at bottom of the page,\nsorry Windows people we have some special instructions for you on how to install Git on your system. We promise\nthis is the last time you will have to pay your penance for you \nWindows\n ways, since going forward,\nthe instructions for all the platforms will be the same.\n\n\nWhen using the Git installer make sure you select the options in the installation shown in the next sections.\n\n\nAdjusting your PATH environment\n\n\n\n\nConfigure the line ending conversions\n\n\n\n\nConfigure the terminal emulator to use with Git Bash\n\n\n\n\nNext\n\n\nClick \nNext\n (upper right) when completed with download and installation of all components on this page.", 
             "title": "Prerequisites"
         }, 
         {
@@ -32,17 +32,32 @@
         }, 
         {
             "location": "/getting_started/prerequisites/#software", 
-            "text": "Download each piece of software below for your OS and install each piece with the default instructions and locations   Vagrant 1.7.2 or later. Vagrant can be downloaded here  VirtualBox 4.3.2.6 or later. VirtualBox can be downloaded here  Chrome Browser latest version. Chrome can be downloaded from here  Git 2.2 or later. If downloading the virtual machine contents via git. Git can be downloaded here", 
+            "text": "Download each piece of software below for your OS and install each piece with the default instructions and locations   Vagrant 1.7.2 or later. Vagrant can be downloaded  here  VirtualBox 4.3.2.6 or later. VirtualBox can be downloaded  here  Chrome Browser latest version. Chrome can be downloaded from  here  Git 2.2 or later. Git can be downloaded  here", 
             "title": "Software"
         }, 
         {
             "location": "/getting_started/prerequisites/#git-on-windows", 
-            "text": "NOTE : If you are Mac OS X user you can skip this section and proceed to the next section, sorry Windows\npeople we have some special instructions for you on how to install Git on your system. We promise\nthis is the last time you will have to pay your penance for you  Windows  ways, since going forward,\nthe instructions for all the platforms will be the same.  When using the Git installer make sure you select the options in the installation dialogs:  TBD  Need the exact wording and/or screen shots for this section to make it clear.   Run Git Only from a Bash Shell  Select the Unix Line feeds options", 
+            "text": "NOTE : If you are Mac OS X user you can skip this and proceed to the  Next  section at bottom of the page,\nsorry Windows people we have some special instructions for you on how to install Git on your system. We promise\nthis is the last time you will have to pay your penance for you  Windows  ways, since going forward,\nthe instructions for all the platforms will be the same.  When using the Git installer make sure you select the options in the installation shown in the next sections.", 
             "title": "Git On Windows"
         }, 
         {
+            "location": "/getting_started/prerequisites/#adjusting-your-path-environment", 
+            "text": "", 
+            "title": "Adjusting your PATH environment"
+        }, 
+        {
+            "location": "/getting_started/prerequisites/#configure-the-line-ending-conversions", 
+            "text": "", 
+            "title": "Configure the line ending conversions"
+        }, 
+        {
+            "location": "/getting_started/prerequisites/#configure-the-terminal-emulator-to-use-with-git-bash", 
+            "text": "", 
+            "title": "Configure the terminal emulator to use with Git Bash"
+        }, 
+        {
             "location": "/getting_started/prerequisites/#next", 
-            "text": "Let's get ready to rumble!  Click  Next  (upper right) when completed with download and installation of all components on this page.", 
+            "text": "Click  Next  (upper right) when completed with download and installation of all components on this page.", 
             "title": "Next"
         }, 
         {
@@ -57,7 +72,7 @@
         }, 
         {
             "location": "/getting_started/virtual_machine/", 
-            "text": "Virtual Machine\n\n\nThis section describes how to get your virtual machine environment up and running on\nyour Windows or Mac OS X laptop or Desktop.\n\n\nBefore proceeding ensure that you have met the prerequisites listed \nhere\n\n\nStarting a Bash Shell\n\n\nMac OS X\n\n\nWindows\n\n\nFrom \nProgram Start\n menu select \nGit Bash\n or click on the program icon if created on the desktop\nduring installation:\n\n\n\n\nDownloading the Contents\n\n\nThe virtual machine contents are downloaded from a GitHub repository.\n\n\nCloning\n\n\nUse the git command line tool in a bash shell to clone the contents of the virtual machine\nfrom the GitHub Repository. Pay attention and make note of the directory location you are currently in when executing the command below.\n\n\n$ git clone https://github.com/boundary/tsi-lab\n\n\n\n\nCreating and Starting the Virtual Machine\n\n\nInteraction with the APIs requires the following details:\n\n\n\n\nE-mail - The e-mail associated with your TrueSight Intelligence account.\n\n\nAPI Token - The token generated by the system for authenticating a call to the API\n\n\nApplication ID - Your application name used for all of the labs  (any name you want)\n\n\n\n\nNOTE\n: To create the virtual machine you need to use a bash shell, or Windows Command prompt.\n\n\n\n\n\n\nChange to directory of the extracted or cloned the lab contents:\n\n\n$ cd tsi-lab\n\n\n\n\n\n\nFrom the bash shell (Terminal in OSX) or (GitBash in Windows). Issue the following command to\ncreate the virtual machine:\n\n\n$ ./vm-create\n\n\n\n\n\n\nLogin into the Virtual Machine\n\n\nAfter your virtual machine is created login to your virtual machine by using the command below.\n\n\n$ ./vm-login\n\n\n\n\nChange directory to your labs directory\n\n\nAfter you login to your virtual machine change directory to your labs directory by using the command below.\n\n\n$ cd labs\n\n\n\n\nValidating API credentials in your Virtual Machine\n\n\nAfter logging into the virtual machine run the following command to verify your API credentials:\n\n\n$ creds\nTSP_EMAIL=rknaub@gmail.com\nTSP_API_HOST=api.truesight-staging.bmc.com\nTSP_API_TOKEN=fbecec7a-b0f7-40c4-a4cb-ec09b3b6b7cb\n\n\n\n\nStopping the Virtual Machine\n\n\nRun the following command before shutting down you laptop/desktop.\n\n\n$ ./vm-stop\n\n\n\n\nStarting the Virtual Machine\n\n\nRun the following command to restart your virtual machine.\n\n\n$ ./vm-stop\n\n\n\n\nRestarting the Virtual Machine\n\n\nRun the following command to restart your virtual machine.\n\n\n$ ./vm-restart\n\n\n\n\nDestroying the Virtual Machine\n\n\n$ ./vm-remove\n\n\n\n\nClick Next (upper right) when completed.", 
+            "text": "Virtual Machine\n\n\nThis section describes how to get your virtual machine environment up and running on\nyour Windows or Mac OS X laptop or Desktop.\n\n\nBefore proceeding ensure that you have met the prerequisites listed \nhere\n\n\nStarting a Bash Shell\n\n\nMac OS X\n\n\nThe Bash shell on Mac OS X or \nTerminal\n can be found in \nApplications -\n Utilities\n\n\nWindows\n\n\nFrom \nProgram Start\n menu select \nGit Bash\n or click on the program icon in the desktop if created\nduring installation:\n\n\n\n\nDownloading the Contents\n\n\nThe virtual machine contents are downloaded from a GitHub repository.\n\n\nCloning\n\n\nUse the git command line tool in a bash shell to clone the contents of the virtual machine\nfrom the GitHub Repository. Pay attention and make note of the directory location you are currently\nin when executing the command below.\n\n\nDanger!, Will Robinson\n \nDo Not Install In Path With Spaces!\n\n\n$ git clone https://github.com/boundary/tsi-lab\n\n\n\n\nCreating and Starting the Virtual Machine\n\n\nInteraction with the APIs requires the following details:\n\n\n\n\nE-mail - The e-mail associated with your TrueSight Intelligence account.\n\n\nAPI Token - The token generated by the system for authenticating a call to the API\n\n\nApplication Id - Your application name used for all of the labs  (any name you want)\n\n\n\n\nNOTE\n: To create the virtual machine you need to use a bash shell, or Windows Command prompt.\n\n\n\n\n\n\nChange to directory of the extracted or cloned the lab contents:\n\n\n$ cd tsi-lab\n\n\n\n\n\n\nFrom the bash shell (Terminal in OSX) or (GitBash in Windows). Issue the following command to\ncreate the virtual machine:\n\n\n$ ./vm-create\n\n\n\n\n\n\nThe above script will prompt for the information that was required:\n\n\n\n\nE-mail\n\n\nAPI Token\n\n\nApplication Id\n\n\n\n\nThe final screen will show\n\n\nLogin into the Virtual Machine\n\n\nAfter your virtual machine is created login to your virtual machine by using the command below.\n\n\n$ ./vm-login\n\n\n\n\nChange directory to your labs directory\n\n\nAfter you login to your virtual machine change directory to your labs directory by using the command below.\n\n\n$ cd labs\n\n\n\n\nValidating API credentials in your Virtual Machine\n\n\nAfter logging into the virtual machine run the following command to verify your API credentials:\n\n\n$ creds\nTSP_EMAIL=rknaub@gmail.com\nTSP_API_HOST=api.truesight-staging.bmc.com\nTSP_API_TOKEN=fbecec7a-b0f7-40c4-a4cb-ec09b3b6b7cb\n\n\n\n\nDisplay your Application Id in your Virtual Machine\n\n\n$ appid\nTSI_APP_ID=BigDog\n\n\n\n\nStopping the Virtual Machine\n\n\nRun the following command before shutting down you laptop/desktop.\n\n\n$ ./vm-stop\n\n\n\n\nStarting the Virtual Machine\n\n\nRun the following command to restart your virtual machine.\n\n\n$ ./vm-stop\n\n\n\n\nRestarting the Virtual Machine\n\n\nRun the following command to restart your virtual machine.\n\n\n$ ./vm-restart\n\n\n\n\nDestroying the Virtual Machine\n\n\n$ ./vm-remove\n\n\n\n\nClick Next (upper right) when completed.", 
             "title": "Virtual Machine"
         }, 
         {
@@ -72,12 +87,12 @@
         }, 
         {
             "location": "/getting_started/virtual_machine/#mac-os-x", 
-            "text": "", 
+            "text": "The Bash shell on Mac OS X or  Terminal  can be found in  Applications -  Utilities", 
             "title": "Mac OS X"
         }, 
         {
             "location": "/getting_started/virtual_machine/#windows", 
-            "text": "From  Program Start  menu select  Git Bash  or click on the program icon if created on the desktop\nduring installation:", 
+            "text": "From  Program Start  menu select  Git Bash  or click on the program icon in the desktop if created\nduring installation:", 
             "title": "Windows"
         }, 
         {
@@ -87,12 +102,12 @@
         }, 
         {
             "location": "/getting_started/virtual_machine/#cloning", 
-            "text": "Use the git command line tool in a bash shell to clone the contents of the virtual machine\nfrom the GitHub Repository. Pay attention and make note of the directory location you are currently in when executing the command below.  $ git clone https://github.com/boundary/tsi-lab", 
+            "text": "Use the git command line tool in a bash shell to clone the contents of the virtual machine\nfrom the GitHub Repository. Pay attention and make note of the directory location you are currently\nin when executing the command below.  Danger!, Will Robinson   Do Not Install In Path With Spaces!  $ git clone https://github.com/boundary/tsi-lab", 
             "title": "Cloning"
         }, 
         {
             "location": "/getting_started/virtual_machine/#creating-and-starting-the-virtual-machine", 
-            "text": "Interaction with the APIs requires the following details:   E-mail - The e-mail associated with your TrueSight Intelligence account.  API Token - The token generated by the system for authenticating a call to the API  Application ID - Your application name used for all of the labs  (any name you want)   NOTE : To create the virtual machine you need to use a bash shell, or Windows Command prompt.    Change to directory of the extracted or cloned the lab contents:  $ cd tsi-lab    From the bash shell (Terminal in OSX) or (GitBash in Windows). Issue the following command to\ncreate the virtual machine:  $ ./vm-create", 
+            "text": "Interaction with the APIs requires the following details:   E-mail - The e-mail associated with your TrueSight Intelligence account.  API Token - The token generated by the system for authenticating a call to the API  Application Id - Your application name used for all of the labs  (any name you want)   NOTE : To create the virtual machine you need to use a bash shell, or Windows Command prompt.    Change to directory of the extracted or cloned the lab contents:  $ cd tsi-lab    From the bash shell (Terminal in OSX) or (GitBash in Windows). Issue the following command to\ncreate the virtual machine:  $ ./vm-create    The above script will prompt for the information that was required:   E-mail  API Token  Application Id   The final screen will show", 
             "title": "Creating and Starting the Virtual Machine"
         }, 
         {
@@ -109,6 +124,11 @@
             "location": "/getting_started/virtual_machine/#validating-api-credentials-in-your-virtual-machine", 
             "text": "After logging into the virtual machine run the following command to verify your API credentials:  $ creds\nTSP_EMAIL=rknaub@gmail.com\nTSP_API_HOST=api.truesight-staging.bmc.com\nTSP_API_TOKEN=fbecec7a-b0f7-40c4-a4cb-ec09b3b6b7cb", 
             "title": "Validating API credentials in your Virtual Machine"
+        }, 
+        {
+            "location": "/getting_started/virtual_machine/#display-your-application-id-in-your-virtual-machine", 
+            "text": "$ appid\nTSI_APP_ID=BigDog", 
+            "title": "Display your Application Id in your Virtual Machine"
         }, 
         {
             "location": "/getting_started/virtual_machine/#stopping-the-virtual-machine", 
