@@ -57,6 +57,16 @@ ticker: twtr, price: 17.69, volume: 8318981
 
 ## Exercise 6-2 Open Weather Map
 
+> Climate is what we expect,
+> weather is what we get.
+
+Mark Twain
+
+Let's talk about the weather. For this exercise we are heating up and will create a
+script that collects data from you favorite city or cities.
+
+We are going to the exploit the services of the [Open Weather Map API](http://openweathermap.org/api)
+
 
 ### Obtaining Open Weather Map API Keys
 

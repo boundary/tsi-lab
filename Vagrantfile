@@ -7,44 +7,24 @@ Vagrant.configure(2) do |config|
   config.vm.box_version = "1.0.1"
   config.vm.hostname = "tsi-lab-01"
 
-
   config.vm.synced_folder "manifests/templates", "/tmp/vagrant-puppet/templates"
   config.vm.synced_folder "labs", "/home/vagrant/labs"
 
   config.vm.network "forwarded_port", guest: 80, host: 8181
 
-  # Create a private network, which allows host-only access to the machine
-  # using a specific IP.
-  # config.vm.network "private_network", ip: "192.168.33.10"
-
-  # Create a public network, which generally matched to bridged network.
-  # Bridged networks make the machine appear as another physical device on
-  # your network.
-  # config.vm.network "public_network"
-
-
-  # config.vm.provider "virtualbox" do |vb|
-  #   # Display the VirtualBox GUI when booting the machine
-  #   vb.gui = true
-  #
-  #   # Customize the amount of memory on the VM:
-  #   vb.memory = "1024"
-  # end
-  #
-
-  #
   # Add the required puppet modules before provisioning is run by puppet
-  #
   config.vm.provision :shell do |shell|
-      shell.inline = "puppet module install puppetlabs-stdlib;
+      shell.inline = "
+                      puppet module install puppetlabs-stdlib;
                       puppet module install puppetlabs-concat;
                       puppet module install torrancew-cron;
-                      puppet module install puppetlabs-mysql;
+                     puppet module install puppetlabs-mysql;
                       puppet module install puppetlabs-apache;
-		      touch /etc/puppet/hiera.yaml;
+                      touch /etc/puppet/hiera.yaml;
                       exit 0"
   end
 
+  # Provision our virtual machine with puppet
   config.vm.provision "puppet" do |puppet|
       puppet.manifests_path = "manifests"
       puppet.manifest_file  = "site.pp"
@@ -53,6 +33,7 @@ Vagrant.configure(2) do |config|
           "tsi_email" => ENV["TSI_EMAIL"],
           "tsi_api_token" => ENV["TSI_API_TOKEN"],
           "tsi_api_host" => ENV["TSI_API_HOST"],
+          "tsi_app_id" => ENV["TSI_APP_ID"],
           "tsp_email" => ENV["TSP_EMAIL"],
           "tsp_api_token" => ENV["TSP_API_TOKEN"],
           "tsp_api_host" => ENV["TSP_API_HOST"],

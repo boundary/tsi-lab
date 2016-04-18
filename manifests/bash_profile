@@ -29,6 +29,8 @@ export BOUNDARY_API_HOST=$TSP_API_HOST
 
 export APIHOST_PRE="api.truesight-staging.bmc.com"
 
-alias creds='env | grep TSP'
+alias creds='env | grep TSP; check-api'
+alias appid='env | grep TSI_APP_ID'
+alias mysqldb='mysql -u $DB_USER -p$DB_PASSWORD $DB_DATABASE'
 
 export PATH=$HOME/bin:$PATH

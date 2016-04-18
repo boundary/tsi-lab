@@ -1,0 +1,91 @@
+{
+  "ONLINE_TRANSACTION_COUNT": {
+    "defaultAggregate": "SUM",
+    "defaultResolutionMS": 60000,
+    "description": "Count of online transactions",
+    "displayName": "Online Transaction Count",
+    "displayNameShort": "Online Tran. #",
+    "unit": "number"
+  },
+
+  "ONLINE_TRANSACTION_TIME": {
+    "defaultAggregate": "AVG",
+    "defaultResolutionMS": 60000,
+    "description": "Time of online transactions",
+    "displayName": "Online Transaction Time",
+    "displayNameShort": "Online Trans. Time",
+    "unit": "duration"
+  },
+
+  "ONLINE_CUSTOMERS": {
+    "defaultAggregate": "AVG",
+    "defaultResolutionMS": 60000,
+    "description": "Total number of bytes",
+    "displayName": "HTTP Bytes",
+    "displayNameShort": "HTTP Bytes",
+    "unit": "number"
+  },
+
+  "ONLINE_CUSTOMER_TRANSACTION_AMOUNT": {
+    "defaultAggregate": "SUM",
+    "defaultResolutionMS": 60000,
+    "description": "Total number of bytes",
+    "displayName": "HTTP Bytes",
+    "displayNameShort": "HTTP Bytes",
+    "unit": "bytecount"
+  },
+
+  "ONLINE_TRANSACTIONS_AMOUNT": {
+    "defaultAggregate": "SUM",
+    "defaultResolutionMS": 60000,
+    "description": "Total number of bytes",
+    "displayName": "HTTP Bytes",
+    "displayNameShort": "HTTP Bytes",
+    "unit": "number"
+  },
+
+  "ONLINE_CUSTOMER_TRANSACTION_COUNT": {
+    "defaultAggregate": "AVG",
+    "defaultResolutionMS": 60000,
+    "description": "Total number of bytes",
+    "displayName": "HTTP Bytes",
+    "displayNameShort": "HTTP Bytes",
+    "unit": "bytecount"
+  },
+
+  "ONLINE_SOLD_AMOUNT": {
+    "defaultAggregate": "AVG",
+    "defaultResolutionMS": 60000,
+    "description": "Total dollar amount of items sold",
+    "displayName": "Online Amount Sold",
+    "displayNameShort": "Online Amount Sold",
+    "unit": "number"
+  },
+
+  "ONLINE_ITEMS_SOLD": {
+    "defaultAggregate": "AVG",
+    "defaultResolutionMS": 60000,
+    "description": "Total number of items sold",
+    "displayName": "Online Items Sold",
+    "displayNameShort": "Online Items Sold",
+    "unit": "number"
+  },
+
+  "ONLINE_ITEMS_IN_CART": {
+    "defaultAggregate": "AVG",
+    "defaultResolutionMS": 60000,
+    "description": "Total number of items in shopping carts.",
+    "displayName": "Online Items In Cart",
+    "displayNameShort": "Online Items Cart",
+    "unit": "number"
+  },
+
+  "ONLINE_ITEM_RATIO": {
+    "defaultAggregate": "AVG",
+    "defaultResolutionMS": 60000,
+    "description": "Ratio of the purchased items versus items in cart",
+    "displayName": "Online Item Ratio",
+    "displayNameShort": "Online Item Ratio",
+    "unit": "percent"
+  }
+}

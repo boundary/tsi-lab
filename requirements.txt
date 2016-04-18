@@ -1,8 +1,9 @@
-apachelog
-mkdocs
-nose
+apachelog==1.0
+mkdocs==0.15.3
+nose==1.3.7
 requests==2.7.0
-tspapi
-ystockquote
-python-dateutil
+tspapi==0.3.1
+ystockquote==0.2.4
+python-dateutil==2.5.2
+pyowm==2.3.1
 

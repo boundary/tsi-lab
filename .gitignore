@@ -1,2 +1,6 @@
 python/
 site/
+.idea/
+.vagrant/
+*.pyc
+*.iml

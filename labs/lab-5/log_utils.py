@@ -40,6 +40,7 @@ def monitor_file(f):
         # We have a line return the line
         yield log_line
 
+
 def parse_apache_line(parser, line):
     """
     Uses the apachelog package to parse a line
@@ -68,6 +69,9 @@ class LogfileParser(object):
 
         # Contains the text from each line append to the file
         self.line = None
+
+        # Set our application id from the environment variable
+        self.app_id = os.environ['TSI_APP_ID']
 
     def monitor_file(self):
         """
