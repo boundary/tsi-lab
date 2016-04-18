@@ -20,7 +20,7 @@ connection = pymysql.connect(host=host,
 try:
     with connection.cursor() as cursor:
         # Create a new record
-        sql = "CALL insert_data({0})".format(1)
+        sql = 'CALL insert_data()'
         cursor.execute(sql)
 
     # connection is not autocommit by default. So you must commit to save
