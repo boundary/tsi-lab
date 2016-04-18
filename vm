@@ -245,18 +245,18 @@ BuildVirtualMachine() {
 
 Login() {
   case $(VirtualMachineStatus) in
-            NOT_CREATED) echo "Virtual machine not created, run 'create'"         ;;
-    POWERED_OFF|ABORTED) echo "Virtual machine not running, run 'start' first"    ;;
-                RUNNING) exec vagrant ssh                                         ;;
-                      *) echo "Error logging into virtual machine run 'restart' " ;;
+            NOT_CREATED) echo "Virtual machine not created, run 'vm-create'"         ;;
+    POWERED_OFF|ABORTED) echo "Virtual machine not running, run 'vm-start' first"    ;;
+                RUNNING) exec vagrant ssh                                            ;;
+                      *) echo "Error logging into virtual machine run 'vm-restart' " ;;
   esac
 }
 
 Create() {
   case $(VirtualMachineStatus) in
-            NOT_CREATED) BuildVirtualMachine                                      ;;
-                RUNNING) echo "Virtual machine is running, run 'login' to access" ;;
-    ABORTED|POWERED_OFF) echo "Virtual machine already created, run 'start'"      ;;
+            NOT_CREATED) BuildVirtualMachine                                         ;;
+                RUNNING) echo "Virtual machine is running, run 'vm-login' to access" ;;
+    ABORTED|POWERED_OFF) echo "Virtual machine already created, run 'vm-start'"      ;;
   esac
 }
 
@@ -269,9 +269,9 @@ Remove() {
 
 Start() {
   case $(VirtualMachineStatus) in
-            NOT_CREATED) echo "Virtual machine not created, run 'create'"                  ;;
-                RUNNING) echo "Virtual machine is already running, run 'login' to access'" ;;
-    ABORTED|POWERED_OFF) vagrant up 2>&1 > /dev/null                                       ;;
+            NOT_CREATED) echo "Virtual machine not created, run 'vm-create'"                  ;;
+                RUNNING) echo "Virtual machine is already running, run 'vm-login' to access'" ;;
+    ABORTED|POWERED_OFF) vagrant up 2>&1 > /dev/null                                          ;;
   esac
 }
 
@@ -292,7 +292,6 @@ Stop() {
 }
 
 Restart() {
-
    Stop
    Start
 }
