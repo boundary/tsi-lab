@@ -1,6 +1,6 @@
 {
   "TEMPERATURE": {
-    "defaultAggregate": "AVG",
+    "defaultAggregate": "AVG"
     "defaultResolutionMS": 1000,
     "description": "Current temperature at a location",
     "displayName": "Temperature",
