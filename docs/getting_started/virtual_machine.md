@@ -16,7 +16,7 @@ from a GitHub repository.
 Use the git command line tool in a bash shell to clone the contents of the virtual machine
 from the GitHub Repository
 
-```
+```bash
 $ git clone https://github.com/boundary/tsi-lab
 ```
 
@@ -31,22 +31,40 @@ Interaction with the APIs requires the following details:
 _NOTE_: To create the virtual machine you need to use a bash shell, or Windows Command prompt.
 
 1. Change to directory of the extracted or cloned the lab contents. example:
-```
-$ cd tsi-lab
-```
-2. From the bash shell (Terminal in OSX) or Windows Command prompt.
-With the TrueSight Intelligence information above issue the command below in a bash shell,
-or Windows command prompt. The environment variables proceeding the `vagrant up` command are used
-to configure your environment as previously mentioned.
-```
-$ TSP_EMAIL="<email>" TSP_API_TOKEN="<api key>" TSP_API_HOST="api.truesight-staging.bmc.com" vagrant up
+
+     ```
+     $ cd tsi-lab
+     ```
+
+2. From the bash shell (Terminal in OSX) or (GitBash in Windows). Issue the following command to
+create the virtual machine:
+
+     ```
+     $ ./vm-create
+     ```
+
+### Login into the Virtual Machine
+
+After your virtual machine is created login to your virtual machine by using the command below.
+
+```bash
+$ ./vm-login
 ```
 
-### Checking Credentials of your Virtual Machine
+### Change directory to your labs directory
+
+After you login to your virtual machine change directory to your labs directory by using the command below.
+
+```bash
+$ cd labs
+```
+
+### Validating API credentials in your Virtual Machine
 
 Run the following command immediately after the command above to verify the settings took.
-```
-$ cred
+
+```bash
+$ creds
 
 Sample Output:
 TSP_EMAIL=rknaub@gmail.com
@@ -54,28 +72,34 @@ TSP_API_HOST=api.truesight-staging.bmc.com
 TSP_API_TOKEN=fbecec7a-b0f7-40c4-a4cb-ec09b3b6b7cb
 ```
 
-### Stopping a Virtual Machine
+### Stopping the Virtual Machine
 
 Run the following command before shutting down you laptop/desktop.
-```
-$ vagrant halt
+
+```bash
+$ ./vm-stop
 ```
 
-### Destroying a Virtual Machine
+### Starting the Virtual Machine
 
-```
-$ vagrant destroy
-```
+Run the following command to restart your virtual machine.
 
-### Logging into the Virtual Machine
-After your VM is created login to your VM by using the command below.
-```
-$ vagrant ssh
+```bash
+$ ./vm-stop
 ```
 
-### Change directory to your labs directory
-After you login to your VM CD to your labs directory by using the command below.
+### Restarting the Virtual Machine
+
+Run the following command to restart your virtual machine.
+
+```bash
+$ ./vm-restart
 ```
-$ cd labs
+
+### Destroying the Virtual Machine
+
+```bash
+$ ./vm-remove
 ```
+
 Click Next (upper right) when completed.
