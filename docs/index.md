@@ -1,6 +1,6 @@
 TrueSight Intelligence Lab
 ==========================
-__version 0.7.2__
+__version 0.7.3__
 
 Virtual machine lab environment for learning about TrueSight Intelligence.
 
@@ -13,5 +13,8 @@ complete these labs! See [Prerequisites](getting_started/prerequisites.md) for d
 
 Click the _Next_ (upper right) or click [here](getting_started/prerequisites.md)
 
-© Copyright 2005-2016 BMC Software, Inc. Use of this software signifies your acceptance of BMC's Terms of Use, Privacy Policy and Cookie Notice. BMC, BMC Software, the BMC logos, and other BMC marks are trademarks or registered trademarks of BMC Software, Inc. in the U.S. and/or certain other countries.
+© Copyright 2005-2016 BMC Software, Inc. Use of this software signifies your acceptance of BMC's
+Terms of Use, Privacy Policy and Cookie Notice. BMC, BMC Software, the BMC logos,
+and other BMC marks are trademarks or registered trademarks of
+BMC Software, Inc. in the U.S. and/or certain other countries.
 
