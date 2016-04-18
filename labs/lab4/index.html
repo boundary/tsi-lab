@@ -160,9 +160,9 @@
         
             <li><a href="#overview">Overview</a></li>
         
-            <li><a href="#metrics-versus-measurements">Metrics versus Measurements</a></li>
+            <li><a href="#metric-and-measurement-apis">Metric and Measurement APIs</a></li>
         
-            <li><a href="#example-background">Example Background</a></li>
+            <li><a href="#business-data">Business Data</a></li>
         
             <li><a href="#exercise-4-1-defining-your-metrics">Exercise 4-1 Defining Your Metrics</a></li>
         
@@ -180,14 +180,14 @@
 <p>This lab will introduce you to the Metric and Measurement APIs by showing you how to
 extracting example business data from a MySQL database and sending the business data
 to TrueSight Intelligence.</p>
-<h2 id="metrics-versus-measurements">Metrics versus Measurements</h2>
+<h3 id="metrics-versus-measurements">Metrics versus Measurements</h3>
 <p><em>Metrics</em> and <em>Measurements</em> are often used interchangeable by in the context of the TrueSight Intelligence APIs
 we need to make a distinction as follows:</p>
 <ul>
 <li><em>Metrics</em> are the <em>definition</em> of what the time series represents</li>
 <li><em>Measurements</em> are the <em>actual</em> time series values that are collected</li>
 </ul>
-<h3 id="metric">Metric</h3>
+<h4 id="metric">Metric</h4>
 <p>A metric definitions consists of the following:</p>
 <ul>
 <li>Name</li>
@@ -199,17 +199,17 @@ we need to make a distinction as follows:</p>
 <li>Type</li>
 <li>Units</li>
 </ul>
-<h4 id="name">Name</h4>
+<h5 id="name">Name</h5>
 <p>This is the primary key and is used to uniquely identify each metric in an account. The name is all
 uppercase with addition of underscores(<code>_</code>) and periods('.'). Some of the built-in metrics include:
 CPU, Network In, or Data Disk Out.</p>
-<h4 id="display-name">Display Name</h4>
+<h5 id="display-name">Display Name</h5>
 <p>Label to identify the metric in the user interface or other place where user readable text is needed.</p>
-<h4 id="display-name-short">Display Name Short</h4>
+<h5 id="display-name-short">Display Name Short</h5>
 <p>Same use as <em>Display Name</em> but in those cases where shortened text is required (limit to 20 characters).</p>
-<h4 id="description">Description</h4>
+<h5 id="description">Description</h5>
 <p>Provides textual information or other information relevant in describing the metric.</p>
-<h4 id="default-aggregate">Default Aggregate</h4>
+<h5 id="default-aggregate">Default Aggregate</h5>
 <p>When graphing the metric that makes the most sense, which is one of:</p>
 <ul>
 <li>Average</li>
@@ -217,9 +217,9 @@ CPU, Network In, or Data Disk Out.</p>
 <li>Maximum</li>
 <li>Sum</li>
 </ul>
-<h4 id="type">Type</h4>
+<h5 id="type">Type</h5>
 <p><strong>TODO</strong> What is the type user for in TrueSight Intelligence?</p>
-<h4 id="unit">Unit</h4>
+<h5 id="unit">Unit</h5>
 <p>This field consists of an enumerated type the describes the unit of meaurement of the metric. The types
 consist of the following;</p>
 <ul>
@@ -230,7 +230,7 @@ consist of the following;</p>
 </ul>
 <p><em>NOTE</em>: <em>Duration</em> is milliseconds and is not current configurable. Percent is given in decimal form, for
 example %63.2 would be given as 0.632.</p>
-<h3 id="measurements">Measurements</h3>
+<h4 id="measurements">Measurements</h4>
 <p>Are the time series data collected for a particular <em>metric</em> which are made of the following:</p>
 <ul>
 <li>Metric</li>
@@ -238,27 +238,35 @@ example %63.2 would be given as 0.632.</p>
 <li>Source</li>
 <li>Timestamp</li>
 </ul>
-<h4 id="metric_1">Metric</h4>
+<h5 id="metric_1">Metric</h5>
 <p>Refers to the specific <em>Metric</em> of the Measurement</p>
-<h4 id="value">Value</h4>
+<h5 id="value">Value</h5>
 <p>Value of the metric at the given timestamp. If the Metric unit is <em>percent</em> then this is value in its
 decimal equivalent.</p>
-<h4 id="source">Source</h4>
+<h5 id="source">Source</h5>
 <p>Most often the system hostname but it is used to indicate the specific instance of the thing being measured. For
 example if were measuring individual utilization for CPU cores the source would refer to the specific core.</p>
-<h4 id="timestamp">Timestamp</h4>
+<h5 id="timestamp">Timestamp</h5>
 <p>When the measurement occurred in <a href="https://en.wikipedia.org/wiki/Unix_time">UNIX epoch time</a> which is either
 in seconds or milliseconds.</p>
-<h4 id="measurement-properties">Measurement Properties</h4>
+<h5 id="properties">Properties</h5>
 <p>In addition to the previously discussed Measurement fields, there are optional fields for further
 classification of a measurement.</p>
-<p><strong>TO BE DISCUSSED</strong></p>
+<p>The <em>Application Id</em> is used to organize data in TrueSight Intelligence.</p>
+<p><strong>To Be Discussed</strong></p>
+<h2 id="metric-and-measurement-apis">Metric and Measurement APIs</h2>
+<p>Online documentation of the Metric and Measurement APIs is located
+<a href="https://documentation.truesight.bmc.com/overview">here</a></p>
 <h3 id="metric-api">Metric API</h3>
+<h4 id="creating-a-metric-definition-with-curl">Creating a Metric definition with <code>curl</code></h4>
+<h4 id="creating-a-metric-definition-with-metric-create">Creating a Metric definition with <code>metric-create</code></h4>
+<h4 id="creating-a-metric-definition-with-python-measurement-api">Creating a Metric definition with Python Measurement API</h4>
 <h3 id="measurement-api">Measurement API</h3>
-<h2 id="example-background">Example Background</h2>
-<h3 id="mariadb-database">MariaDB Database</h3>
-<p>The MariaDB is a equivalent database of MySQL</p>
-<h3 id="database-schema">Database Schema</h3>
+<h2 id="business-data">Business Data</h2>
+<p>This section describes</p>
+<h3 id="mariadb">MariaDB</h3>
+<p>For this lab we are using the <a href="https://en.wikipedia.org/wiki/MariaDB">MariaDB</a> which is a drop in replacement
+for [MySQL])(https://en.wikipedia.org/wiki/MySQL)</p>
 <pre><code>MariaDB [app]&gt; show tables;
 +------------------+
 | Tables_in_app    |
@@ -304,19 +312,27 @@ MariaDB [app]&gt;
 </li>
 <li>
 <p>Run the following:</p>
-<p><code>MariaDB [app]&gt; select now();</code></p>
+<p><code>MariaDB [app]&gt; select * from ol_transactions limit 10;</code></p>
 </li>
 <li>
-<p>Which will display output similiar to below:</p>
+<p>Which will display output similar to below:</p>
 </li>
 </ol>
-<pre><code>MariaDB [app]&gt; select now();
-+---------------------+
-| now()               |
-+---------------------+
-| 2016-04-18 14:27:47 |
-+---------------------+
-1 row in set (0.00 sec)
+<pre><code>+----+---------------------+-------+----------+
+| id | dt                  | total | duration |
++----+---------------------+-------+----------+
+|  1 | 2016-04-18 17:26:00 |   726 |   407.31 |
+|  2 | 2016-04-18 17:27:00 |   769 |   330.11 |
+|  3 | 2016-04-18 17:28:00 |   529 |   460.87 |
+|  4 | 2016-04-18 17:29:00 |   259 |   170.36 |
+|  5 | 2016-04-18 17:30:00 |   703 |   277.52 |
+|  6 | 2016-04-18 17:31:00 |   816 |   726.88 |
+|  7 | 2016-04-18 17:32:00 |   465 |   150.15 |
+|  8 | 2016-04-18 17:33:00 |    84 |   166.53 |
+|  9 | 2016-04-18 17:34:00 |   624 |    228.7 |
+| 10 | 2016-04-18 17:35:00 |   577 |   720.33 |
++----+---------------------+-------+----------+
+10 rows in set (0.00 sec)
 </code></pre>
 
 <h2 id="exercise-4-1-defining-your-metrics">Exercise 4-1 Defining Your Metrics</h2>
