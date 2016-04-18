@@ -6,6 +6,18 @@ your Windows or Mac OS X laptop or Desktop.
 
 Before proceeding ensure that you have met the prerequisites listed [here](prerequisites.md)
 
+### Starting a Bash Shell
+
+#### Mac OS X
+
+
+#### Windows
+
+From _Program Start_ menu select _Git Bash_ or click on the program icon if created on the desktop
+during installation:
+
+![Git Bash Icon](git_bash_icon.png)
+
 ### Downloading the Contents
 
 The virtual machine contents are _cloned_ or downloaded by using Git to download the needed files
@@ -61,7 +73,7 @@ $ cd labs
 
 ### Validating API credentials in your Virtual Machine
 
-Run the following command immediately after the command above to verify the settings took.
+After logging into the virtual machine run the following command to verify your API credentials:
 
 ```bash
 $ creds
