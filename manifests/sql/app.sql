@@ -66,6 +66,74 @@ CREATE TABLE ol_cart
   items BIGINT NOT NULL
 );
 
+DROP PROCEDURE IF EXISTS insert_transaction_row;
+DELIMITER //
+CREATE PROCEDURE insert_transaction_row(start_dt DATETIME, total BIGINT, duration DOUBLE, nrows BIGINT)
+BEGIN
+    INSERT INTO ol_transactions(dt, total, duration)
+    VALUES(start_dt, total, duration);
+END
+//
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS insert_transaction_data;
+DELIMITER //
+CREATE PROCEDURE insert_transaction_data(start_dt DATETIME, nrows BIGINT)
+BEGIN
+    CALL insert_sales_row(start_dt, rand_range(0, 1000), round(rand_range(0, 1000000)/1000.0, 2));
+END
+//
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS insert_sales_row;
+DELIMITER //
+CREATE PROCEDURE insert_sales_row(
+    dt DATETIME,
+    region VARCHAR(32),
+    category VARCHAR(32),
+    amount DOUBLE,
+    items BIGINT
+)
+BEGIN
+    INSERT INTO ol_sales(dt, category, region, amount, items)
+    VALUES(dt, category, region, amount, items);
+END
+//
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS insert_sales_data;
+DELIMITER //
+CREATE PROCEDURE insert_sales_data(start_dt DATETIME, nrows BIGINT)
+BEGIN
+
+    CALL insert_sales_row(start_dt,
+                          'appliances',
+                          'north',
+                          round(rand_range(0, 1000000)/1000.0, 2),
+                          rand_range(0, 1000));
+
+    CALL insert_sales_row(start_dt,
+                          'appliances',
+                          'south',
+                          round(rand_range(0, 1000000)/1000.0, 2),
+                          rand_range(0, 1000));
+
+    CALL insert_sales_row(start_dt,
+                          'clothing',
+                          'east',
+                          round(rand_range(0, 1000000)/1000.0, 2),
+                          rand_range(0, 1000));
+
+    CALL insert_sales_row(start_dt,
+                          'electronics',
+                          'west',
+                          round(rand_range(0, 1000000)/1000.0, 2),
+                          rand_range(0, 1000));
+END
+//
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS insert_cart_data;
 DELIMITER //
 CREATE PROCEDURE insert_cart_data(start_dt DATETIME, nrows BIGINT)
@@ -84,13 +152,14 @@ BEGIN
   SELECT round_to_minute(NOW()) INTO start_dt;
   WHILE nrows > 0 DO
     INSERT INTO business_metrics(dt, percent, duration, bytes)
-    VALUES(date_add(start_dt, interval nrows minute), rand_range(0, 100)/100.0, rand_range(0, 1000), rand_range(0, 50000));
+    VALUES(date_add(start_dt, interval nrows minute),
+           rand_range(0, 100)/100.0, rand_range(0, 1000), rand_range(0, 50000));
     CALL insert_cart_data(start_dt, nrows);
     SET nrows = nrows - 1;
   END WHILE;
 END
 //
-DELIMITER ; 
+DELIMITER ;
 
 
 CALL insert_data(10);
