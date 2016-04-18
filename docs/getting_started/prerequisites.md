@@ -8,6 +8,8 @@ lab exercises.
 
 - Must have access to the internet so that software components required by the Virtual Machine
 can be downloaded.
+- Must be on BMC network or on VPN to be able to access
+[https://truesight-staging.bmc.com](https://truesight-staging.bmc.com)
 
 ## Hardware
 
@@ -26,8 +28,38 @@ Download each piece of software below for your OS and install each piece with th
 
 ## API Keys
 
+For the labs you will need to create a API keys for the following:
+
 - Open Weather Map visit [here](http://openweathermap.org/appid)
 - Twitter visit [here](https://apps.twitter.com/)
+
+### Open Weather Map
+
+1. Click on the link [here](http://openweathermap.org/appid) and click on the orange button labeled
+ _Sign up_ which will display the following:
+![Open Weather Map Sign Up Form](owm_form.png)
+3. Complete the form and click on the _Create Account button_ which then displays the API key:
+![Open Weather Map API Keys](owm_api_keys.png)
+
+### Twitter
+
+1. Click the link [here](https://apps.twitter.com/). and click on the button labeled
+_Create New App_ in the right-hand side of the page:
+![Twitter Applications](twitter_apps.png)
+2. Complete the form with a unique _name_, _description_, and `http://www.bmc.com` for _Website_.
+![Twitter Application Form](twitter_form.png)
+3. Click on the check box _Yes, I agree_ to accept the developer agreement and click on the button labeled _Create your Twitter
+application_:
+![Twitter Applications Agreement](twitter_agreement.png)
+4. The new application is created.
+![Twitter New Application](twitter_new_app.png)
+5. Next click on the tab labeled _Keys and Access Tokens_ to display:
+![Twitter Access Tokens](twitter_access_token.png)
+6. Click on the button labeled _Generate My Access Token_ which then displays the access tokens:
+![Twitter Access Tokens](twitter_access_token.png)
+
+
+
 
 ## Git On Windows
 
