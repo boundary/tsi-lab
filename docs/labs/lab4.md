@@ -28,25 +28,25 @@ A metric definitions consists of the following:
 - Type
 - Units
 
-##### Name
+#### Name
 
 This is the primary key and is used to uniquely identify each metric in an account. The name is all
 uppercase with addition of underscores(`_`) and periods('.'). Some of the built-in metrics include:
 CPU, Network In, or Data Disk Out.
 
-##### Display Name
+#### Display Name
 
 Label to identify the metric in the user interface or other place where user readable text is needed.
 
-##### Display Name Short
+#### Display Name Short
 
 Same use as _Display Name_ but in those cases where shortened text is required (limit to 20 characters).
 
-##### Description
+#### Description
 
 Provides textual information or other information relevant in describing the metric.
 
-##### Default Aggregate
+#### Default Aggregate
 
 When graphing the metric that makes the most sense, which is one of:
 
@@ -55,11 +55,11 @@ When graphing the metric that makes the most sense, which is one of:
 - Maximum
 - Sum
 
-##### Type
+#### Type
 
 TrueSight Intelligence entity type
 
-##### Unit
+#### Unit
 
 This field consists of an enumerated type the describes the unit of meaurement of the metric. The types
 consist of the following;
@@ -81,33 +81,31 @@ Are the time series data collected for a particular _metric_ which are made of t
 - Source
 - Timestamp
 
-##### Metric
+#### Metric
 
 Refers to the specific _Metric_ of the Measurement
 
-##### Value
+#### Value
 
 Value of the metric at the given timestamp. If the Metric unit is _percent_ then this is value in its
 decimal equivalent.
 
-##### Source
+#### Source
 
 Most often the system hostname but it is used to indicate the specific instance of the thing being measured. For
 example if were measuring individual utilization for CPU cores the source would refer to the specific core.
 
-##### Timestamp
+#### Timestamp
 
 When the measurement occurred in [UNIX epoch time](https://en.wikipedia.org/wiki/Unix_time) which is either
 in seconds or milliseconds.
 
-##### Properties
+#### Properties
 
 In addition to the previously discussed Measurement fields, there are optional fields for further
 classification of a measurement.
 
 The _Application Id_ is used to organize data in TrueSight Intelligence.
-
-**To Be Discussed**
 
 ## Metric and Measurement APIs
 
@@ -262,7 +260,7 @@ was created that starts populating the database with simulated data.
 ### The Data
 
 The data we are interested in is located in a table named `ol_transactions` the `app` database
-
+running in your virtual machine.
 
 ```
 MariaDB [app]> describe ol_transactions;
@@ -278,39 +276,38 @@ MariaDB [app]> describe ol_transactions;
 
 ### Viewing The Data
 
+At the command line run the following:
 
-1. At the command line run the following:
+```
+$ mysqldb
+```
 
-     ```
-     mysqldb
-     ```
+This will display the following prompt:
 
-2. This will display the following prompt:
+```
+[vagrant@tsi-lab-01 ~]$ mysqldb
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
 
-     ```
-     [vagrant@tsi-lab-01 ~]$ mysqldb
-     Reading table information for completion of table and column names
-     You can turn off this feature to get a quicker startup with -A
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 129
+Server version: 5.5.47-MariaDB MariaDB Server
 
-     Welcome to the MariaDB monitor.  Commands end with ; or \g.
-     Your MariaDB connection id is 129
-     Server version: 5.5.47-MariaDB MariaDB Server
+Copyright (c) 2000, 2015, Oracle, MariaDB Corporation Ab and others.
 
-     Copyright (c) 2000, 2015, Oracle, MariaDB Corporation Ab and others.
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
-     Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+MariaDB [app]>
 
-     MariaDB [app]>
+```
 
-     ```
+Run the following SQL query which limits the return rows to 10:
 
-3. Run the following SQL query which limits the return rows to 10:
+```
+MariaDB [app]> select * from ol_transactions limit 10;
+```
 
-     ```
-     MariaDB [app]> select * from ol_transactions limit 10;
-     ```
-
-4. Which will display output similar to below:
+Which will display output similar to below:
 
 ```
 +----+---------------------+-------+----------+
@@ -330,9 +327,140 @@ MariaDB [app]> describe ol_transactions;
 10 rows in set (0.00 sec)
 ```
 
+### ETL
+
+ETL or _Extract Transform Load_ is the term for getting data out of one system and putting to another
+with the final "target database" is TrueSight Intelligence.
+
+Data in the database table continues to grow to due the `cron` running. Since new data is adding we
+have to continue query the database to get new data to send TrueSight Intelligence.
+
+Fortunately our data has a date field that we can use to limit the queries to only the data we
+have not sent to TrueSight Intelligence. This is commonly referred to as _Data Change Capture_
+A bit more discussion on this to follow.
+
+For this lab we are using the Python packages [`petl`](http://petl.readthedocs.org) and
+[`pymsql`](https://github.com/PyMySQL/PyMySQL/) to query and extract data from the database.
+
+
+### Data Change Capture
+
+For this lab our data that we are going to extract has a date field so we can use this to
+our advantage to extract only the data that is new. This oftern referred to as _Change Data Capture_
+Even more in our favor is that older data _always_ shows up _before_ new data. It is a bit
+more complicated to handle such _late arriving data_ which we will not address in this lab since
+it is not needed to properly extract our data.
+
+The first time we query the database we want to get all of the data in the past loaded and
+successive queries will pull the new data.
+
+Any time we run the query to extract data, we first determine the maximum time value
+that currently exists in the database using the following SQL query:
+
+```sql
+select max(dt) as max_dt from ol_transactions
+```
+
+We then can use this date as the upper bounds of the predicate of our query.
+
+As we said earlier the first time we extract data we want to get all of the past data and to
+get the starting point in time we run the following query the first time:
+
+```sql
+select min(dt) as min_dt from ol_transactions
+```
+on successive queries to determine the starting point in time we have to take into account
+the previous upper limit or extraction time like the following:
+
+```sql
+select min(dt) as min_dt from ol_transactions where dt >= "<date of last extraction>"
+```
+
+Because our ETL script is not running continuously we need to persist this last extraction time.
+The extraction time can be written to the database if you have write access or in this lab
+to the file system. On later execution of the script we read the file to get the last date
+of extraction.
+
+With the lower and upper time limits we can now extract the data with the following SQL:
+
+```
+select dt, total, duration from ol_transactions where dt > "<lower time>" and dt <=  "<upper time>"
+```
+
+### Database Access Parameters
+
+For these labs the credentials and other database access parameters are available as environment
+variables shown here, located at `~/.db`:
+
+``` bash
+export DB_HOST=localhost
+export DB_USER=admin
+export DB_PASSWORD=admin123
+export DB_DATABASE=app
+```
+
+### Using `petl` and `pymsql`
+
+Here is an example of how `petl` and `pymsql` are used in tandom to query for data:
+
+```
+import pymysql
+import os
+import petl
+import pymysql
+
+# Fetch our database access configuration from environment variables
+host = os.environ['DB_HOST']
+user = os.environ['DB_USER']
+password = os.environ['DB_PASSWORD']
+db = os.environ['DB_DATABASE']
+
+# Connect to the database using the PyMSQL package
+connection = pymysql.connect(host=host,
+                             user=user,
+                             password=password,
+                             db=db)
+
+# Extract the data using both PyMSQL and PETL
+table = petl.fromdb(connection, 'SELECT dt, total, duration FROM ol_transactions')
+print(table)
+
+connection.close()
+```
+
+### Metrics
+
+Before proceeding on extracting data we need to define the metrics that we will be collecting. In our
+case will be collecting the _total transactions_ and _transaction duration_ for each minute which
+corresponds to single row. For this lab more metric definitions are as follows:
+
+```
+{
+  "ONLINE_TRANSACTION_COUNT": {
+    "defaultAggregate": "SUM",
+    "defaultResolutionMS": 60000,
+    "description": "Count of online transactions",
+    "displayName": "Online Transaction Count",
+    "displayNameShort": "Online Tran. #",
+    "type": "Database",
+    "unit": "number"
+  },
+
+  "ONLINE_TRANSACTION_TIME": {
+    "defaultAggregate": "AVG",
+    "defaultResolutionMS": 60000,
+    "description": "Time of online transactions",
+    "displayName": "Online Transaction Time",
+    "displayNameShort": "Online Trans. Time",
+    "type": "Database",
+    "unit": "duration"
+  }
+}
+```
+
 ## Exercise 4-1 Defining Your Metrics
 
-To run the script `labs\lab-4\ex-4-1.metrics.py`.
+We use the Python metrics API to create our metrics definitions by running the script `labs\lab-4\ex-4-1.metrics.py`.
 
 1. Change directory to your home directory:
 
