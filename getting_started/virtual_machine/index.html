@@ -172,13 +172,7 @@
         
             <li><a href="#display-your-application-id-in-your-virtual-machine">Display your Application Id in your Virtual Machine</a></li>
         
-            <li><a href="#stopping-the-virtual-machine">Stopping the Virtual Machine</a></li>
-        
-            <li><a href="#starting-the-virtual-machine">Starting the Virtual Machine</a></li>
-        
-            <li><a href="#restarting-the-virtual-machine">Restarting the Virtual Machine</a></li>
-        
-            <li><a href="#destroying-the-virtual-machine">Destroying the Virtual Machine</a></li>
+            <li><a href="#virtual-machine-commands">Virtual Machine Commands</a></li>
         
     
     </ul>
@@ -287,22 +281,26 @@ TSP_API_TOKEN=fbecec7a-b0f7-40c4-a4cb-ec09b3b6b7cb
 TSI_APP_ID=BigDog
 </code></pre>
 
-<h3 id="stopping-the-virtual-machine">Stopping the Virtual Machine</h3>
+<h3 id="virtual-machine-commands">Virtual Machine Commands</h3>
+<p>All of the command that follow assume that you are not logged into the virtual machine.</p>
+<p>To logout of the virtual machine use the <code>exit</code> command which will return you to
+your laptop/desktop.</p>
+<h4 id="stopping-the-virtual-machine">Stopping the Virtual Machine</h4>
 <p>Run the following command before shutting down you laptop/desktop.</p>
 <pre><code class="bash">$ ./vm-stop
 </code></pre>
 
-<h3 id="starting-the-virtual-machine">Starting the Virtual Machine</h3>
+<h4 id="starting-the-virtual-machine">Starting the Virtual Machine</h4>
 <p>Run the following command to restart your virtual machine.</p>
-<pre><code class="bash">$ ./vm-stop
+<pre><code class="bash">$ ./vm-starting
 </code></pre>
 
-<h3 id="restarting-the-virtual-machine">Restarting the Virtual Machine</h3>
+<h4 id="restarting-the-virtual-machine">Restarting the Virtual Machine</h4>
 <p>Run the following command to restart your virtual machine.</p>
 <pre><code class="bash">$ ./vm-restart
 </code></pre>
 
-<h3 id="destroying-the-virtual-machine">Destroying the Virtual Machine</h3>
+<h4 id="destroying-the-virtual-machine">Destroying the Virtual Machine</h4>
 <pre><code class="bash">$ ./vm-remove
 </code></pre>
 

@@ -162,7 +162,7 @@
         
             <li><a href="#metric-and-measurement-apis">Metric and Measurement APIs</a></li>
         
-            <li><a href="#business-data">Business Data</a></li>
+            <li><a href="#lab-exercise-background">Lab Exercise Background</a></li>
         
             <li><a href="#exercise-4-1-defining-your-metrics">Exercise 4-1 Defining Your Metrics</a></li>
         
@@ -218,7 +218,7 @@ CPU, Network In, or Data Disk Out.</p>
 <li>Sum</li>
 </ul>
 <h5 id="type">Type</h5>
-<p><strong>TODO</strong> What is the type user for in TrueSight Intelligence?</p>
+<p>TrueSight Intelligence entity type</p>
 <h5 id="unit">Unit</h5>
 <p>This field consists of an enumerated type the describes the unit of meaurement of the metric. The types
 consist of the following;</p>
@@ -258,39 +258,134 @@ classification of a measurement.</p>
 <p>Online documentation of the Metric and Measurement APIs is located
 <a href="https://documentation.truesight.bmc.com/overview">here</a></p>
 <h3 id="metric-api">Metric API</h3>
+<p>This section goes into the nuts and bolts of defining metrics several ways
+using the Metric API.</p>
 <h4 id="creating-a-metric-definition-with-curl">Creating a Metric definition with <code>curl</code></h4>
+<p>Metric definitions can be created with the <em>curl</em> as shown here.</p>
+<pre><code>curl https://$TSP_API_HOST/v1/metrics \
+  -X POST                             \
+  -u &quot;$TSP_EMAIL:$TSP_API_TOKEN&quot;      \
+  -H &quot;Content-Type: application/json&quot; \
+  -d '{
+         &quot;name&quot;: &quot;MY_COOL_METRIC&quot;,
+         &quot;description&quot;: &quot;A cool metric I created&quot;,
+         &quot;displayName&quot;: &quot;My cool metric&quot;,
+         &quot;displayNameShort&quot;: &quot;cool metric&quot;,
+         &quot;unit&quot;: &quot;number&quot;,
+         &quot;defaultAggregate&quot;: &quot;avg&quot;,
+         &quot;defaultResolutionMS&quot;: 1000,
+         &quot;type&quot;: &quot;DEVICE&quot;
+      }'
+</code></pre>
+
 <h4 id="creating-a-metric-definition-with-metric-create">Creating a Metric definition with <code>metric-create</code></h4>
-<h4 id="creating-a-metric-definition-with-python-measurement-api">Creating a Metric definition with Python Measurement API</h4>
+<p>The command line version of metric create can be used to create a metric definition running the following:</p>
+<pre><code>$ metric-create -n CLI_METRIC -d &quot;CLI metric&quot;  -s &quot;CLI metric&quot; -g avg -u number -y DEVICE
+</code></pre>
+
+<p>which results in the following output:</p>
+<pre><code>{
+  &quot;result&quot;: {
+    &quot;name&quot;: &quot;CLI_METRIC&quot;,
+    &quot;displayName&quot;: &quot;CLI metric&quot;,
+    &quot;displayNameShort&quot;: &quot;CLI metric&quot;,
+    &quot;unit&quot;: &quot;number&quot;,
+    &quot;defaultAggregate&quot;: &quot;AVG&quot;,
+    &quot;type&quot;: &quot;DEVICE&quot;,
+    &quot;id&quot;: 1444
+  }
+}
+</code></pre>
+
+<p><em>NOTE</em>: metric-create as are all of the CLIs use the environment variables <code>TSP_EMAIL</code> and <code>TSP_API_TOKEN</code>
+for credentials and do not have to passed on the command line.</p>
+<h4 id="creating-a-metric-definition-with-python-metric-api">Creating a Metric definition with Python Metric API</h4>
+<p>The following is example of defining a metric using the Python Metric API:</p>
+<pre><code>import tspapi
+
+api = tspapi.API()
+
+metric = api.metric_create(name='API_METRIC',
+                           display_name='API Metric',
+                           display_name_short='API Metric',
+                           description='An API metric',
+                           default_aggregate='avg',
+                           default_resolution=1000,
+                           unit='number',
+                           _type='STOCK_PRICE')
+
+print(metric)
+
+</code></pre>
+
+<p>running the script above outputs the following:</p>
+<pre><code>
+Metric(name='API_METRIC', display_name='API Metric', display_name_short='API Metric', description='An API metric', default_aggregate='AVG', default_resolution=1000, unit='number', _type='STOCK_PRICE', is_disabled='False')
+</code></pre>
+
 <h3 id="measurement-api">Measurement API</h3>
-<h2 id="business-data">Business Data</h2>
-<p>This section describes</p>
-<h3 id="mariadb">MariaDB</h3>
-<p>For this lab we are using the <a href="https://en.wikipedia.org/wiki/MariaDB">MariaDB</a> which is a drop in replacement
-for [MySQL])(https://en.wikipedia.org/wiki/MySQL)</p>
-<pre><code>MariaDB [app]&gt; show tables;
-+------------------+
-| Tables_in_app    |
-+------------------+
-| business_metrics |
-| ol_activity      |
-| ol_cart          |
-| ol_sales         |
-| ol_transactions  |
-+------------------+
-5 rows in set (0.00 sec)
-
-MariaDB [app]&gt;
+<p>The heart of this course is the ability to use the Measurement API to get data into TrueSight
+Intelligence.</p>
+<h4 id="creating-a-measurement-with-curl">Creating a Measurement with <code>curl</code></h4>
+<pre><code>curl https://$TSP_API_HOST/v1/measurements \
+  -X POST                                  \
+  -u &quot;$TSP_EMAIL:$TSP_API_TOKEN&quot;           \
+  -H &quot;Content-Type: application/json&quot;      \
+  -d '{
+        &quot;metric&quot;: &quot;CPU&quot;,
+        &quot;source&quot;: &quot;myserver&quot;,
+        &quot;measure&quot;: 2,
+        &quot;timestamp&quot;: 1377043134,
+        &quot;metadata&quot;: {
+          &quot;app_id&quot;: &quot;Servers&quot;
+         }
+      }'
 </code></pre>
 
-<pre><code>CREATE TABLE ol_activity
-(
-  id BIGINT AUTO_INCREMENT PRIMARY KEY,
-  dt DATETIME NOT NULL,
-  online BIGINT NOT NULL
-);
+<h4 id="creating-a-metric-definition-with-measurement-create">Creating a Metric definition with <code>measurement-create</code></h4>
+<p>You can generate a measurement using as CLI as shown here:</p>
+<pre><code>measurement-create -n CPU -m 0.8 -s 'myserver' -p app_id=&quot;LittleDog&quot; -d 1461092253
 </code></pre>
 
-<h3 id="running-mariadb-queries">Running MariaDB Queries</h3>
+<p>which results in the following output if the measurement is successfully created:</p>
+<pre><code>{
+    &quot;result&quot;: {
+        &quot;success&quot;: true
+    }
+}
+</code></pre>
+
+<h4 id="creating-a-measurements-with-the-python-measurement-api">Creating a Measurements with the Python Measurement API</h4>
+<p>The following is example of defining a measurement using the Python Measurement API:</p>
+<pre><code>import tspapi
+
+api = tspapi.API()
+
+api.measurement_create(metric='CPU',
+                       value=0.8,
+                       source='my-server')
+</code></pre>
+
+<h2 id="lab-exercise-background">Lab Exercise Background</h2>
+<p>This section describes a scenario in which business data is stored in a relation database
+and we need to extract and send to TrueSight Intelligence. For this lab we are using the
+<a href="https://en.wikipedia.org/wiki/MariaDB">MariaDB</a> for our relation database which is a drop in replacement
+for <a href="https://en.wikipedia.org/wiki/MySQL">MySQL</a>. When the virtual machine was created a <code>cron</code> jobs
+was created that starts populating the database with simulated data.</p>
+<h3 id="the-data">The Data</h3>
+<p>The data we are interested in is located in a table named <code>ol_transactions</code> the <code>app</code> database</p>
+<pre><code>MariaDB [app]&gt; describe ol_transactions;
++----------+------------+------+-----+---------+----------------+
+| Field    | Type       | Null | Key | Default | Extra          |
++----------+------------+------+-----+---------+----------------+
+| id       | bigint(20) | NO   | PRI | NULL    | auto_increment |
+| dt       | datetime   | NO   |     | NULL    |                |
+| total    | bigint(20) | NO   |     | NULL    |                |
+| duration | double     | NO   |     | NULL    |                |
++----------+------------+------+-----+---------+----------------+
+</code></pre>
+
+<h3 id="viewing-the-data">Viewing The Data</h3>
 <ol>
 <li>
 <p>At the command line run the following:</p>
@@ -311,7 +406,7 @@ MariaDB [app]&gt;
 <p>```</p>
 </li>
 <li>
-<p>Run the following:</p>
+<p>Run the following SQL query which limits the return rows to 10:</p>
 <p><code>MariaDB [app]&gt; select * from ol_transactions limit 10;</code></p>
 </li>
 <li>
@@ -336,7 +431,7 @@ MariaDB [app]&gt;
 </code></pre>
 
 <h2 id="exercise-4-1-defining-your-metrics">Exercise 4-1 Defining Your Metrics</h2>
-<p>Run the script <code>labs\lab-4\ex-4-1.metrics.py</code>.</p>
+<p>To run the script <code>labs\lab-4\ex-4-1.metrics.py</code>.</p>
 <ol>
 <li>
 <p>Change directory to your home directory:</p>
@@ -348,7 +443,7 @@ MariaDB [app]&gt;
 </li>
 </ol>
 <h2 id="exercise-4-2-extracting-data-from-the-database-using-sql">Exercise 4-2 Extracting Data From The Database Using SQL</h2>
-<p>Run the script <code>labs\lab-4\ex-4-2.metrics.py</code>.</p>
+<p>To run the script <code>labs\lab-4\ex-4-2.metrics.py</code>.</p>
 <ol>
 <li>
 <p>Change directory to your home directory:</p>
@@ -359,6 +454,23 @@ MariaDB [app]&gt;
 <p><code>$ labs\lab-3\ex-4-2.metrics.py</code></p>
 </li>
 </ol>
+<p>example output from running the script is shown here:</p>
+<pre><code>+---------------------+-------+----------+
+| dt                  | total | duration |
++=====================+=======+==========+
+| 2016-04-19 18:59:00 |   560 |    58.03 |
++---------------------+-------+----------+
+| 2016-04-19 19:00:00 |   450 |   810.71 |
++---------------------+-------+----------+
+| 2016-04-19 19:01:00 |   178 |   966.05 |
++---------------------+-------+----------+
+| 2016-04-19 19:02:00 |   200 |   248.84 |
++---------------------+-------+----------+
+| 2016-04-19 19:03:00 |   206 |    88.75 |
++---------------------+-------+----------+
+...
+</code></pre>
+
 <h2 id="exercise-4-3-sending-extracted-data-using-measurement-api">Exercise 4-3 Sending Extracted Data Using Measurement API</h2>
 <p>Run the script <code>labs\lab-4\ex-4-3.metrics.py</code>.</p>
 <ol>
