@@ -18,5 +18,5 @@ import tspapi
 
 api = tspapi.API()
 
-source = tspapi.Source(ref='myhost')
+source = tspapi.Source(ref='myhost', _type='host')
 api.event_create(title="bar", fingerprint_fields=['@title'], source=source)
