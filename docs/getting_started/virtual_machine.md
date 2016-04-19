@@ -151,7 +151,7 @@ $ ./vm-stop
 Run the following command to restart your virtual machine.
 
 ```bash
-$ ./vm-starting
+$ ./vm-start
 ```
 
 #### Restarting the Virtual Machine
