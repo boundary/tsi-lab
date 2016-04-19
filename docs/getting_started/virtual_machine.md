@@ -35,6 +35,22 @@ in when executing the command below.
 $ git clone https://github.com/boundary/tsi-lab
 ```
 
+#### Updating
+
+Get the latest content of labs run the following:
+
+1. Change directory to where you previous cloned the GitHuB repository to your laptop/desktop:
+
+    ```
+    $ cd <your cloned directory:w
+    ```
+
+2. Run the following command to update with the latest contents:
+
+    ```
+    $ git pull
+    ```
+
 ### Creating and Starting the Virtual Machine
 
 Interaction with the APIs requires the following details:
@@ -64,7 +80,23 @@ The above script will prompt for the information that was required:
 - API Token
 - Application Id
 
-The final screen will show
+The final screen will show the values of the above as shown here:
+
+```
+Create Virtual Machine:
+1) Create Virtual Machine
+2) Change E-mail: "randy_knaub@bmc.com"
+3) Change API Token: "<api token"
+4) Change Application Id: "BigDog"
+5) Quit
+#?
+```
+
+- Select item 1 to create the virtual machine.
+
+- Select items 2-4 to update any information
+
+- Select item 5 to quit.
 
 ### Login into the Virtual Machine
 
