@@ -15,8 +15,12 @@
 # limitations under the License.
 #
 import tspapi
+import os
 
 api = tspapi.API()
 
+app_id = os.environ['TSI_APP_ID']
+properties={"app_id": app_id}
+
 source = tspapi.Source(ref='myhost', _type='host')
-api.event_create(title="bar", fingerprint_fields=['@title'], source=source)
+api.event_create(title="bar", fingerprint_fields=['@title'], source=source, properties=properties)
