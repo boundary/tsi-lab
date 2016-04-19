@@ -23,7 +23,7 @@ class Common(object):
         self.api = API()
         self.usage_args = ""
         # Set our application id from the environment variable
-        self.appl_id = os.environ['TSI_APPL_ID']
+        self.app_id = os.environ['TSI_APP_ID']
 
     @staticmethod
     def usage(args):
