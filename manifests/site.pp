@@ -87,6 +87,12 @@ exec { 'jsonlint':
    unless => '/usr/bin/pip show demjson',
 }
 
+exec { 'python-filelock':
+   command => '/usr/bin/pip install filelock',
+   require => Package['python-pip'],
+   unless => '/usr/bin/pip show filelock',
+}
+
 exec { 'python-petl':
    command => '/usr/bin/pip install petl',
    require => Package['python-pip'],
