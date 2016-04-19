@@ -11,7 +11,7 @@ import logging
 import syslog
 import time
 
-import petl as etl
+import petl
 import pymysql
 import tspapi
 import filelock
@@ -46,6 +46,7 @@ class ETL(object):
         self.password = None
         self.database = None
         self.connection = None
+        self.table = None
 
         self.get_db_config()
 
@@ -88,9 +89,10 @@ class ETL(object):
 
     def fetch_records(self, last):
         sql = "SELECT dt, online FROM ol_activity WHERE dt >= '{0}'".format(last)
-        table = etl.fromdb(self.connection, sql)
+        table = petl.fromdb(self.connection, sql)
         print(table)
-        etl.look(table)
+        petl.look(table)
+
 
     def acquire_lock(self):
         self.log("Acquiring lock file from {0}".format(self.lock_file_path))
@@ -132,34 +134,70 @@ class ETL(object):
     def set_last_fetched_record(self, last):
         self.put(last)
 
-    def get_extract_time(self, last):
-        if last is None:
-            sql = 'select min(dt) from ol_transactions;'
-        else:
-            sql = 'select min(dt) from ol_transactions where dt > {0}'.format(last)
+    def get_max_dt(self):
+        """
+        Gets the current maximum date in the table
+        :return:
+        """
+        sql = 'select max(dt) as max_dt from ol_transactions'
+        self.log("SQL: {0}".format(sql))
+        table = petl.fromdb(self.connection, sql)
+        max_dt = petl.values(table, 'max_dt')[0]
+        return max_dt
 
-        table = etl.fromdb(self.connection, sql)
-        print(table)
-        etl.look(table)
+    def get_min_dt(self, last):
+        """
+        Gets the minimum date considering previous extractions from the table.
+        :param last:
+        :return:
+        """
+        if last is None or len(last) == 0:
+            sql = "select min(dt) as min_dt from ol_transactions"
+        else:
+            print("last: ".format(last))
+            sql = "select min(dt) as min_dt from ol_transactions where dt >= '{0}'".format(last)
+
+        self.log("SQL: {0}".format(sql))
+        table = petl.fromdb(self.connection, sql)
+        extract_dt = petl.values(table, 'min_dt')[0]
+        return extract_dt
+
+    def get_data(self, min_dt, max_dt):
+        sql = "select * from ol_transactions where dt > '{0}' and dt <= '{1}'".format(min_dt, max_dt)
+        self.log("SQL: {0}".format(sql))
+        self.table = petl.fromdb(self.connection, sql)
+
+    def process_records(self):
+        self.table = petl.fromdb(self.connection, sql)
+        print(self.table)
 
     def process_data(self):
         last_record = self.get_last_fetched_record()
 
-        self.get_extract_time(last_record)
+        max_dt = self.get_max_dt()
+        min_dt = self.get_min_dt(last_record)
+        self.get_data(min_dt, max_dt)
 
-        self.set_last_fetched_record(last_record)
+        self.set_last_fetched_record(max_dt)
 
     def run(self):
+        """
+        1) Acquire lock
+        2) Connect to the database
+        3) Look for data to process
+        4) If data available then process
+        :return:
+        """
         lock = self.acquire_lock()
         try:
             with lock.acquire(timeout=0):
-                print('acquired lock')
+                self.log('acquired lock')
                 self.db_connect()
                 self.process_data()
         except filelock.Timeout:
             self.log('Extraction process running skipping')
 
-
 if __name__ == '__main__':
-    etl = ETL(lock_file_path='etl.lock', last_record_path='etl.last')
+    etl = ETL(lock_file_path='etl.lock',
+              last_record_path='etl.last')
     etl.run()
