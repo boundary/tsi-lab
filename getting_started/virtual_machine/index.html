@@ -206,6 +206,18 @@ in when executing the command below.</p>
 <pre><code class="bash">$ git clone https://github.com/boundary/tsi-lab
 </code></pre>
 
+<h4 id="updating">Updating</h4>
+<p>Get the latest content of labs run the following:</p>
+<ol>
+<li>
+<p>Change directory to where you previous cloned the GitHuB repository to your laptop/desktop:</p>
+<p><code>$ cd &lt;your cloned directory:w</code></p>
+</li>
+<li>
+<p>Run the following command to update with the latest contents:</p>
+<p><code>$ git pull</code></p>
+</li>
+</ol>
 <h3 id="creating-and-starting-the-virtual-machine">Creating and Starting the Virtual Machine</h3>
 <p>Interaction with the APIs requires the following details:</p>
 <ul>
@@ -231,7 +243,27 @@ create the virtual machine:</p>
 <li>API Token</li>
 <li>Application Id</li>
 </ul>
-<p>The final screen will show</p>
+<p>The final screen will show the values of the above as shown here:</p>
+<pre><code>Create Virtual Machine:
+1) Create Virtual Machine
+2) Change E-mail: &quot;randy_knaub@bmc.com&quot;
+3) Change API Token: &quot;&lt;api token&quot;
+4) Change Application Id: &quot;BigDog&quot;
+5) Quit
+#?
+</code></pre>
+
+<ul>
+<li>
+<p>Select item 1 to create the virtual machine.</p>
+</li>
+<li>
+<p>Select items 2-4 to update any information</p>
+</li>
+<li>
+<p>Select item 5 to quit.</p>
+</li>
+</ul>
 <h3 id="login-into-the-virtual-machine">Login into the Virtual Machine</h3>
 <p>After your virtual machine is created login to your virtual machine by using the command below.</p>
 <pre><code class="bash">$ ./vm-login
