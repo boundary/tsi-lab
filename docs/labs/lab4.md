@@ -57,7 +57,7 @@ When graphing the metric that makes the most sense, which is one of:
 
 ##### Type
 
-**TODO** What is the type user for in TrueSight Intelligence?
+TrueSight Intelligence entity type
 
 ##### Unit
 
@@ -116,49 +116,167 @@ Online documentation of the Metric and Measurement APIs is located
 
 ### Metric API
 
+This section goes into the nuts and bolts of defining metrics several ways
+using the Metric API.
+
+
 #### Creating a Metric definition with `curl`
+
+Metric definitions can be created with the _curl_ as shown here.
+
+```
+curl https://$TSP_API_HOST/v1/metrics \
+  -X POST                             \
+  -u "$TSP_EMAIL:$TSP_API_TOKEN"      \
+  -H "Content-Type: application/json" \
+  -d '{
+         "name": "MY_COOL_METRIC",
+         "description": "A cool metric I created",
+         "displayName": "My cool metric",
+         "displayNameShort": "cool metric",
+         "unit": "number",
+         "defaultAggregate": "avg",
+         "defaultResolutionMS": 1000,
+         "type": "DEVICE"
+      }'
+```
 
 #### Creating a Metric definition with `metric-create`
 
-#### Creating a Metric definition with Python Measurement API
+The command line version of metric create can be used to create a metric definition running the following:
+
+```
+$ metric-create -n CLI_METRIC -d "CLI metric"  -s "CLI metric" -g avg -u number -y DEVICE
+```
+
+which results in the following output:
+
+```
+{
+  "result": {
+    "name": "CLI_METRIC",
+    "displayName": "CLI metric",
+    "displayNameShort": "CLI metric",
+    "unit": "number",
+    "defaultAggregate": "AVG",
+    "type": "DEVICE",
+    "id": 1444
+  }
+}
+```
+
+_NOTE_: metric-create as are all of the CLIs use the environment variables `TSP_EMAIL` and `TSP_API_TOKEN`
+for credentials and do not have to passed on the command line.
+
+#### Creating a Metric definition with Python Metric API
+
+The following is example of defining a metric using the Python Metric API:
+
+```
+import tspapi
+
+api = tspapi.API()
+
+metric = api.metric_create(name='API_METRIC',
+                           display_name='API Metric',
+                           display_name_short='API Metric',
+                           description='An API metric',
+                           default_aggregate='avg',
+                           default_resolution=1000,
+                           unit='number',
+                           _type='STOCK_PRICE')
+
+print(metric)
+
+```
+running the script above outputs the following:
+```
+
+Metric(name='API_METRIC', display_name='API Metric', display_name_short='API Metric', description='An API metric', default_aggregate='AVG', default_resolution=1000, unit='number', _type='STOCK_PRICE', is_disabled='False')
+```
+
+
 
 ### Measurement API
 
-## Business Data
+The heart of this course is the ability to use the Measurement API to get data into TrueSight
+Intelligence.
 
-This section describes
-
-### MariaDB
-
-For this lab we are using the [MariaDB](https://en.wikipedia.org/wiki/MariaDB) which is a drop in replacement
-for [MySQL])(https://en.wikipedia.org/wiki/MySQL)
+#### Creating a Measurement with `curl`
 
 ```
-MariaDB [app]> show tables;
-+------------------+
-| Tables_in_app    |
-+------------------+
-| business_metrics |
-| ol_activity      |
-| ol_cart          |
-| ol_sales         |
-| ol_transactions  |
-+------------------+
-5 rows in set (0.00 sec)
-
-MariaDB [app]>
+curl https://$TSP_API_HOST/v1/measurements \
+  -X POST                                  \
+  -u "$TSP_EMAIL:$TSP_API_TOKEN"           \
+  -H "Content-Type: application/json"      \
+  -d '{
+        "metric": "CPU",
+        "source": "myserver",
+        "measure": 2,
+        "timestamp": 1377043134,
+        "metadata": {
+          "app_id": "Servers"
+         }
+      }'
 ```
 
+#### Creating a Metric definition with `measurement-create`
+
+You can generate a measurement using as CLI as shown here:
+
 ```
-CREATE TABLE ol_activity
-(
-  id BIGINT AUTO_INCREMENT PRIMARY KEY,
-  dt DATETIME NOT NULL,
-  online BIGINT NOT NULL
-);
+measurement-create -n CPU -m 0.8 -s 'myserver' -p app_id="LittleDog" -d 1461092253
 ```
 
-### Running MariaDB Queries
+which results in the following output if the measurement is successfully created:
+
+```
+{
+    "result": {
+        "success": true
+    }
+}
+```
+
+#### Creating a Measurements with the Python Measurement API
+
+The following is example of defining a measurement using the Python Measurement API:
+```
+import tspapi
+
+api = tspapi.API()
+
+api.measurement_create(metric='CPU',
+                       value=0.8,
+                       source='my-server')
+```
+
+## Lab Exercise Background
+
+This section describes a scenario in which business data is stored in a relation database
+and we need to extract and send to TrueSight Intelligence. For this lab we are using the
+[MariaDB](https://en.wikipedia.org/wiki/MariaDB) for our relation database which is a drop in replacement
+for [MySQL](https://en.wikipedia.org/wiki/MySQL). When the virtual machine was created a `cron` jobs
+was created that starts populating the database with simulated data.
+
+### The Data
+
+The data we are interested in is located in a table named `ol_transactions` the `app` database
+
+
+```
+MariaDB [app]> describe ol_transactions;
++----------+------------+------+-----+---------+----------------+
+| Field    | Type       | Null | Key | Default | Extra          |
++----------+------------+------+-----+---------+----------------+
+| id       | bigint(20) | NO   | PRI | NULL    | auto_increment |
+| dt       | datetime   | NO   |     | NULL    |                |
+| total    | bigint(20) | NO   |     | NULL    |                |
+| duration | double     | NO   |     | NULL    |                |
++----------+------------+------+-----+---------+----------------+
+```
+
+### Viewing The Data
 
 
 1. At the command line run the following:
@@ -186,7 +304,7 @@ CREATE TABLE ol_activity
 
      ```
 
-3. Run the following:
+3. Run the following SQL query which limits the return rows to 10:
 
      ```
      MariaDB [app]> select * from ol_transactions limit 10;
@@ -212,10 +330,9 @@ CREATE TABLE ol_activity
 10 rows in set (0.00 sec)
 ```
 
-
 ## Exercise 4-1 Defining Your Metrics
 
-Run the script `labs\lab-4\ex-4-1.metrics.py`.
+To run the script `labs\lab-4\ex-4-1.metrics.py`.
 
 1. Change directory to your home directory:
 
@@ -231,7 +348,7 @@ Run the script `labs\lab-4\ex-4-1.metrics.py`.
 
 ## Exercise 4-2 Extracting Data From The Database Using SQL
 
-Run the script `labs\lab-4\ex-4-2.metrics.py`.
+To run the script `labs\lab-4\ex-4-2.metrics.py`.
 
 1. Change directory to your home directory:
 
@@ -244,6 +361,25 @@ Run the script `labs\lab-4\ex-4-2.metrics.py`.
     ```
     $ labs\lab-3\ex-4-2.metrics.py
     ```
+
+example output from running the script is shown here:
+
+```
++---------------------+-------+----------+
+| dt                  | total | duration |
++=====================+=======+==========+
+| 2016-04-19 18:59:00 |   560 |    58.03 |
++---------------------+-------+----------+
+| 2016-04-19 19:00:00 |   450 |   810.71 |
++---------------------+-------+----------+
+| 2016-04-19 19:01:00 |   178 |   966.05 |
++---------------------+-------+----------+
+| 2016-04-19 19:02:00 |   200 |   248.84 |
++---------------------+-------+----------+
+| 2016-04-19 19:03:00 |   206 |    88.75 |
++---------------------+-------+----------+
+...
+```
 
 
 ## Exercise 4-3 Sending Extracted Data Using Measurement API

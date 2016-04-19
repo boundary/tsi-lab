@@ -24,7 +24,29 @@ Download each piece of software below for your OS and install each piece with th
 - Vagrant 1.7.2 or later. Vagrant can be downloaded [here](https://www.vagrantup.com/downloads.html)
 - VirtualBox 4.3.2.6 or later. VirtualBox can be downloaded [here](https://www.virtualbox.org/wiki/Downloads)
 - Chrome Browser latest version. Chrome can be downloaded from [here](https://www.google.com/chrome/browser/desktop/)
-- Git 2.2 or later. Git can be downloaded [here](http://git-scm.com/download)
+- Git 2.2 or later. Git can be downloaded [here](http://git-scm.com/download). When installing Git on Windows
+there are special instructions as described in the next section.
+
+## Git On Windows
+
+_NOTE_: If you are Mac OS X user you can skip this and proceed to the _Next_ section at bottom of the page,
+sorry Windows people we have some special instructions for you on how to install Git on your system. We promise
+this is the last time you will have to pay your penance for you _Windows_ ways, since going forward,
+the instructions for all the platforms will be the same.
+
+When using the Git installer make sure you select the options in the installation shown in the next sections.
+
+### Adjusting your PATH environment
+
+![Run Git Only From Shel](run_git_only_from_shell.png)
+
+### Configure the line ending conversions
+
+![Line Endings Configuration](line_endings.png)
+
+### Configure the terminal emulator to use with Git Bash
+
+![Terminal Emulator](terminal.png)
 
 ## API Keys
 
@@ -57,30 +79,6 @@ application_:
 ![Twitter Access Tokens](twitter_access_token.png)
 6. Click on the button labeled _Generate My Access Token_ which then displays the access tokens:
 ![Twitter Access Tokens](twitter_access_token.png)
-
-
-
-
-## Git On Windows
-
-_NOTE_: If you are Mac OS X user you can skip this and proceed to the _Next_ section at bottom of the page,
-sorry Windows people we have some special instructions for you on how to install Git on your system. We promise
-this is the last time you will have to pay your penance for you _Windows_ ways, since going forward,
-the instructions for all the platforms will be the same.
-
-When using the Git installer make sure you select the options in the installation shown in the next sections.
-
-### Adjusting your PATH environment
-
-![Run Git Only From Shel](run_git_only_from_shell.png)
-
-### Configure the line ending conversions
-
-![Line Endings Configuration](line_endings.png)
-
-### Configure the terminal emulator to use with Git Bash
-
-![Terminal Emulator](terminal.png)
 
 ## Next
 

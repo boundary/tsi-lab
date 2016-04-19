@@ -131,7 +131,14 @@ $ appid
 TSI_APP_ID=BigDog
 ```
 
-### Stopping the Virtual Machine
+### Virtual Machine Commands
+
+All of the command that follow assume that you are not logged into the virtual machine.
+
+To logout of the virtual machine use the `exit` command which will return you to
+your laptop/desktop.
+
+#### Stopping the Virtual Machine
 
 Run the following command before shutting down you laptop/desktop.
 
@@ -139,15 +146,15 @@ Run the following command before shutting down you laptop/desktop.
 $ ./vm-stop
 ```
 
-### Starting the Virtual Machine
+#### Starting the Virtual Machine
 
 Run the following command to restart your virtual machine.
 
 ```bash
-$ ./vm-stop
+$ ./vm-starting
 ```
 
-### Restarting the Virtual Machine
+#### Restarting the Virtual Machine
 
 Run the following command to restart your virtual machine.
 
@@ -155,7 +162,7 @@ Run the following command to restart your virtual machine.
 $ ./vm-restart
 ```
 
-### Destroying the Virtual Machine
+#### Destroying the Virtual Machine
 
 ```bash
 $ ./vm-remove
