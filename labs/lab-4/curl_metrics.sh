@@ -19,7 +19,7 @@ curl https://$TSP_API_HOST/v1/metrics \
   -H "Content-Type: application/json" \
   -d '{
          "name": "MY_COOL_METRIC",
-	 "description": "A cool metric I created",
+         "description": "A cool metric I created",
          "displayName": "My cool metric",
          "displayNameShort": "cool metric",
          "unit": "number",
