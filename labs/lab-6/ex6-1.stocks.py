@@ -18,9 +18,10 @@ import sys
 import time
 from tspapi import API
 from tspapi import Measurement
+from common import Common
 
 
-class Ticker(object):
+class Ticker(Common):
     """
     Collects the current stock price and volume from ticker
     """
@@ -32,9 +33,9 @@ class Ticker(object):
         :param interval: How often to collect stock price and volume
         :return:
         """
+        super(Ticker, self).__init__()
         self.interval = interval
         self.tickers = tickers
-        self.api = API()
 
     def send_measurements(self, measurements):
         """
@@ -49,6 +50,7 @@ class Ticker(object):
         """
         Main loop
         """
+        properties = {"app_id": self.app_id}
         while True:
             # Loop over the tickers and lookup the stock price and volume
             for ticker in self.tickers:
@@ -60,8 +62,14 @@ class Ticker(object):
                     sys.stderr.write('Could not find ticker \"{0}\", skipping'.format(ticker))
                 else:
                     print("ticker: {0}, price: {1}, volume: {2}".format(ticker, price, volume))
-                    measurements.append(Measurement(metric='STOCK_PRICE', value=price, source=ticker))
-                    measurements.append(Measurement(metric='STOCK_VOLUME', value=volume, source=ticker))
+                    measurements.append(Measurement(metric='STOCK_PRICE',
+                                                    value=price,
+                                                    source=ticker,
+                                                    properties=properties))
+                    measurements.append(Measurement(metric='STOCK_VOLUME',
+                                                    value=volume,
+                                                    source=ticker,
+                                                    properties=properties))
                     self.send_measurements(measurements)
             time.sleep(self.interval)
 
