@@ -1,12 +1,19 @@
 #!/usr/bin/env python
-# import petl as etl
-# import pymysql
-# connection = pymysql.connect(user='admin', password='admin123', database='app')
-# table = etl.fromdb(connection, 'SELECT * FROM business_metrics')
-# print(table.look())
-# sorted = etl.sort(table, 'dt');
-# print(sorted.look())
-
+#
+# Copyright 2016 BMC Software, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 import logging
 import syslog
 import time
@@ -14,6 +21,7 @@ import time
 import petl
 import pymysql
 import tspapi
+from tspapi import Measurement
 import filelock
 
 import os
@@ -30,6 +38,9 @@ class ETL(object):
         syslog.openlog(logoption=(syslog.LOG_PID | syslog.LOG_INFO), facility=syslog.LOG_USER)
         logging.basicConfig(level=logging.DEBUG)
         self.api = tspapi.API()
+
+        # Set our application id from the environment variable
+        self.app_id = os.environ['TSI_APP_ID']
 
         if lock_file_path is not None:
             self.lock_file_path = lock_file_path
@@ -58,7 +69,8 @@ class ETL(object):
         :return:
         """
         logging.debug(message)
-        syslog.syslog(message)
+        syslog.syslog(str(message))
+        print(message)
 
     def get_db_config(self):
         """
@@ -86,13 +98,6 @@ class ETL(object):
         :return:
         """
         self.connection.close()
-
-    def fetch_records(self, last):
-        sql = "SELECT dt, online FROM ol_activity WHERE dt >= '{0}'".format(last)
-        table = petl.fromdb(self.connection, sql)
-        print(table)
-        petl.look(table)
-
 
     def acquire_lock(self):
         self.log("Acquiring lock file from {0}".format(self.lock_file_path))
@@ -154,7 +159,6 @@ class ETL(object):
         if last is None or len(last) == 0:
             sql = "select min(dt) as min_dt from ol_transactions"
         else:
-            print("last: ".format(last))
             sql = "select min(dt) as min_dt from ol_transactions where dt >= '{0}'".format(last)
 
         self.log("SQL: {0}".format(sql))
@@ -163,13 +167,39 @@ class ETL(object):
         return extract_dt
 
     def get_data(self, min_dt, max_dt):
-        sql = "select * from ol_transactions where dt > '{0}' and dt <= '{1}'".format(min_dt, max_dt)
+        sql = "select dt, total, duration from ol_transactions where dt > '{0}' and dt <= '{1}'".format(min_dt, max_dt)
         self.log("SQL: {0}".format(sql))
         self.table = petl.fromdb(self.connection, sql)
 
     def process_records(self):
-        self.table = petl.fromdb(self.connection, sql)
-        print(self.table)
+        rows = petl.values(self.table, 'dt', 'total', 'duration')
+        row_count = 0
+        measurements = []
+        properties = {'app_id': self.app_id}
+        print(rows)
+        # self.log("process_records")
+        for row in rows:
+            timestamp = int(row[0].strftime('%s'))
+            total = int(row[1])
+            duration = int(row[2])
+            self.log("Add Measurements => dt: {0}, total: {1}, duration: {2} ".format(timestamp, total, duration))
+            row_count += 1
+            # self.log("Row Count {0}".format(row_count))
+            time.sleep(.01)
+            if row_count == 10:
+                # send measurements
+                self.log("Sending {0} measurements".format(row_count))
+                self.log(measurements)
+                self.api.measurement_create_batch(measurements)
+                measurements = []
+                row_count = 0
+            else:
+                measurements.append(Measurement(metric='ONLINE_TRANSACTION_COUNT',
+                                                source='FOO',
+                                                value=total))
+                measurements.append(Measurement(metric='ONLINE_TRANSACTION_TIME',
+                                                source='FOO',
+                                                value=duration))
 
     def process_data(self):
         last_record = self.get_last_fetched_record()
@@ -177,6 +207,7 @@ class ETL(object):
         max_dt = self.get_max_dt()
         min_dt = self.get_min_dt(last_record)
         self.get_data(min_dt, max_dt)
+        self.process_records()
 
         self.set_last_fetched_record(max_dt)
 
