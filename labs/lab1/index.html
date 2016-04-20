@@ -184,10 +184,10 @@ which provides the instructions for configuring and starting your virtual machin
 <h2 id="exercise-1-1-installing-a-meter">Exercise 1-1 Installing a Meter</h2>
 <h3 id="log-into-the-virtual-machine">Log into the Virtual Machine</h3>
 <ol>
-<li>Change directory to where you extracted the zip or cloned the repository using git.</li>
+<li>Change directory to where you cloned the repository using git.</li>
 <li>Run the following command to log into the virtual machine:</li>
 </ol>
-<pre><code>$ vagrant ssh
+<pre><code>$ ./vm-login
 </code></pre>
 
 <p>After logging in you should see the following prompt:</p>
@@ -198,7 +198,7 @@ which provides the instructions for configuring and starting your virtual machin
 <p>which indicates you have a <code>bash</code> shell up and ready to receive commands.</p>
 <h3 id="installing-the-truesight-pulse-meter">Installing the TrueSight Pulse Meter</h3>
 <ol>
-<li>Past the following in your virtual machine shell:</li>
+<li>Copy and paste the following in your virtual machine shell:</li>
 </ol>
 <pre><code>export APIHOST_PRE=&quot;api.truesight-staging.bmc.com&quot;
 </code></pre>
