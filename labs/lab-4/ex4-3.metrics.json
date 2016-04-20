@@ -1,5 +1,6 @@
-{
-  "ONLINE_TRANSACTION_COUNT": {
+[
+  {
+    "name": "ONLINE_TRANSACTION_COUNT",
     "defaultAggregate": "SUM",
     "defaultResolutionMS": 60000,
     "description": "Count of online transactions",
@@ -8,8 +9,8 @@
     "type": "Database",
     "unit": "number"
   },
-
-  "ONLINE_TRANSACTION_TIME": {
+  {
+    "name": "ONLINE_TRANSACTION_TIME",
     "defaultAggregate": "AVG",
     "defaultResolutionMS": 60000,
     "description": "Time of online transactions",
@@ -18,4 +19,4 @@
     "type": "Database",
     "unit": "duration"
   }
-}
+]

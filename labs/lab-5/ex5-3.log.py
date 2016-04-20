@@ -48,7 +48,7 @@ class ApacheLogfileParser(LogfileParser):
         user_agent = parsed['%{User-Agent}\i"']
         bytes = int(parsed['%b'])
         status_code = parsed['%>s']
-        properties = {"appl_id", self.appl_id}
+        properties = {"app_id", self.app_id}
         # Split the line by spaces and get the request in the first value
         request = parsed['%r'].split(' ')[0]
         print("user_agent: {0}, bytes: {1}, request: {2}, status_code: {3}".format(
@@ -65,9 +65,9 @@ class ApacheLogfileParser(LogfileParser):
                 properties=properties))
         self.send_measurements(measurements)
 
-        if __name__ == '__main__':
-            if len(sys.argv) == 2:
-                parser = ApacheLogfileParser(path=sys.argv[1])
-                parser.monitor_file()
-            else:
-                sys.stderr.write("{0}".format(os.path.basename(sys.argv[0])))
+if __name__ == '__main__':
+    if len(sys.argv) == 2:
+        parser = ApacheLogfileParser(path=sys.argv[1])
+        parser.monitor_file()
+    else:
+        sys.stderr.write("usage: {0} path\n".format(os.path.basename(sys.argv[0])))
