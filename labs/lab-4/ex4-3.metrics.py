@@ -100,6 +100,10 @@ class ETL(object):
         self.connection.close()
 
     def acquire_lock(self):
+        """
+        Create our file lock and return
+        :return:
+        """
         self.log("Acquiring lock file from {0}".format(self.lock_file_path))
         return filelock.FileLock(self.lock_file_path)
 
@@ -129,6 +133,10 @@ class ETL(object):
             f.write(str(data))
 
     def get_last_fetched_record(self):
+        """
+        Single call to return information on our last record that we fetched
+        :return:
+        """
         data = self.get()
         if data is None or len(data) == 0:
             last = None
@@ -137,6 +145,11 @@ class ETL(object):
         return last
 
     def set_last_fetched_record(self, last):
+        """
+        Puts the last record fetched for later retrieval
+        :param last:
+        :return:
+        """
         self.put(last)
 
     def get_max_dt(self):
@@ -167,15 +180,30 @@ class ETL(object):
         return extract_dt
 
     def get_data(self, min_dt, max_dt):
+        """
+        Generates the SQL and extracts our data
+        :param min_dt:
+        :param max_dt:
+        :return:
+        """
         sql = "select dt, total, duration from ol_transactions where dt > '{0}' and dt <= '{1}'".format(min_dt, max_dt)
         self.log("SQL: {0}".format(sql))
         self.table = petl.fromdb(self.connection, sql)
 
     def send_measurements(self, measurements):
+        """
+        Helper function that takes an array of Measurements and sends via the Measurement API
+        :param measurements:
+        :return:
+        """
         logging.debug("Sending {0} measurements".format(row_count))
         self.api.measurement_create_batch(measurements)
 
     def process_records(self):
+        """
+        Handles querying and extraction
+        :return:
+        """
         rows = petl.values(self.table, 'dt', 'total', 'duration')
         row_count = 0
         measurements = []
@@ -210,6 +238,10 @@ class ETL(object):
             self.api.measurement_create_batch(measurements)
 
     def process_data(self):
+        """
+        Higher level function that handles processing of data extraction
+        :return:
+        """
         last_record = self.get_last_fetched_record()
 
         max_dt = self.get_max_dt()
