@@ -101,7 +101,7 @@ dashboard.
 ### Installing the CPU Core Plugin
 
 1. The CPU Core can be installed by the following the video
-[](https://help.truesight.bmc.com/hc/en-us/articles/202671691-Plugins-CPU-Core-Deployment-Walkthrough)
+[here](https://help.truesight.bmc.com/hc/en-us/articles/202671691-Plugins-CPU-Core-Deployment-Walkthrough)
 
 2. After configuring the CPU Core Plugin confirm data is being streamed by opening the _CPU Core_
 dashboard.
