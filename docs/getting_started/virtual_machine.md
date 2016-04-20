@@ -37,12 +37,12 @@ $ git clone https://github.com/boundary/tsi-lab
 
 #### Updating
 
-Get the latest content of labs run the following:
+To get the latest content of labs run the following:
 
 1. Change directory to where you previous cloned the GitHuB repository to your laptop/desktop:
 
     ```
-    $ cd <your cloned directory:w
+    $ cd <your cloned directory
     ```
 
 2. Run the following command to update with the latest contents:
@@ -97,6 +97,9 @@ Create Virtual Machine:
 - Select items 2-4 to update any information
 
 - Select item 5 to quit.
+
+_NOTE_: The details of the create virtual machine are written to `vm.log` in the directory where you
+ran `./vm-create`.
 
 ### Login into the Virtual Machine
 
