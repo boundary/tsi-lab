@@ -17,10 +17,10 @@ which provides the instructions for configuring and starting your virtual machin
 
 ### Log into the Virtual Machine
 
-1. Change directory to where you extracted the zip or cloned the repository using git.
+1. Change directory to where you cloned the repository using git.
 2. Run the following command to log into the virtual machine:
 ```
-$ vagrant ssh
+$ ./vm-login
 ```
 After logging in you should see the following prompt:
 ```
@@ -32,7 +32,7 @@ which indicates you have a `bash` shell up and ready to receive commands.
 
 ### Installing the TrueSight Pulse Meter
 
-1. Past the following in your virtual machine shell:
+1. Copy and paste the following in your virtual machine shell:
 ```
 export APIHOST_PRE="api.truesight-staging.bmc.com"
 ```
