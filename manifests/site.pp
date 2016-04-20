@@ -61,6 +61,21 @@ package { 'epel-release':
   ensure => 'installed',
 }
 
+package { 'openssl-devel':
+  ensure => 'installed',
+  require => Package['epel-release'],
+}
+
+package { 'libffi-devel':
+  ensure => 'installed',
+  require => Package['epel-release'],
+}
+
+package { 'python-devel':
+  ensure => 'installed',
+  require => Package['epel-release'],
+}
+
 package { 'git':
   ensure => 'installed',
   require => Package['epel-release'],
@@ -79,6 +94,40 @@ package { 'python-pip':
 package { 'vim-enhanced':
   ensure => 'installed',
   require => Package['epel-release'],
+}
+
+package { 'screen':
+  ensure => 'installed',
+  require => Package['epel-release'],
+}
+
+package { 'httpd-tools':
+  ensure => 'installed',
+  require => Package['epel-release'],
+}
+
+service { 'http-stressd':
+    ensure => 'running',
+    enable => true,
+    require => Exec['http-stressd'],
+}
+
+exec { 'http-stressd':
+  command => '/usr/bin/rpm -ivh https://github.com/jdgwartney/boundary-http-stressd/releases/download/RE-01.00.00/boundary-http-stressd-01.00.00-1.noarch.rpm',
+  require => Package['httpd-tools'],
+  unless => '/usr/bin/rpm -qi boundary-http-stressd',
+}
+
+exec { 'pip-upgrade':
+   command => '/usr/bin/pip install --upgrade pip',
+   require => Package['python-pip'],
+   unless => '/usr/bin/pip install --upgrade pip',
+}
+
+exec { 'requests[security]':
+   command => '/usr/bin/pip install requests[security]',
+   require => [Package['python-pip'], Package['python-devel'], Package['libffi-devel'], Package['openssl-devel']],
+   unless => '/usr/bin/pip show demjson',
 }
 
 exec { 'jsonlint':
@@ -154,6 +203,15 @@ package { 'jq':
 }
 
 class {'apache': }
+class {'apache::mod::php': }
+
+file { 'html':
+  path    => '/var/www/html/index.php',
+  source => '/vagrant/manifests/html/index.php',
+  owner => 'root',
+  group => 'root',
+  require => Class['apache::mod::php'],
+}
 
 # Install MySQL for lab exercises that require
 # a database
