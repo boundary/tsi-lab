@@ -229,14 +229,14 @@ https://meter.truesight-staging.bmc.com/setup_meter &gt; setup_meter.sh \
 [vagrant@tsi-lab-01 ~]$
 </code></pre>
 
-<h3 id="updating-the-meterconf-with-application_id">Updating the <code>meter.conf</code> with <code>application_id</code></h3>
+<h3 id="updating-the-meterconf-with-app_id">Updating the <code>meter.conf</code> with <code>app_id</code></h3>
 <ol>
 <li>
 <p>Update the meter configuration <code>/etc/boundary/meter.conf</code> with the <code>application_id</code> by editing the
 file with <code>vi</code>, <code>nano</code>, <code>emacs</code>, or your favorite <a href="https://en.wikipedia.org/wiki/List_of_text_editors">editor</a>
 as shown in this configuration snippet:</p>
 <p><code>"properties":{
-   "application_id": "&lt;your application id here&gt;"
+   "app_id": "&lt;your application id here&gt;"
 },</code></p>
 </li>
 <li>
