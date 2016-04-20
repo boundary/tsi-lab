@@ -59,7 +59,7 @@ The meter has been installed successfully!
 [vagrant@tsi-lab-01 ~]$
 ```
 
-### Updating the `meter.conf` with `application_id`
+### Updating the `meter.conf` with `app_id`
 
 1. Update the meter configuration `/etc/boundary/meter.conf` with the `application_id` by editing the
 file with `vi`, `nano`, `emacs`, or your favorite [editor](https://en.wikipedia.org/wiki/List_of_text_editors)
@@ -67,7 +67,7 @@ as shown in this configuration snippet:
 
     ```
     "properties":{
-       "application_id": "<your application id here>"
+       "app_id": "<your application id here>"
     },
     ```
 

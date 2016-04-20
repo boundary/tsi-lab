@@ -1,6 +1,6 @@
 TrueSight Intelligence Lab
 ==========================
-__version 0.8.4__
+__version 0.8.5__
 
 Virtual machine lab environment for learning about TrueSight Intelligence.
 
