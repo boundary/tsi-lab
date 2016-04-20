@@ -171,35 +171,43 @@ class ETL(object):
         self.log("SQL: {0}".format(sql))
         self.table = petl.fromdb(self.connection, sql)
 
+    def send_measurements(self, measurements):
+        logging.debug("Sending {0} measurements".format(row_count))
+        self.api.measurement_create_batch(measurements)
+
     def process_records(self):
         rows = petl.values(self.table, 'dt', 'total', 'duration')
         row_count = 0
         measurements = []
         properties = {'app_id': self.app_id}
-        print(rows)
-        # self.log("process_records")
+        source = "littledog.com"
         for row in rows:
             timestamp = int(row[0].strftime('%s'))
             total = int(row[1])
             duration = int(row[2])
-            self.log("Add Measurements => dt: {0}, total: {1}, duration: {2} ".format(timestamp, total, duration))
+            logging.debug("Add Measurements => dt: {0}, total: {1}, duration: {2} ".format(timestamp, total, duration))
             row_count += 1
-            # self.log("Row Count {0}".format(row_count))
-            time.sleep(.01)
+            measurements.append(Measurement(metric='ONLINE_TRANSACTION_COUNT',
+                                            source=source,
+                                            value=total,
+                                            timestamp=timestamp,
+                                            properties=properties))
+            measurements.append(Measurement(metric='ONLINE_TRANSACTION_TIME',
+                                            source=source,
+                                            value=duration,
+                                            timestamp=timestamp,
+                                            properties=properties))
+
+            # Send when we have batch of 10 measurements
             if row_count == 10:
                 # send measurements
-                self.log("Sending {0} measurements".format(row_count))
-                self.log(measurements)
-                self.api.measurement_create_batch(measurements)
+                self.send_measurements(measurements)
                 measurements = []
                 row_count = 0
-            else:
-                measurements.append(Measurement(metric='ONLINE_TRANSACTION_COUNT',
-                                                source='FOO',
-                                                value=total))
-                measurements.append(Measurement(metric='ONLINE_TRANSACTION_TIME',
-                                                source='FOO',
-                                                value=duration))
+
+        # If there are any remaining measurements send them on
+        if len(measurements) > 0:
+            self.api.measurement_create_batch(measurements)
 
     def process_data(self):
         last_record = self.get_last_fetched_record()
@@ -222,7 +230,7 @@ class ETL(object):
         lock = self.acquire_lock()
         try:
             with lock.acquire(timeout=0):
-                self.log('acquired lock')
+                logging.debug('acquired lock')
                 self.db_connect()
                 self.process_data()
         except filelock.Timeout:
