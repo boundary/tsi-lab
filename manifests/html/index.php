@@ -6,9 +6,11 @@
  <body>
  <?php echo '<p>Hello World</p>'; ?> 
  <?php
-  $codes = array(200, 201, 202, 400, 401, 404, 422, 500, 503, 504);
+  $codes = array(200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 401, 404, 404, 404, 404, 500);
   $key = array_rand($codes, 1);
-  echo "<p>$codes[$key]</p>";
+  $http_status = $codes[$key];
+  echo "<p>Sending result code: $http_status</p>";
+  http_response_code($codes[$key]);
   ?> 
  </body>
 </html>
