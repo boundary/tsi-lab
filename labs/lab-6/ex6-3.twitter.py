@@ -18,6 +18,8 @@ import sys
 import logging
 import json
 import re
+from datetime import datetime
+from datetime import timedelta
 from tspapi import Measurement
 from common import Common
 from ConfigParser import SafeConfigParser
@@ -132,14 +134,21 @@ class Twitter(tweepy.StreamListener, Common):
         self.auth = None
 
         # Tweeter counter dictionary
-        self.tweet_count = {}
+        self.tweet_term_count = {}
         for term in self.terms:
-            self.tweet_count[term] = {'term': term, 'count': 0}
+            self.tweet_term_count[term] = {'term': term, 'count': 0}
 
         # Application Id properties
         self.properties = {"app_id": self.app_id}
 
+        # Array to store measurements
         self.measurements = []
+
+        # Tracks the number of tweets received
+        self.tweet_count = 0
+
+        # Tracks the next time to send tweet measurements
+        self.send_time = datetime.now() + timedelta(seconds=60)
 
     def on_data(self, data):
         """
@@ -147,49 +156,70 @@ class Twitter(tweepy.StreamListener, Common):
         :param data: Unicode JSON document
         :return:
         """
+
+        # Increment the tweet count
+        self.tweet_count += 1
+
         try:
             tweet = Tweet()
             tweet.from_json(json.loads(data.encode('utf-8')))
-            self.count_tweet(tweet)
+            self.match_tweet(tweet)
 
-            if len(self.measurements) == 50:
-                self.print_tweet_count()
+            # Send measurements every minute
+            if datetime.now() > self.send_time:
+                logging.info("received {0} tweets".format(self.tweet_count))
+                self.print_tweet_term_count()
+                self.tweet_term_to_measurements()
                 self.send_measurements(self.measurements)
                 self.measurements = []
+                self.clear_tweet_term_counts()
+                self.tweet_count = 0
+                self.send_time = datetime.now() + timedelta(seconds=60)
 
         except Exception as e:
             logging.error(e)
 
-    def count_tweet(self, tweet):
+    def clear_tweet_term_counts(self):
         """
-        Count the tweets
+        Clear the tweet term counters
+        :return:
+        """
+        for key in self.tweet_term_count:
+            self.tweet_term_count[key]['count'] = 0
+
+    def tweet_term_to_measurements(self):
+        """
+        Convert the tweet term counts into measurements
+        :return:
+        """
+        for key in self.tweet_term_count:
+            source = key.replace(' ', '_')
+            value = self.tweet_term_count[key]['count']
+            self.measurements.append(Measurement(metric='TWEET_COUNT',
+                                                 source=source,
+                                                 value=value,
+                                                 properties=self.properties))
+
+    def match_tweet(self, tweet):
+        """
+        Match the tweet against our tersm
         :param tweet:
         :return:
         """
-
-        timestamp = int(tweet.created_at.strftime('%s'))
-
-        for key in self.tweet_count:
+        for key in self.tweet_term_count:
             match = re.search(key, tweet.text)
-            source = key.replace(' ', '_')
             if match is not None:
-                self.measurements.append(Measurement(metric='TWEET_COUNT',
-                                                     source=source,
-                                                     value=1,
-                                                     timestamp=timestamp,
-                                                     properties=self.properties))
-                self.tweet_count[key]['count'] += 1
+                self.tweet_term_count[key]['count'] += 1
 
-        self.print_tweet_count()
-
-    def print_tweet_count(self):
+    def print_tweet_term_count(self):
         """
         Outputs the current tweet count per search term
         :return:
         """
         logging.info('+++++')
-        for key in self.tweet_count:
-            logging.info('term: "{0}": {1}'.format(self.tweet_count[key]['term'], self.tweet_count[key]['count']))
+        for key in self.tweet_term_count:
+            logging.info('term: "{0}": {1}'.format(self.tweet_term_count[key]['term'],
+                                                   self.tweet_term_count[key]['count']))
         logging.info('-----')
 
     def on_error(self, status_code):
@@ -234,6 +264,12 @@ class Twitter(tweepy.StreamListener, Common):
         self.auth.set_access_token(self.access_token, self.access_token_secret)
 
     def listen_to_stream(self):
+        """
+        Starts the Tweet stream
+        :return:
+        """
+
+
         # Pass our instance to handle the Twitter stream
         stream = tweepy.Stream(auth=self.auth, listener=self)
 
@@ -250,7 +286,7 @@ class Twitter(tweepy.StreamListener, Common):
             self.configure_logging()
             self.read_configuration()
             self.configure_authorization()
-            self.listen_to_stream()
+            self.listen_to_stream()  # except KeyboardInterrupt:
         except KeyboardInterrupt:
             pass
 
