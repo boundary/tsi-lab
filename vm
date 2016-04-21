@@ -299,11 +299,19 @@ Stop() {
 
 Update() {
    case $(VirtualMachineStatus) in
-                              RUNNING) vagrant halt 2>&1 > /dev/null || echo "Error stopping virtual machine" ;;
-     ABORTED| NOT_CREATED|POWERED_OFF) Start                                                                  ;;
+                              RUNNING)                                                                  ;;
+                          NOT_CREATED) echo "Virtual Machine not created. Run './vm-create' first"      ;;
+     ABORTED| NOT_CREATED|POWERED_OFF) echo "Virtual machine not running starting" ; vagrant up         ;;
    esac
+
+   echo "Saving any changes"
    git stash
+
+   echo "Updating virtual machine contents"
    git pull
+
+   echo "Applying changes to virtual machine"
+   vagrant provision
 }
 
 Version() {
