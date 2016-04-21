@@ -487,7 +487,7 @@ To run the script `labs/lab-4/ex-4-2.metrics.py`.
 2. Run the following:
 
     ```
-    $ labs/lab-3/ex-4-2.metrics.py
+    $ labs/lab-4/ex-4-2.metrics.py
     ```
 
 example output from running the script is shown here:
