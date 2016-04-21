@@ -298,11 +298,12 @@ Stop() {
 }
 
 Update() {
-#  case $(VirtualMachineStatus) in
-#                             RUNNING) vagrant halt 2>&1 > /dev/null || echo "Error stopping virtual machine" ;;
-#    ABORTED| NOT_CREATED|POWERED_OFF) echo "Virtual machine not running"                                     ;;
-#  esac
-   echo "To Be Implemented"
+   case $(VirtualMachineStatus) in
+                              RUNNING) vagrant halt 2>&1 > /dev/null || echo "Error stopping virtual machine" ;;
+     ABORTED| NOT_CREATED|POWERED_OFF) Start                                                                  ;;
+   esac
+   git stash
+   git pull
 }
 
 Version() {
