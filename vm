@@ -44,7 +44,7 @@ DisplayCommandMenu() {
   save_columns=$COLUMNS
 
   COLUMNS=1
-  select option in "Create" "Help" "Login" "Remove" "Restart" "Start" "Status" "Stop" "Quit"
+  select option in "Create" "Help" "Login" "Remove" "Restart" "Start" "Status" "Stop" "Update" "Version" "Quit"
   do
     case $REPLY in
       1) command="create"  ; break ;;
@@ -55,8 +55,10 @@ DisplayCommandMenu() {
       6) command="start"   ; break ;;
       7) command="start"   ; break ;;
       8) command="stop"    ; break ;;
+      8) command="update"  ; break ;;
+      8) command="version" ; break ;;
       9) command="quit"    ; break ;;
-      *)                         ;;
+      *)                           ;;
     esac
   done
 
@@ -218,7 +220,7 @@ CreateVirtualMachine() {
   if [ ${result} -eq 0 ]
   then
     echo "Virtual machine successfully created"
-#    echo "Run 'vagrant ssh' to login"
+    echo "Run './vm-login' to login"
   else
     echo "Virtual machine provisioning failed"
       echo "See ${LOG_FILE} for details"
@@ -267,6 +269,11 @@ Remove() {
   esac
 }
 
+Restart() {
+   Stop
+   Start
+}
+
 Start() {
   case $(VirtualMachineStatus) in
             NOT_CREATED) echo "Virtual machine not created, run 'vm-create'"                  ;;
@@ -283,7 +290,6 @@ Status() {
   esac
 }
 
-
 Stop() {
   case $(VirtualMachineStatus) in
                              RUNNING) vagrant halt 2>&1 > /dev/null || echo "Error stopping virtual machine" ;;
@@ -291,10 +297,19 @@ Stop() {
   esac
 }
 
-Restart() {
-   Stop
-   Start
+Update() {
+#  case $(VirtualMachineStatus) in
+#                             RUNNING) vagrant halt 2>&1 > /dev/null || echo "Error stopping virtual machine" ;;
+#    ABORTED| NOT_CREATED|POWERED_OFF) echo "Virtual machine not running"                                     ;;
+#  esac
+   echo "To Be Implemented"
 }
+
+Version() {
+  dir=$(AbsoluteDir)
+  cat "$dir/docs/index.md" | grep version | tr -d '__' | tr -d [a-z] | tr -d ' '
+}
+
 
 Quit() {
   exit 0
@@ -305,39 +320,65 @@ BadCommand() {
   Help
   exit 1
 }
+
 HelpCreate() {
-  echo "CREATE"
+  echo "Create"
   echo "======"
+  echo "Builds a virtual machine"
+}
+
+HelpHelp() {
+  echo "Help"
+  echo "===="
+  echo "    help - Displays this help"
 }
 
 HelpLogin() {
   echo "Login"
   echo "====="
+  echo "Opens a command line to the virtual machine"
 }
 
 HelpRemove() {
   echo "Remove"
   echo "======"
+  echo "Deletes the virtual machine"
 }
 
 HelpRestart() {
   echo "Restart"
   echo "======="
+  echo "Starts and then stops the virtual machine"
 }
 
 HelpStart() {
   echo "Start"
   echo "====="
+  echo "Turns off the virtual machine"
 }
 
 HelpStatus() {
   echo "Status"
-  echo "====="
+  echo "======"
+  echo "Current status of the virtual machine"
 }
 
 HelpStop() {
   echo "Stop"
-  echo "====="
+  echo "===="
+  echo "Turns on the virtual machine"
+}
+
+HelpUpdate() {
+  echo "Update"
+  echo "======"
+  echo "Updates the virtual machine with latest content"
+}
+
+HelpVersion() {
+  echo "Version"
+  echo "======="
+  echo "Displays the current version of the virtual machine"
 }
 
 Help() {
@@ -356,17 +397,21 @@ Help() {
     echo " restart - Starts and then stops the virtual machine"
     echo "   start - Turns off the virtual machine"
     echo "  status - Current status of the virtual machine"
-    echo "   stops - Turns on the virtual machine"
+    echo "    stop - Turns on the virtual machine"
+    echo "  update - Updates the virtual machine with latest content"
+    echo " version - Displays the current version of the virtual machine"
     echo ""
   else
     case ${topic} in
-      create) HelpCreate   ;;
-      login) HelpLogin     ;;
-      remove) HelpRemove   ;;
+       create) HelpCreate  ;;
+        login) HelpLogin   ;;
+       remove) HelpRemove  ;;
       restart) HelpRestart ;;
-      start) HelpStart     ;;
-      start) HelpStatus    ;;
-      stop) HelpStop       ;;
+        start) HelpStart   ;;
+        start) HelpStatus  ;;
+         stop) HelpStop    ;;
+       update) HelpUpdate  ;;
+      version) HelpVersion ;;
     esac
   fi
 }
@@ -381,6 +426,8 @@ ExecuteCommand() {
         start) Start              ;;
        status) Status             ;;
          stop) Stop               ;;
+       update) Update             ;;
+      version) Version            ;;
          quit) Quit               ;;
             *) BadCommand  "${1}" ;;
   esac
