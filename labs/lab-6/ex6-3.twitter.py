@@ -17,6 +17,7 @@ import os
 import sys
 import logging
 import json
+import re
 from tspapi import API
 from tspapi import Measurement
 from common import Common
@@ -153,7 +154,9 @@ class Twitter(tweepy.StreamListener, Common):
         """
 
         for key in self.tweet_count:
-            self.tweet_count[key]['count'] += 1
+            match = re.search(key, tweet.text)
+            if match is not None:
+                self.tweet_count[key]['count'] += 1
 
         self.print_tweet_count()
 
@@ -163,8 +166,10 @@ class Twitter(tweepy.StreamListener, Common):
         :return:
         """
         tweet_count = self.tweet_count
+        logging.info("++++++++++")
         for key in self.tweet_count:
-            logging.info("term: {0}, count: {1}".format(tweet_count[key]['term'], tweet_count[key]['count']))
+            logging.info('term: "{0}": {1}'.format(tweet_count[key]['term'], tweet_count[key]['count']))
+        logging.info("----------")
 
     def on_error(self, status_code):
         """
