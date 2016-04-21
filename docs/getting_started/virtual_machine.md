@@ -42,13 +42,13 @@ To get the latest content of labs run the following:
 1. Change directory to where you previous cloned the GitHuB repository to your laptop/desktop:
 
     ```
-    $ cd <your cloned directory
+    $ cd <your cloned directory>
     ```
 
-2. Run the following command to update with the latest contents:
+2. Run the following command to update with the latest contents and apply to your virtual machine:
 
     ```
-    $ git pull
+    $ ./vm-update
     ```
 
 ### Creating and Starting the Virtual Machine

@@ -299,9 +299,9 @@ Stop() {
 
 Update() {
    case $(VirtualMachineStatus) in
-                              RUNNING)                                                                  ;;
-                          NOT_CREATED) echo "Virtual Machine not created. Run './vm-create' first"      ;;
-     ABORTED| NOT_CREATED|POWERED_OFF) echo "Virtual machine not running starting" ; vagrant up         ;;
+                              RUNNING) echo "Virtual machine running"                                        ;;
+                          NOT_CREATED) echo "Virtual Machine not created. Run './vm-create' first" ; exit 0  ;;
+                  ABORTED|POWERED_OFF) echo "Virtual machine not running starting" ; vagrant up              ;;
    esac
 
    echo "Saving any changes"
