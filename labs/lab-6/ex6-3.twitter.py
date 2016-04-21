@@ -21,6 +21,7 @@ import re
 from tspapi import Measurement
 from common import Common
 from ConfigParser import SafeConfigParser
+import dateutil
 
 
 class Tweet(object):
@@ -45,6 +46,7 @@ class Tweet(object):
         self.id = None
         self.text = None
         self.source = None
+        self.parser = dateutil.parser
 
     def from_json(self, tweet):
         """
@@ -55,7 +57,8 @@ class Tweet(object):
         """
         logging.debug('from_json')
         if 'created_at' in tweet:
-            self.created_at = tweet['created_at']
+            # Parse the date and time from the string
+            self.created_at = self.parser.parse(tweet['created_at'])
 
         if 'id' in tweet:
             self.id = tweet['id']
@@ -149,7 +152,8 @@ class Twitter(tweepy.StreamListener, Common):
             tweet.from_json(json.loads(data.encode('utf-8')))
             self.count_tweet(tweet)
 
-            if len(self.measurements) == 10:
+            if len(self.measurements) == 50:
+                self.print_tweet_count()
                 self.send_measurements(self.measurements)
                 self.measurements = []
 
@@ -163,6 +167,8 @@ class Twitter(tweepy.StreamListener, Common):
         :return:
         """
 
+        timestamp = int(tweet.created_at.strftime('%s'))
+
         for key in self.tweet_count:
             match = re.search(key, tweet.text)
             source = key.replace(' ', '_')
@@ -170,6 +176,7 @@ class Twitter(tweepy.StreamListener, Common):
                 self.measurements.append(Measurement(metric='TWEET_COUNT',
                                                      source=source,
                                                      value=1,
+                                                     timestamp=timestamp,
                                                      properties=self.properties))
                 self.tweet_count[key]['count'] += 1
 
@@ -180,11 +187,10 @@ class Twitter(tweepy.StreamListener, Common):
         Outputs the current tweet count per search term
         :return:
         """
-        tweet_count = self.tweet_count
-        logging.info("++++++++++")
+        logging.info('+++++')
         for key in self.tweet_count:
-            logging.info('term: "{0}": {1}'.format(tweet_count[key]['term'], tweet_count[key]['count']))
-        logging.info("----------")
+            logging.info('term: "{0}": {1}'.format(self.tweet_count[key]['term'], self.tweet_count[key]['count']))
+        logging.info('-----')
 
     def on_error(self, status_code):
         """
@@ -240,14 +246,13 @@ class Twitter(tweepy.StreamListener, Common):
         Main instance method to start the Twitter stream listing process
         :return: None
         """
-
-        self.configure_logging()
-
-        self.read_configuration()
-
-        self.configure_authorization()
-
-        self.listen_to_stream()
+        try:
+            self.configure_logging()
+            self.read_configuration()
+            self.configure_authorization()
+            self.listen_to_stream()
+        except KeyboardInterrupt:
+            pass
 
 
 if __name__ == "__main__":
