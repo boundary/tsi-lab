@@ -15,59 +15,294 @@
 import tweepy
 import os
 import sys
-import time
-from tspapi import API
+import logging
+import json
+import re
+from datetime import datetime
+from datetime import timedelta
 from tspapi import Measurement
+from common import Common
+from ConfigParser import SafeConfigParser
+import dateutil
 
 
-class Twitter(object):
+class Tweet(object):
     """
+    A utility class that stores some of the selected fields of a Tweet
+
+    The fields:
+
+        created_at: When the tweet was published
+        id: Unique id of the tweet
+        text: Text of the tweet
+        source: Source of the tweet
+
     """
 
-    def __init__(self, interval=10, words=None):
+    def __init__(self):
+        """
+        Initialize a Tweet instance
+        :return: None
+        """
+        self.created_at = None
+        self.id = None
+        self.text = None
+        self.source = None
+        self.parser = dateutil.parser
+
+    def from_json(self, tweet):
+        """
+        Converts the JSON Tweet document to dictionary and assign to member variables
+
+        :param tweet: Unicode JSON document
+        :return: None
+        """
+        logging.debug('from_json')
+        if 'created_at' in tweet:
+            # Parse the date and time from the string
+            self.created_at = self.parser.parse(tweet['created_at'])
+
+        if 'id' in tweet:
+            self.id = tweet['id']
+
+        if 'text' in tweet:
+            self.text = unicode(tweet['text'])
+
+        if 'source' in tweet:
+            self.source = tweet['source']
+
+    def __unicode__(self):
+        """
+        Return a Unicode string representing this Tweet
+
+        :return: unicode
+        """
+        return "created_at: {0}, id: {1}, text: {2}, source: {3}".format(self.created_at,
+                                                                         self.id,
+                                                                         self.text,
+                                                                         self.source)
+
+    def __str__(self):
+        """
+        Create a string representation of the Tweet.
+
+        :return: str
+        """
+        u = ''
+        try:
+            u = unicode(self).encode('utf-8')
+        except UnicodeEncodeError as e:
+            logging.error("UNICODE: {0}".format(e))
+        return u
+
+
+class Twitter(tweepy.StreamListener, Common):
+    """
+    Listener called by the Tweepy API and uses are Common class used in
+    the Lab 6 exercises
+    """
+
+    def __init__(self, terms=None, config_file='ex6-3.twitter.config'):
         """
         Construct a Twitter instance
 
-        :param interval: How often to collect stock price and volume
-        :param words: Words to look for
-        :return:
-        """
-        self.interval = interval
-        self.words = tickers
-        self.api = API()
-
-    def send_measurements(self, measurements):
-        """
-        Sends measurements using the Measurement API
-
-        :param measurements:
+        :param terms: Words to look for in the Twitter stream
+        :param config_file: File that contains the twitter keys
         :return: None
         """
-        self.api.measurement_create_batch(measurements)
+
+        # Call our parent __init__() function so that they get initializes
+        super(Twitter, self).__init__()
+        Common.__init__(self)
+
+        # Array of tersm passed on the command line to look for in the Twitter stream
+        self.terms = terms
+
+        # Look for the config file in the same directory where this file is located
+        self.config_file = os.path.join(os.path.dirname(__file__), config_file)
+
+        # Member variables to store the Twitter keys
+        self.consumer_key = None
+        self.consumer_secret = None
+        self.access_token = None
+        self.access_token_secret = None
+
+        # Log level
+        self.log_level = logging.INFO
+
+        # Member variable to store our authorization settings
+        self.auth = None
+
+        # Tweeter counter dictionary
+        self.tweet_term_count = {}
+        for term in self.terms:
+            self.tweet_term_count[term] = {'term': term, 'count': 0}
+
+        # Application Id properties
+        self.properties = {"app_id": self.app_id}
+
+        # Array to store measurements
+        self.measurements = []
+
+        # Tracks the number of tweets received
+        self.tweet_count = 0
+
+        # Tracks the next time to send tweet measurements
+        self.send_time = datetime.now() + timedelta(seconds=60)
+
+    def on_data(self, data):
+        """
+        This gets called whenever data is available on the Twitter stream
+        :param data: Unicode JSON document
+        :return:
+        """
+
+        # Increment the tweet count
+        self.tweet_count += 1
+
+        try:
+            tweet = Tweet()
+            tweet.from_json(json.loads(data.encode('utf-8')))
+            self.match_tweet(tweet)
+
+            # Send measurements every minute
+            if datetime.now() > self.send_time:
+                logging.info("received {0} tweets".format(self.tweet_count))
+                self.print_tweet_term_count()
+                self.tweet_term_to_measurements()
+                self.send_measurements(self.measurements)
+                self.measurements = []
+                self.clear_tweet_term_counts()
+                self.tweet_count = 0
+                self.send_time = datetime.now() + timedelta(seconds=60)
+
+        except Exception as e:
+            logging.error(e)
+
+    def clear_tweet_term_counts(self):
+        """
+        Clear the tweet term counters
+        :return:
+        """
+        for key in self.tweet_term_count:
+            self.tweet_term_count[key]['count'] = 0
+
+    def tweet_term_to_measurements(self):
+        """
+        Convert the tweet term counts into measurements
+        :return:
+        """
+        for key in self.tweet_term_count:
+            source = key.replace(' ', '_')
+            value = self.tweet_term_count[key]['count']
+            self.measurements.append(Measurement(metric='TWEET_COUNT',
+                                                 source=source,
+                                                 value=value,
+                                                 properties=self.properties))
+
+    def match_tweet(self, tweet):
+        """
+        Match the tweet against our tersm
+        :param tweet:
+        :return:
+        """
+        for key in self.tweet_term_count:
+            match = re.search(key, tweet.text)
+            if match is not None:
+                self.tweet_term_count[key]['count'] += 1
+
+    def print_tweet_term_count(self):
+        """
+        Outputs the current tweet count per search term
+        :return:
+        """
+        logging.info('+++++')
+        for key in self.tweet_term_count:
+            logging.info('term: "{0}": {1}'.format(self.tweet_term_count[key]['term'],
+                                                   self.tweet_term_count[key]['count']))
+        logging.info('-----')
+
+    def on_error(self, status_code):
+        """
+        If any occurs than the Tweepy API calls this method on our instance
+        :param status_code: HTTP status code
+        :return: None
+        """
+        logging.error("status_code: {0}".format(status_code))
+        if status_code == 420:
+            # returning False in on_data disconnects the stream
+            return False
+
+    def read_configuration(self):
+        """
+        Read configuration file with Twitter keys
+        :return: None
+        """
+        logging.debug('Read twitter keys from: {0}'.format(self.config_file))
+        parser = SafeConfigParser()
+        parser.read(self.config_file)
+        self.consumer_key = parser.get('Twitter', 'consumer_key')
+        self.consumer_secret = parser.get('Twitter', 'consumer_secret')
+        self.access_token = parser.get('Twitter', 'access_token')
+        self.access_token_secret = parser.get('Twitter', 'access_token_secret')
+
+    def configure_logging(self):
+        """
+        Configure logging
+        :return: None
+        """
+        logging.basicConfig(level=self.log_level)
+        logging.info("Start")
+
+    def configure_authorization(self):
+        """
+        Create authorization instance via OAUTH
+        :return: None
+        """
+        logging.info("configure authorization")
+        self.auth = tweepy.OAuthHandler(self.consumer_key, self.consumer_secret)
+        self.auth.set_access_token(self.access_token, self.access_token_secret)
+
+    def listen_to_stream(self):
+        """
+        Starts the Tweet stream
+        :return:
+        """
+
+
+        # Pass our instance to handle the Twitter stream
+        stream = tweepy.Stream(auth=self.auth, listener=self)
+
+        # Start listening on the stream
+        logging.info("Start listening to Twitter stream")
+        stream.filter(track=self.terms)
 
     def run(self):
         """
-        Main loop
+        Main instance method to start the Twitter stream listing process
+        :return: None
         """
-        while True:
-            # Loop over the tickers and lookup the stock price and volume
-            for word in self.words:
-		print("To Be Completed")
-            time.sleep(self.interval)
+        try:
+            self.configure_logging()
+            self.read_configuration()
+            self.configure_authorization()
+            self.listen_to_stream()  # except KeyboardInterrupt:
+        except KeyboardInterrupt:
+            pass
 
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         first = True
-        words = []
+        terms = []
         for arg in sys.argv:
             # Skip the first arguments which is the program name
             if first:
                 first = False
                 continue
-            tickers.append(arg)
+            terms.append(arg)
 
-        twitter = Twitter(interval=10, tickers=tickers)
+        twitter = Twitter(terms=terms)
         twitter.run()
     else:
-        sys.stderr.write("usage: {0} word [word [word]...]\n".format(os.path.basename(sys.argv[0])))
+        Common.usage('term [term [term]...]')

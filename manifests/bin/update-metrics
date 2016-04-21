@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Copyright 2014-2016 Boundary, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,22 +13,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-if [ -z "$TSP_EMAIL" -o -z "$TSP_API_TOKEN" -o -z "$TSP_API_HOST" ]
+if [ $# -eq 1 ]
 then
-    if [ -z "$TSP_EMAIL" ]
-    then
-        echo 'Environment variable $TSP_EMAIL not set'
-    fi
-
-    if [ -z "$TSP_API_TOKEN" ]
-    then
-        echo 'Environment variable $TSP_API_TOKEN not set'
-    fi
-
-    if [ -z "$TSP_API_HOME" ]
-    then
-        echo 'Environment variable $TSP_API_HOME not set'
-    fi
-    exit 1
+  curl -i -X PUT -u "$TSP_EMAIL:$TSP_API_TOKEN" "https://$TSP_API_HOST/v1/batch/metrics" \
+  -H "Content-Type: application/json" \
+  -d @$1
+else
+  echo "usage: $(basename $0) path"
 fi
 

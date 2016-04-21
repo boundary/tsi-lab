@@ -33,5 +33,6 @@ alias creds='env | grep TSP'
 alias check-creds='check-api'
 alias appid='env | grep TSI_APP_ID'
 alias mysqldb='mysql -u $DB_USER -p$DB_PASSWORD $DB_DATABASE'
+alias vm-version="cat /vagrant/docs/index.md  | grep version | tr -d '__' | tr -d [a-z] | tr -d ' '"
 
 export PATH=$HOME/bin:$PATH
