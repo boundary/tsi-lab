@@ -1,6 +1,6 @@
 [
   {
-    "name": "TWEET_TERM_COUNT",
+    "name": "TWEET_COUNT",
     "defaultAggregate": "SUM",
     "defaultResolutionMS": 1000,
     "description": "Count of the occurrencs of a term",
