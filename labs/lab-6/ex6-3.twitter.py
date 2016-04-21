@@ -53,7 +53,7 @@ class Tweet(object):
         :param tweet: Unicode JSON document
         :return: None
         """
-        logging.info('from_json')
+        logging.debug('from_json')
         if 'created_at' in tweet:
             self.created_at = tweet['created_at']
 
@@ -97,11 +97,11 @@ class Twitter(tweepy.StreamListener, Common):
     the Lab 6 exercises
     """
 
-    def __init__(self, words=None, config_file='ex6-3.twitter.config'):
+    def __init__(self, terms=None, config_file='ex6-3.twitter.config'):
         """
         Construct a Twitter instance
 
-        :param words: Words to look for in the Twitter stream
+        :param terms: Words to look for in the Twitter stream
         :param config_file: File that contains the twitter keys
         :return: None
         """
@@ -109,8 +109,8 @@ class Twitter(tweepy.StreamListener, Common):
         # Call our parent __init__() function so that they get initializes
         super(Twitter, self).__init__()
 
-        # Array of words passed on the command line to look for in the Twitter stream
-        self.words = words
+        # Array of tersm passed on the command line to look for in the Twitter stream
+        self.terms = terms
 
         # Look for the config file in the same directory where this file is located
         self.config_file = os.path.join(os.path.dirname(__file__), config_file)
@@ -121,23 +121,50 @@ class Twitter(tweepy.StreamListener, Common):
         self.access_token = None
         self.access_token_secret = None
 
+        # Log level
+        self.log_level = logging.INFO
+
         # Member variable to store our authorization settings
         self.auth = None
+
+        # Tweeter counter dictionary
+        self.tweet_count = {}
+        for term in self.terms:
+            self.tweet_count[term] = {'term': term, 'count': 0}
 
     def on_data(self, data):
         """
         This gets called whenever data is available on the Twitter stream
-        :param data:
+        :param data: Unicode JSON document
         :return:
         """
         try:
             tweet = Tweet()
             tweet.from_json(json.loads(data.encode('utf-8')))
-            logging.info(tweet.id)
-            logging.info(tweet.text)
-            logging.info(tweet.source)
+            self.count_tweet(tweet)
         except UnicodeEncodeError as e:
             logging.error(e)
+
+    def count_tweet(self, tweet):
+        """
+        Count the tweets
+        :param tweet:
+        :return:
+        """
+
+        for key in self.tweet_count:
+            self.tweet_count[key]['count'] += 1
+
+        self.print_tweet_count()
+
+    def print_tweet_count(self):
+        """
+        Outputs the current tweet count per search term
+        :return:
+        """
+        tweet_count = self.tweet_count
+        for key in self.tweet_count:
+            logging.info("term: {0}, count: {1}".format(tweet_count[key]['term'], tweet_count[key]['count']))
 
     def on_error(self, status_code):
         """
@@ -151,6 +178,10 @@ class Twitter(tweepy.StreamListener, Common):
             return False
 
     def read_configuration(self):
+        """
+        Read configuration file with Twitter keys
+        :return: None
+        """
         logging.debug('Read twitter keys from: {0}'.format(self.config_file))
         parser = SafeConfigParser()
         parser.read(self.config_file)
@@ -160,10 +191,18 @@ class Twitter(tweepy.StreamListener, Common):
         self.access_token_secret = parser.get('Twitter', 'access_token_secret')
 
     def configure_logging(self):
-        logging.basicConfig(level=logging.INFO)
+        """
+        Configure logging
+        :return: None
+        """
+        logging.basicConfig(level=self.log_level)
         logging.info("Start")
 
     def configure_authorization(self):
+        """
+        Create authorization instance via OAUTH
+        :return: None
+        """
         logging.info("configure authorization")
         self.auth = tweepy.OAuthHandler(self.consumer_key, self.consumer_secret)
         self.auth.set_access_token(self.access_token, self.access_token_secret)
@@ -174,7 +213,7 @@ class Twitter(tweepy.StreamListener, Common):
 
         # Start listening on the stream
         logging.info("Start listening to Twitter stream")
-        stream.filter(track=self.words)
+        stream.filter(track=self.terms)
 
     def run(self):
         """
@@ -193,15 +232,15 @@ class Twitter(tweepy.StreamListener, Common):
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         first = True
-        words = []
+        terms = []
         for arg in sys.argv:
             # Skip the first arguments which is the program name
             if first:
                 first = False
                 continue
-            words.append(arg)
+            terms.append(arg)
 
-        twitter = Twitter(words=words)
+        twitter = Twitter(terms=terms)
         twitter.run()
     else:
-        Common.usage('word [word [word]...]')
+        Common.usage('term [term [term]...]')
