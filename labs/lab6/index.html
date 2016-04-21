@@ -162,8 +162,6 @@
         
             <li><a href="#exercise-6-2-open-weather-map">Exercise 6-2 Open Weather Map</a></li>
         
-            <li><a href="#running-the-weather-collection-script">Running the weather collection script</a></li>
-        
             <li><a href="#exercise-6-3-twitter">Exercise 6-3 Twitter</a></li>
         
     
@@ -195,7 +193,7 @@ price and volume will be sent to TrueSight Intelligence.</p>
 </li>
 <li>
 <p>Add the metric definitions by running the following:</p>
-<p><code>metric-import -f ex6-2.stocks.json</code></p>
+<p><code>create-metrics ex6-1.stocks.json</code></p>
 </li>
 </ol>
 <h3 id="sending-stock-price-and-volume-measurements-to-truesight-intelligence">Sending Stock Price and Volume Measurements to TrueSight Intelligence</h3>
@@ -203,7 +201,7 @@ price and volume will be sent to TrueSight Intelligence.</p>
 <li>
 <p>To create measurements of stock prices and volume for Google, Apple, and Twitter run
 the following:</p>
-<p><code>ex6-2.stock.py goog aapl twtr</code></p>
+<p><code>./ex6-2.stock.py goog aapl twtr</code></p>
 </li>
 </ol>
 <p>The output should be similar to the following:</p>
@@ -224,8 +222,6 @@ weather is what we get.</p>
 <p>Let's talk about the weather. For this exercise we are heating up and will create a
 script that collects data from you favorite city or cities.</p>
 <p>We are going to the exploit the services of the <a href="http://openweathermap.org/api">Open Weather Map API</a></p>
-<h3 id="obtaining-open-weather-map-api-keys">Obtaining Open Weather Map API Keys</h3>
-<p><strong>To Be Completed</strong></p>
 <h3 id="adding-the-metric-definitions_1">Adding the metric definitions</h3>
 <p>To add the metric definitions for this exercise run the following:</p>
 <ol>
@@ -235,10 +231,10 @@ script that collects data from you favorite city or cities.</p>
 </li>
 <li>
 <p>Add the metric definitions by running the following:</p>
-<p><code>metric-import -f ex6-2.weather.json</code></p>
+<p><code>create-metrics  ex6-2.weather.json</code></p>
 </li>
 </ol>
-<h2 id="running-the-weather-collection-script">Running the weather collection script</h2>
+<h3 id="running-the-weather-collection-script">Running the weather collection script</h3>
 <ol>
 <li>
 <p>Change directory to <code>labs/lab-6</code>:</p>
@@ -246,12 +242,13 @@ script that collects data from you favorite city or cities.</p>
 </li>
 <li>
 <p>To create weather data for San Jose, CA run the following:</p>
-<p><code>ex6-2.weather.py "San Jose, CA"</code></p>
+<p><code>./ex6-2.weather.py "San Jose, CA"</code></p>
 </li>
 </ol>
 <h2 id="exercise-6-3-twitter">Exercise 6-3 Twitter</h2>
-<h3 id="obtaining-your-twitter-api-keys">Obtaining your Twitter API Keys</h3>
-<p><strong>To Be Completed</strong></p>
+<p>This script uses the terms passed on the command line to search the public twitter feed and
+for every term this counts as <em>hit</em>. Every minute the script then sends the count of the terms
+found in the public twitter feed.</p>
 <h3 id="adding-the-metric-definitions_2">Adding the metric definitions</h3>
 <p>To add the metric definitions for this exercise run the following:</p>
 <ol>
@@ -261,7 +258,18 @@ script that collects data from you favorite city or cities.</p>
 </li>
 <li>
 <p>Add the metric definitions by running the following:</p>
-<p><code>metric-import -f ex6-3.twitter.json</code></p>
+<p><code>create-metrics ex6-3.twitter.json</code></p>
+</li>
+</ol>
+<h3 id="running-the-twitter-script">Running the twitter script</h3>
+<ol>
+<li>
+<p>Change directory to <code>labs/lab-6</code>:</p>
+<p><code>cd ~/labs/lab-6</code></p>
+</li>
+<li>
+<p>To create weather data for San Jose, CA run the following:</p>
+<p><code>./ex6-3.twitter.py "Clinton" "Cruz" "Kasich" "Sanders" "Trump"</code></p>
 </li>
 </ol></div>
         </div>
