@@ -32,7 +32,7 @@ To add the metric definitions for this exercise run the following:
 2. Add the metric definitions by running the following:
 
     ```
-    metric-import -f ex6-2.stocks.json
+    create-metrics ex6-1.stocks.json
     ```
 
 ### Sending Stock Price and Volume Measurements to TrueSight Intelligence
@@ -41,7 +41,7 @@ To add the metric definitions for this exercise run the following:
 the following:
 
     ```
-    ex6-2.stock.py goog aapl twtr
+    ./ex6-2.stock.py goog aapl twtr
     ```
 
 The output should be similar to the following:
@@ -67,12 +67,6 @@ script that collects data from you favorite city or cities.
 
 We are going to the exploit the services of the [Open Weather Map API](http://openweathermap.org/api)
 
-
-### Obtaining Open Weather Map API Keys
-
-**To Be Completed**
-
-
 ### Adding the metric definitions
 
 To add the metric definitions for this exercise run the following:
@@ -86,10 +80,10 @@ To add the metric definitions for this exercise run the following:
 2. Add the metric definitions by running the following:
 
     ```
-    metric-import -f ex6-2.weather.json
+    create-metrics  ex6-2.weather.json
     ```
 
-## Running the weather collection script
+### Running the weather collection script
 
 1. Change directory to `labs/lab-6`:
 
@@ -100,15 +94,15 @@ To add the metric definitions for this exercise run the following:
 2. To create weather data for San Jose, CA run the following:
 
     ```
-    ex6-2.weather.py "San Jose, CA"
+    ./ex6-2.weather.py "San Jose, CA"
     ```
 
 ## Exercise 6-3 Twitter
 
+This script uses the terms passed on the command line to search the public twitter feed and
+for every term this counts as _hit_. Every minute the script then sends the count of the terms
+found in the public twitter feed.
 
-### Obtaining your Twitter API Keys
-
-**To Be Completed**
 
 ### Adding the metric definitions
 
@@ -123,5 +117,20 @@ To add the metric definitions for this exercise run the following:
 2. Add the metric definitions by running the following:
 
     ```
-    metric-import -f ex6-3.twitter.json
+    create-metrics ex6-3.twitter.json
     ```
+
+### Running the twitter script
+
+1. Change directory to `labs/lab-6`:
+
+    ```
+    cd ~/labs/lab-6
+    ```
+
+2. To create weather data for San Jose, CA run the following:
+
+    ```
+    ./ex6-3.twitter.py "Clinton" "Cruz" "Kasich" "Sanders" "Trump"
+    ```
+
