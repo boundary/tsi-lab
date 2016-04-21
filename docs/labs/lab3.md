@@ -25,7 +25,7 @@ Events are stateful in that the accumulate the field values affected by Raw Even
 
 An array of fields of a Raw Event that are used to calculate whether to generate a new event or
 use an existing event (de-duplication). When fingerprint fields are prefixed with '@', such as
-@title and @message fields, this indicates that the Raw Event title and/or message fiels should
+@title and @message fields, this indicates that the Raw Event title and/or message fields should
 be used in the computation of what constitutes a duplicate event. Other fields not adorned with `@`
 are references to properties associated with the Raw Event. Each field must have a non-null,
 non-empty field value with a basic type (string, number, or boolean)
