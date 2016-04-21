@@ -1,5 +1,6 @@
-{
-  "TEMPERATURE": {
+[
+  {
+    "name": "TEMPERATURE",
     "defaultAggregate": "AVG"
     "defaultResolutionMS": 1000,
     "description": "Current temperature at a location",
@@ -7,4 +8,4 @@
     "displayNameShort": "Temperature",
     "unit": "number"
   }
-}
+]
