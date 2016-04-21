@@ -18,7 +18,6 @@ import sys
 import logging
 import json
 import re
-from tspapi import API
 from tspapi import Measurement
 from common import Common
 from ConfigParser import SafeConfigParser
@@ -109,6 +108,7 @@ class Twitter(tweepy.StreamListener, Common):
 
         # Call our parent __init__() function so that they get initializes
         super(Twitter, self).__init__()
+        Common.__init__(self)
 
         # Array of tersm passed on the command line to look for in the Twitter stream
         self.terms = terms
@@ -133,6 +133,11 @@ class Twitter(tweepy.StreamListener, Common):
         for term in self.terms:
             self.tweet_count[term] = {'term': term, 'count': 0}
 
+        # Application Id properties
+        self.properties = {"app_id": self.app_id}
+
+        self.measurements = []
+
     def on_data(self, data):
         """
         This gets called whenever data is available on the Twitter stream
@@ -143,7 +148,12 @@ class Twitter(tweepy.StreamListener, Common):
             tweet = Tweet()
             tweet.from_json(json.loads(data.encode('utf-8')))
             self.count_tweet(tweet)
-        except UnicodeEncodeError as e:
+
+            if len(self.measurements) == 10:
+                self.send_measurements(self.measurements)
+                self.measurements = []
+
+        except Exception as e:
             logging.error(e)
 
     def count_tweet(self, tweet):
@@ -155,7 +165,12 @@ class Twitter(tweepy.StreamListener, Common):
 
         for key in self.tweet_count:
             match = re.search(key, tweet.text)
+            source = key.replace(' ', '_')
             if match is not None:
+                self.measurements.append(Measurement(metric='TWEET_COUNT',
+                                                     source=source,
+                                                     value=1,
+                                                     properties=self.properties))
                 self.tweet_count[key]['count'] += 1
 
         self.print_tweet_count()
@@ -233,6 +248,7 @@ class Twitter(tweepy.StreamListener, Common):
         self.configure_authorization()
 
         self.listen_to_stream()
+
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
