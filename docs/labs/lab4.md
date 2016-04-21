@@ -460,7 +460,7 @@ corresponds to single row. For this lab more metric definitions are as follows:
 
 ## Exercise 4-1 Defining Your Metrics
 
-We use the Python metrics API to create our metrics definitions by running the script `labs\lab-4\ex-4-1.metrics.py`.
+We create our metrics using a bash script that is installed the virtual machine named: `create-metrics`:
 
 1. Change directory to your home directory:
 
@@ -471,12 +471,12 @@ We use the Python metrics API to create our metrics definitions by running the s
 2. Run the following:
 
     ```
-    $ labs\lab-3\ex-4-1.metrics.py
+    $ create-metrics labs/lab-4/ex4-3.metrics.json
     ```
 
 ## Exercise 4-2 Extracting Data From The Database Using SQL
 
-To run the script `labs\lab-4\ex-4-2.metrics.py`.
+To run the script `labs/lab-4/ex-4-2.metrics.py`.
 
 1. Change directory to your home directory:
 
@@ -487,7 +487,7 @@ To run the script `labs\lab-4\ex-4-2.metrics.py`.
 2. Run the following:
 
     ```
-    $ labs\lab-3\ex-4-2.metrics.py
+    $ labs/lab-3/ex-4-2.metrics.py
     ```
 
 example output from running the script is shown here:
