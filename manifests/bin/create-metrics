@@ -15,7 +15,7 @@
 
 if [ $# -eq 1 ]
 then
-  curl -i -X PUT -u "$TSP_EMAIL:$TSP_API_TOKEN" "https://$TSP_API_HOST/v1/batch/metrics" \
+  curl -i -X POST -u "$TSP_EMAIL:$TSP_API_TOKEN" "https://$TSP_API_HOST/v1/batch/metrics" \
   -H "Content-Type: application/json" \
   -d @$1
 else
