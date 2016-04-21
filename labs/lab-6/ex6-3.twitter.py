@@ -20,17 +20,39 @@ import json
 from tspapi import API
 from tspapi import Measurement
 from common import Common
+from ConfigParser import SafeConfigParser
 
 
 class Tweet(object):
+    """
+    A utility class that stores some of the selected fields of a Tweet
+
+    The fields:
+
+        created_at: When the tweet was published
+        id: Unique id of the tweet
+        text: Text of the tweet
+        source: Source of the tweet
+
+    """
 
     def __init__(self):
+        """
+        Initialize a Tweet instance
+        :return: None
+        """
         self.created_at = None
         self.id = None
         self.text = None
         self.source = None
 
     def from_json(self, tweet):
+        """
+        Converts the JSON Tweet document to dictionary and assign to member variables
+
+        :param tweet: Unicode JSON document
+        :return: None
+        """
         logging.info('from_json')
         if 'created_at' in tweet:
             self.created_at = tweet['created_at']
@@ -45,12 +67,22 @@ class Tweet(object):
             self.source = tweet['source']
 
     def __unicode__(self):
+        """
+        Return a Unicode string representing this Tweet
+
+        :return: unicode
+        """
         return "created_at: {0}, id: {1}, text: {2}, source: {3}".format(self.created_at,
                                                                          self.id,
                                                                          self.text,
                                                                          self.source)
 
     def __str__(self):
+        """
+        Create a string representation of the Tweet.
+
+        :return: str
+        """
         u = ''
         try:
             u = unicode(self).encode('utf-8')
@@ -61,20 +93,40 @@ class Tweet(object):
 
 class Twitter(tweepy.StreamListener, Common):
     """
+    Listener called by the Tweepy API and uses are Common class used in
+    the Lab 6 exercises
     """
 
-    def __init__(self, words=None):
+    def __init__(self, words=None, config_file='ex6-3.twitter.config'):
         """
         Construct a Twitter instance
 
         :param words: Words to look for in the Twitter stream
-        :return:
+        :param config_file: File that contains the twitter keys
+        :return: None
         """
+
+        # Call our parent __init__() function so that they get initializes
         super(Twitter, self).__init__()
+
+        # Array of words passed on the command line to look for in the Twitter stream
         self.words = words
-        self.api = API()
+
+        # Look for the config file in the same directory where this file is located
+        self.config_file = os.path.join(os.path.dirname(__file__), config_file)
+
+        # Variables to store the Twitter keys
+        self.consumer_key = None
+        self.consumer_secret = None
+        self.access_token = None
+        self.access_token_secret = None
 
     def on_data(self, data):
+        """
+        This gets called whenever data is available on the Twitter stream
+        :param data:
+        :return:
+        """
         try:
             tweet = Tweet()
             tweet.from_json(json.loads(data.encode('utf-8')))
@@ -85,19 +137,23 @@ class Twitter(tweepy.StreamListener, Common):
             logging.error(e)
 
     def on_error(self, status_code):
+        """
+        If any occurs than the Tweepy API calls this method on our instance
+        :param status_code: HTTP status code
+        :return: None
+        """
         logging.error("status_code: {0}".format(status_code))
         if status_code == 420:
             # returning False in on_data disconnects the stream
             return False
 
-    def send_measurements(self, measurements):
-        """
-        Sends measurements using the Measurement API
-
-        :param measurements:
-        :return: None
-        """
-        self.api.measurement_create_batch(measurements)
+    def read_configuration(self):
+        parser = SafeConfigParser()
+        parser.read(self.config_file)
+        print(parser.get('Twitter', 'consumer_key'))
+        print(parser.get('Twitter', 'consumer_secret'))
+        print(parser.get('Twitter', 'access_token'))
+        print(parser.get('Twitter', 'access_secret_token'))
 
     def run(self):
         logging.basicConfig(level=logging.INFO)
