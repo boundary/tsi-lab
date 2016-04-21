@@ -1,11 +1,11 @@
 [
   {
     "name": "TWEET_COUNT",
-    "defaultAggregate": "SUM",
-    "defaultResolutionMS": 1000,
+    "defaultAggregate": "AVG",
+    "defaultResolutionMS": 60000,
     "description": "Count of the occurrencs of a term",
-    "displayName": "Tweet Term Count",
-    "displayNameShort": "Tweet Term Count",
+    "displayName": "Tweet Count",
+    "displayNameShort": "Tweet Count",
     "type": "TWEET_COUNT",
     "unit": "number"
   }
