@@ -308,7 +308,7 @@ Update() {
    git stash
 
    echo "Updating virtual machine contents"
-   git pull
+   git pull origin master
 
    echo "Applying changes to virtual machine"
    vagrant provision
