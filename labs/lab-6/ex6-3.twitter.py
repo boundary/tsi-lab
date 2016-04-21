@@ -115,11 +115,14 @@ class Twitter(tweepy.StreamListener, Common):
         # Look for the config file in the same directory where this file is located
         self.config_file = os.path.join(os.path.dirname(__file__), config_file)
 
-        # Variables to store the Twitter keys
+        # Member variables to store the Twitter keys
         self.consumer_key = None
         self.consumer_secret = None
         self.access_token = None
         self.access_token_secret = None
+
+        # Member variable to store our authorization settings
+        self.auth = None
 
     def on_data(self, data):
         """
@@ -148,31 +151,44 @@ class Twitter(tweepy.StreamListener, Common):
             return False
 
     def read_configuration(self):
+        logging.debug('Read twitter keys from: {0}'.format(self.config_file))
         parser = SafeConfigParser()
         parser.read(self.config_file)
-        print(parser.get('Twitter', 'consumer_key'))
-        print(parser.get('Twitter', 'consumer_secret'))
-        print(parser.get('Twitter', 'access_token'))
-        print(parser.get('Twitter', 'access_secret_token'))
+        self.consumer_key = parser.get('Twitter', 'consumer_key')
+        self.consumer_secret = parser.get('Twitter', 'consumer_secret')
+        self.access_token = parser.get('Twitter', 'access_token')
+        self.access_token_secret = parser.get('Twitter', 'access_token_secret')
 
-    def run(self):
+    def configure_logging(self):
         logging.basicConfig(level=logging.INFO)
         logging.info("Start")
 
-        logging.info("get keys")
-        consumer_key = os.environ['CONSUMER_KEY']
-        consumer_secret = os.environ['CONSUMER_SECRET']
-        access_token = os.environ['ACCESS_TOKEN']
-        access_token_secret = os.environ['ACCESS_TOKEN_SECRET']
+    def configure_authorization(self):
+        logging.info("configure authorization")
+        self.auth = tweepy.OAuthHandler(self.consumer_key, self.consumer_secret)
+        self.auth.set_access_token(self.access_token, self.access_token_secret)
 
-        logging.info("set auth")
-        auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-        auth.set_access_token(access_token, access_token_secret)
+    def listen_to_stream(self):
+        # Pass our instance to handle the Twitter stream
+        stream = tweepy.Stream(auth=self.auth, listener=self)
 
-        logging.info("stream")
-        stream = tweepy.Stream(auth=auth, listener=Twitter())
+        # Start listening on the stream
+        logging.info("Start listening to Twitter stream")
         stream.filter(track=self.words)
 
+    def run(self):
+        """
+        Main instance method to start the Twitter stream listing process
+        :return: None
+        """
+
+        self.configure_logging()
+
+        self.read_configuration()
+
+        self.configure_authorization()
+
+        self.listen_to_stream()
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
