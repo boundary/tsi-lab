@@ -196,7 +196,8 @@ class ETL(object):
         :param measurements:
         :return:
         """
-        logging.debug("Sending {0} measurements".format(row_count))
+        measurement_count = len(measurements)
+        logging.debug("Sending {0} measurements".format(measurement_count))
         self.api.measurement_create_batch(measurements)
 
     def process_records(self):
@@ -267,6 +268,7 @@ class ETL(object):
                 self.process_data()
         except filelock.Timeout:
             self.log('Extraction process running skipping')
+
 
 if __name__ == '__main__':
     etl = ETL(lock_file_path='etl.lock',
