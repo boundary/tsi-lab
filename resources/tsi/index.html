@@ -9,7 +9,7 @@
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
 
-	<title>Lab 6 - API Integration - BMC TrueSight Intelligence</title>
+	<title>TrueSight Intelligence - BMC TrueSight Intelligence</title>
 
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome-4.0.3.css" rel="stylesheet">
@@ -83,43 +83,43 @@
             
             
             
-                <li class="dropdown active">
+                <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                     
                         
 <li >
-    <a href="../lab1/">Lab 1 - Meters and Meter Plugins</a>
+    <a href="../../labs/lab1/">Lab 1 - Meters and Meter Plugins</a>
 </li>
 
                     
                         
 <li >
-    <a href="../lab2/">Lab 2 - Introduction REST</a>
+    <a href="../../labs/lab2/">Lab 2 - Introduction REST</a>
 </li>
 
                     
                         
 <li >
-    <a href="../lab3/">Lab 3 - Event APIs</a>
+    <a href="../../labs/lab3/">Lab 3 - Event APIs</a>
 </li>
 
                     
                         
 <li >
-    <a href="../lab4/">Lab 4 - Metrics APIs</a>
+    <a href="../../labs/lab4/">Lab 4 - Metrics APIs</a>
 </li>
 
                     
                         
 <li >
-    <a href="../lab5/">Lab 5 - Log File to API</a>
+    <a href="../../labs/lab5/">Lab 5 - Log File to API</a>
 </li>
 
                     
                         
-<li class="active">
-    <a href="./">Lab 6 - API Integration</a>
+<li >
+    <a href="../../labs/lab6/">Lab 6 - API Integration</a>
 </li>
 
                     
@@ -128,31 +128,31 @@
             
             
             
-                <li class="dropdown">
+                <li class="dropdown active">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Resources <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                     
                         
-<li >
-    <a href="../../resources/tsi/">TrueSight Intelligence</a>
+<li class="active">
+    <a href="./">TrueSight Intelligence</a>
 </li>
 
                     
                         
 <li >
-    <a href="../../resources/tsp/">TrueSight Pulse</a>
+    <a href="../tsp/">TrueSight Pulse</a>
 </li>
 
                     
                         
 <li >
-    <a href="../../resources/rest/">ReST</a>
+    <a href="../rest/">ReST</a>
 </li>
 
                     
                         
 <li >
-    <a href="../../resources/python/">Python</a>
+    <a href="../python/">Python</a>
 </li>
 
                     
@@ -170,12 +170,12 @@
                     </a>
                 </li>
                 <li >
-                    <a rel="next" href="../lab5/">
+                    <a rel="next" href="../../labs/lab6/">
                         <i class="fa fa-arrow-left"></i> Previous
                     </a>
                 </li>
                 <li >
-                    <a rel="prev" href="../../resources/tsi/">
+                    <a rel="prev" href="../tsp/">
                         Next <i class="fa fa-arrow-right"></i>
                     </a>
                 </li>
@@ -189,126 +189,19 @@
             <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
-        <li class="main active"><a href="#lab-6-api-integration">Lab 6 - API Integration</a></li>
+        <li class="main active"><a href="#truesight-intelligence-resources">TrueSight Intelligence Resources</a></li>
         
-            <li><a href="#exercise-6-1-stocks">Exercise 6-1 Stocks</a></li>
-        
-            <li><a href="#exercise-6-2-open-weather-map">Exercise 6-2 Open Weather Map</a></li>
-        
-            <li><a href="#exercise-6-3-twitter">Exercise 6-3 Twitter</a></li>
+    
+        <li class="main "><a href="#login-page">Login Page</a></li>
         
     
     </ul>
 </div></div>
             <div class="col-md-9" role="main">
 
-<h1 id="lab-6-api-integration">Lab 6 - API Integration</h1>
-<p>With all you have learned regarding the Event, Metric, and Measurements APIs it is time
-put your new knowledge to some interesting examples. Hold on tight, make sure your
-parachute is packed, we are climbing to 10,000, be ready to bail out.</p>
-<p>The three exercises we have in store for are:</p>
-<ol>
-<li>Collecting your favorite stocks pricing and volume (Commission Free!)</li>
-<li>Collecting temperature from your favorite city</li>
-<li>Collecting some statistics of your Twitter feed.</li>
-</ol>
-<h2 id="exercise-6-1-stocks">Exercise 6-1 Stocks</h2>
-<p>In this example we use the <code>ystockquote</code> Python package to send measurements to send stock pricing
-and volume given the stock ticker to TrueSight Intelligence.</p>
-<p>The stock script allows multiple tickers to be passed on the command line and their corresponding
-price and volume will be sent to TrueSight Intelligence.</p>
-<h3 id="adding-the-metric-definitions">Adding the metric definitions</h3>
-<p>To add the metric definitions for this exercise run the following:</p>
-<ol>
-<li>
-<p>Change directory to <code>labs/lab-6</code>:</p>
-<p><code>cd ~/labs/lab-6</code></p>
-</li>
-<li>
-<p>Add the metric definitions by running the following:</p>
-<p><code>create-metrics ex6-1.stocks.json</code></p>
-</li>
-</ol>
-<h3 id="sending-stock-price-and-volume-measurements-to-truesight-intelligence">Sending Stock Price and Volume Measurements to TrueSight Intelligence</h3>
-<ol>
-<li>
-<p>To create measurements of stock prices and volume for Google, Apple, and Twitter run
-the following:</p>
-<p><code>./ex6-2.stock.py goog aapl twtr</code></p>
-</li>
-</ol>
-<p>The output should be similar to the following:</p>
-<pre><code>ticker: goog, price: 759.24, volume: 896107
-ticker: aapl, price: 111.83, volume: 12232507
-ticker: twtr, price: 17.695, volume: 8318681
-ticker: goog, price: 759.24, volume: 896151
-ticker: aapl, price: 111.82, volume: 12238391
-ticker: twtr, price: 17.69, volume: 8318981
-</code></pre>
-
-<h2 id="exercise-6-2-open-weather-map">Exercise 6-2 Open Weather Map</h2>
-<blockquote>
-<p>Climate is what we expect,
-weather is what we get.</p>
-</blockquote>
-<p>Mark Twain</p>
-<p>Let's talk about the weather. For this exercise we are heating up and will create a
-script that collects data from you favorite city or cities.</p>
-<p>We are going to the exploit the services of the <a href="http://openweathermap.org/api">Open Weather Map API</a></p>
-<h3 id="adding-the-metric-definitions_1">Adding the metric definitions</h3>
-<p>To add the metric definitions for this exercise run the following:</p>
-<ol>
-<li>
-<p>Change directory to <code>labs/lab-6</code>:</p>
-<p><code>cd ~/labs/lab-6</code></p>
-</li>
-<li>
-<p>Add the metric definitions by running the following:</p>
-<p><code>create-metrics  ex6-2.weather.json</code></p>
-</li>
-</ol>
-<h3 id="running-the-weather-collection-script">Running the weather collection script</h3>
-<ol>
-<li>
-<p>Change directory to <code>labs/lab-6</code>:</p>
-<p><code>cd ~/labs/lab-6</code></p>
-</li>
-<li>
-<p>To create weather data for San Jose, CA run the following:</p>
-<p><code>./ex6-2.weather.py "San Jose, CA"</code></p>
-</li>
-</ol>
-<h2 id="exercise-6-3-twitter">Exercise 6-3 Twitter</h2>
-<p>This script uses the terms passed on the command line to search the public twitter feed and
-for every term this counts as <em>hit</em>. Every minute the script then sends the count of the terms
-found in the public twitter feed.</p>
-<h3 id="adding-the-metric-definitions_2">Adding the metric definitions</h3>
-<p>To add the metric definitions for this exercise run the following:</p>
-<ol>
-<li>
-<p>Change directory to <code>labs/lab-6</code>:</p>
-<p><code>cd ~/labs/lab-6</code></p>
-</li>
-<li>
-<p>Add the metric definitions by running the following:</p>
-<p><code>create-metrics ex6-3.twitter.json</code></p>
-</li>
-</ol>
-<h3 id="add-twitter-key-to-ex6-3twitterconfig">Add Twitter Key to <code>ex6-3.twitter.config</code>:</h3>
-<p>The Twitter configuration file looks like the following:</p>
-<pre><code></code></pre>
-
-<h3 id="running-the-twitter-script">Running the twitter script</h3>
-<ol>
-<li>
-<p>Change directory to <code>labs/lab-6</code>:</p>
-<p><code>cd ~/labs/lab-6</code></p>
-</li>
-<li>
-<p>To create weather data for San Jose, CA run the following:</p>
-<p><code>./ex6-3.twitter.py "Clinton" "Cruz" "Kasich" "Sanders" "Trump"</code></p>
-</li>
-</ol></div>
+<h2 id="truesight-intelligence-resources">TrueSight Intelligence Resources</h2>
+<h1 id="login-page">Login Page</h1>
+<p><a href="http://truesightpulse.bmc.com">http://truesightpulse.bmc.com</a></p></div>
         </div>
 
         <footer class="col-md-12">
