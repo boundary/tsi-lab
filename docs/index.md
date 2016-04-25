@@ -1,6 +1,6 @@
 TrueSight Intelligence Lab
 ==========================
-__version 0.8.11__
+__version 0.8.12__
 
 Welcome to the TrueSight Intelligence API Learning Lab. This is a self-paced guide with hands on examples of using
 APIs to send time series data and events to TrueSight Intelligence. This guide starts out with simple
