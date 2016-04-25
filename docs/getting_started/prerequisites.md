@@ -8,8 +8,7 @@ lab exercises.
 
 - Must have access to the internet so that software components required by the Virtual Machine
 can be downloaded.
-- Must be on BMC network or on VPN to be able to access
-[https://truesight-staging.bmc.com](https://truesight-staging.bmc.com)
+[https://truesight-staging.bmc.com](https://truesight.bmc.com)
 
 ## Hardware
 
@@ -50,10 +49,12 @@ When using the Git installer make sure you select the options in the installatio
 
 ## API Keys
 
-For the labs you will need to create a API keys for the following:
+For the following labs you will need to create a API keys to access to their data:
 
 - Open Weather Map visit [here](http://openweathermap.org/appid)
 - Twitter visit [here](https://apps.twitter.com/)
+
+Sections below provide details on how create API keys.
 
 ### Open Weather Map
 

@@ -1,12 +1,17 @@
 TrueSight Intelligence Lab
 ==========================
-__version 0.8.10__
+__version 0.8.11__
 
-Virtual machine lab environment for learning about TrueSight Intelligence.
+Welcome to the TrueSight Intelligence API Learning Lab. This is a self-paced guide with hands on examples of using
+APIs to send time series data and events to TrueSight Intelligence. This guide starts out with simple
+practical examples showing how to use each of the APIs. After understanding the basics of using the APIs,
+the labs progress to more real world examples that show you how to extract time series data and
+events from system domains typically encountered.
 
-Rather than having to worry about the numerous dependency differences between
-Windows, Mac OS X, Unix/Linux, we have developed this virtual machine that contains
-all the necessary software tools to complete the lab exercises.
+To aide in the learning process a virtual machine with all the needed prerequisites and sources of data
+are included. This creates a reusable self-contained environment rather than having to worry about setting up
+all the dependencies on ones own laptop/desktop wth the numerous dependency differences between
+Windows, Mac OS X, Unix/Linux.
 
 __It is imperative that you install the prerequisites on your laptop/desktop BEFORE attempting to
 complete these labs! See [Prerequisites](getting_started/prerequisites.md) for details.__

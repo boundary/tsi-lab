@@ -7,7 +7,7 @@ Welcome [Padawans](https://en.wikipedia.org/wiki/Jedi#Etymology) get ready to bu
 To get access to an instance of TrueSight Pulse and Intelligence please click on the
 link below to sign up for an account:
 
-[https://truesight-staging.bmc.com/signup/intelligence/](https://truesight-staging.bmc.com/signup/intelligence/)
+[https://truesight-staging.bmc.com/signup/intelligence/](https://truesight.bmc.com/signup/intelligence/)
 
 ## Obtaining your TrueSight Intelligence API Token
 
@@ -15,7 +15,7 @@ After signing up for an account for TrueSight Intelligence you need to obtain yo
 
 Here are the steps to obtain your TrueSight Intelligence API Token:
 
-1. Log into TrueSight Intelligence at point your browser [here](https://truesight-staging.bmc.com).
+1. Log into TrueSight Intelligence by pointing your browser [here](https://truesight.bmc.com).
 
 2. From the _My Account_ menu select the _Product Security_ menu item.
 
