@@ -7,7 +7,7 @@ Welcome [Padawans](https://en.wikipedia.org/wiki/Jedi#Etymology) get ready to bu
 To get access to an instance of TrueSight Pulse and Intelligence please click on the
 link below to sign up for an account:
 
-[https://truesight-staging.bmc.com/signup/intelligence/](https://truesight.bmc.com/signup/intelligence/)
+[https://truesight.bmc.com/signup/intelligence/](https://truesight.bmc.com/signup/intelligence/)
 
 ## Obtaining your TrueSight Intelligence API Token
 
