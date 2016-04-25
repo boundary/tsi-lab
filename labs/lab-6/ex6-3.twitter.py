@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 import tweepy
+import traceback
 import os
 import sys
 import logging
@@ -163,7 +164,9 @@ class Twitter(tweepy.StreamListener, Common):
         try:
             tweet = Tweet()
             tweet.from_json(json.loads(data.encode('utf-8')))
-            self.match_tweet(tweet)
+
+            if tweet.text is not None:
+                self.match_tweet(tweet)
 
             # Send measurements every minute
             if datetime.now() > self.send_time:
@@ -177,6 +180,7 @@ class Twitter(tweepy.StreamListener, Common):
                 self.send_time = datetime.now() + timedelta(seconds=60)
 
         except Exception as e:
+            traceback.print_exc(file=sys.stdout)
             logging.error(e)
 
     def clear_tweet_term_counts(self):

@@ -120,6 +120,13 @@ To add the metric definitions for this exercise run the following:
     create-metrics ex6-3.twitter.json
     ```
 
+### Add Twitter Key to `ex6-3.twitter.config`:
+
+The Twitter configuration file looks like the following:
+
+```
+```
+
 ### Running the twitter script
 
 1. Change directory to `labs/lab-6`:
