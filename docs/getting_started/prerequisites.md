@@ -8,7 +8,7 @@ lab exercises.
 
 - Must have access to the internet so that software components required by the Virtual Machine
 can be downloaded.
-[https://truesight-staging.bmc.com](https://truesight.bmc.com)
+[https://truesight.bmc.com](https://truesight.bmc.com)
 
 ## Hardware
 
